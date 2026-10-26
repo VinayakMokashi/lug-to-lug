@@ -10,11 +10,11 @@ One entry per working session, newest first. Each entry records what changed, th
 - Created the public repository with the licence, README, `.gitignore`, `.gitattributes` and this log.
 - Refined the plan:
   - a dedicated Google Cloud project with its own budget alerts;
-  - two volunteers, recorded under pseudonymous IDs;
+  - three volunteers, recorded under pseudonymous IDs;
   - equipment specifications;
   - a capture set on everyday surfaces;
   - the custom domain deferred until the personal site exists;
-  - an indicative timeline of about 12 weeks.
+  - an indicative timeline of about six weeks.
 
 **Decisions**
 
