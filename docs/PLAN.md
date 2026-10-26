@@ -153,8 +153,8 @@ Shared services:
 |---|---|---|
 | Reference watches | Watches measured with digital calipers, 35 to start: case diameter (without crown), lug-to-lug, thickness, lug width, plus case shape, bezel, crown position and colours | Three repeat measurements each, to know the measuring error. The data records measurements, never who owns a watch |
 | Product photos | Each reference watch shot front-on, on a neutral background, with a ruler in frame | Photos taken for this project; they give the real-image catalogue |
-| Wrists | The builder and volunteers: circumference by tape at the wrist bone, width by calipers | Consent for each person; everyone wears the same reference watches |
-| Capture sessions | Phone on a stand; poses (top-down, about 20° and 40° tilt); lighting (daylight, warm indoor, mixed); one wrist wearing many watches in the same pose | Every session yields many same-pose swap pairs |
+| Wrists | The builder and two volunteers, recorded as P01–P03: circumference by tape at the wrist bone, width by calipers | Consent for each person; everyone wears the same reference watches |
+| Capture sessions | Phone on an overhead mount above a matte grey backdrop; poses (top-down, about 20° and 40° tilt); lighting (daylight, warm indoor, mixed); one wrist wearing many watches in the same pose. Plus a smaller set on everyday surfaces (desk, fabric) | Every session yields many same-pose swap pairs; the everyday set tests the system outside studio conditions |
 | Annotations | Case outlines, wrist edges, watch identity | Drawn by a person, or proposed by a model and corrected by a person; provenance recorded per label |
 | Catalogue | About 300 popular references with published dimensions | Every field cites its source and date; lug-to-lug and thickness marked unknown when unpublished |
 | Synthetic | Rendered wrists of varied skin tones and sizes wearing parametric watches, with exact masks, scale and pose | Training only, never evaluation |
@@ -184,6 +184,7 @@ Every rate gets a 95% bootstrap interval, and comparisons use paired tests on th
 In summary ([ADR-0006](decisions/0006-data-consent-and-privacy.md)):
 
 - Written consent from every person photographed. It states the use (evaluation and training), whether their images may ever be published, and how to withdraw.
+- People appear in the data only as pseudonymous IDs (P01, P02, …); names stay in the private consent records.
 - Raw photos live outside the repository, which holds manifests, annotations and numbers only. Any image release is an opt-in, person by person.
 - Visitor uploads are processed in memory with EXIF stripped. They are saved only on request, deleted automatically after 30 days, deletable on request, and never used for training without opt-in.
 
@@ -239,7 +240,8 @@ Steps carry IDs (2.3 is step 3 of Phase 2), so the build log and pull requests c
 - [ ] 1.3 Product photos of the reference watches: front-on, neutral background, ruler in frame.
 - [ ] 1.4 Capture sessions:
   - the builder's wrist with every reference watch, across poses and lighting;
-  - volunteers' wrists wearing the reference watches (about 10 photos to start);
+  - the two volunteers' wrists wearing the reference watches (about 10 photos to start);
+  - a smaller set on everyday surfaces (desk, fabric);
   - tape and caliper measurements for every wrist.
 - [ ] 1.5 Labelling tool (internal):
   - case outline points, wrist edges and watch identity;
@@ -445,7 +447,16 @@ Expected total: about $25–45.
 **Prerequisites:**
 
 - Accounts: GitHub, a Google Cloud project with billing and the free-trial credit, Neon, Modal, Groq and Kaggle.
-- Equipment: digital calipers, a soft tape measure and a phone stand.
+- Equipment, for Phase 1:
+  - **Digital calipers:** stainless steel, 0.01 mm resolution, 150 mm range. A strip of painter's tape on each jaw protects the watches; zero the calipers with the tape on.
+  - **Soft tape measure** with millimetre markings.
+  - **Overhead phone mount:**
+    - rigid, holding the phone about 25–40 cm above the wrist;
+    - points straight down, and locks at about 20° and 40° of tilt;
+    - a desk-clamp articulated arm or a tripod with a horizontal arm both work; a floppy gooseneck does not;
+    - with a Bluetooth shutter remote, so the phone is never touched between shots.
+  - **Backdrop:** matte mid-grey, about A2. Neutral grey keeps exposure and white balance steady. White makes polished steel and white dials blow out, black swallows dark dials and straps, skin-like beige or wood tones confuse wrist segmentation, and a glossy surface reflects into the crystal.
+  - **A steel ruler** with millimetre marks, for the product photos.
 - Consent from each volunteer before their first photo.
 
 | Risk | Mitigation |
@@ -470,6 +481,7 @@ Expected total: about $25–45.
 | 2026-10-26 | Google Cloud, Next.js and Modal chosen; live AR in the first release | [ADR-0003](decisions/0003-deploy-on-google-cloud.md), [ADR-0004](decisions/0004-web-stack.md), [ADR-0005](decisions/0005-gpu-on-modal.md), [ADR-0001](decisions/0001-choose-lug-to-lug.md) |
 | 2026-10-26 | A dedicated Google Cloud project with its own budget alerts | Keeps this project's costs, permissions and quotas apart from anything else on the account |
 | 2026-10-26 | The custom domain waits for the builder's personal site | The site doesn't exist yet; the Cloud Run and GitHub Pages addresses serve until then |
+| 2026-10-26 | Two volunteers under pseudonymous IDs; equipment specified; a capture set on everyday surfaces | [ADR-0006](decisions/0006-data-consent-and-privacy.md)'s privacy rules; swap tests need a pose that stays fixed; studio-only photos would flatter the benchmark |
 
 ## 11. Status tracker
 
