@@ -8,6 +8,13 @@ One entry per working session, newest first. Each entry records what changed, th
 
 - Chose the project and its name, and wrote the build plan ([PLAN.md](PLAN.md)) and decision records 0001 to 0006.
 - Created the public repository with the licence, README, `.gitignore`, `.gitattributes` and this log.
+- Refined the plan:
+  - a dedicated Google Cloud project with its own budget alerts;
+  - two volunteers, recorded under pseudonymous IDs;
+  - equipment specifications;
+  - a capture set on everyday surfaces;
+  - the custom domain deferred until the personal site exists;
+  - an indicative timeline of about 12 weeks.
 
 **Decisions**
 
@@ -29,5 +36,8 @@ One entry per working session, newest first. Each entry records what changed, th
 
 **Next**
 
-- Phase 0 from step 0.2: monorepo tooling, CI, the cloud bootstrap and the walking skeleton.
-- Start Phase 1's physical work: calipers, a phone stand, the consent form, and the first watch measurements.
+- Phase 0 from step 0.2: monorepo tooling, CI, the cloud bootstrap (a new Google Cloud project) and the walking skeleton.
+- Phase 1 preparation:
+  - the equipment is ordered;
+  - the consent form (step 1.1) comes before anyone is photographed;
+  - the list of reference watches is next.
