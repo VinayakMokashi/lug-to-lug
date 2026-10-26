@@ -206,21 +206,21 @@ Steps carry IDs (2.3 is step 3 of Phase 2), so the build log and pull requests c
 | **M3 Decision help** | Phase 7 | Plus fit report, search, assistant, MCP server and swipe deck |
 | **M4 Production** | Phase 9 | Public, monitored and costed (custom domain once the personal site exists) |
 
-**Indicative timeline.** About 45–65 focused days of work at roughly five working days a week: about 12 weeks from 27 October 2026. It is revisited at every milestone, and every change goes in the [change log](#10-change-log).
+**Indicative timeline.** About six weeks from 27 October 2026, finishing around 11 December. Build work runs in daily sessions. The builder's hands-on tasks (measuring, photo sessions, label checks, phone tests, demo clips) add up to about 15–20 hours, most of it in Phase 1. The timeline is revisited at every milestone, and every change goes in the [change log](#10-change-log).
 
-| Phase | Effort (focused days) | Target window |
+| Phase | Build days | Target window |
 |---|---|---|
-| 0 Foundations | 2 | 27–28 Oct |
-| 1 Ground truth | 6–8, alongside Phases 0 and 2 | 28 Oct – 8 Nov |
-| 2 Calibration | 6–8 | 6–16 Nov |
-| 3 Rendering and the swap test (M1) | 6–8 | 17–27 Nov |
-| 4 Studio | 3–5 | 28 Nov – 3 Dec |
-| 5 Live AR (M2) | 5–8 | 4–13 Dec |
-| 6 Fit, search, assistant and MCP | 5–7 | 14–22 Dec |
-| 7 Swipe recommender (M3) | 3–4 | 23–27 Dec |
-| 8 Product polish | 5–7 | 28 Dec – 6 Jan |
-| 9 Production on Google Cloud (M4) | 3–5 | 7–12 Jan |
-| 10 Showcase | 2–4 | 13–18 Jan |
+| 0 Foundations | 1–2 | 27–28 Oct |
+| 1 Ground truth | 3–4, plus the builder's measuring and photo sessions | 28 Oct – 9 Nov |
+| 2 Calibration | 4–5, starting on the first capture sessions | 3–9 Nov |
+| 3 Rendering and the swap test (M1) | 4–5 | 10–15 Nov |
+| 4 Studio | 2–3 | 16–18 Nov |
+| 5 Live AR (M2) | 4–5 | 19–24 Nov |
+| 6 Fit, search, assistant and MCP | 4–5 | 25–29 Nov |
+| 7 Swipe recommender (M3) | 2 | 30 Nov – 1 Dec |
+| 8 Product polish | 3–4 | 2–5 Dec |
+| 9 Production on Google Cloud (M4) | 2–3 | 6–8 Dec |
+| 10 Showcase | 2–3 | 9–11 Dec |
 
 Most likely to stretch it: equipment delivery and the volunteers' availability (Phase 1), GPU queue times, and getting live AR right on real phones.
 
@@ -502,6 +502,7 @@ Expected total: about $25–45.
 | 2026-10-26 | Two volunteers under pseudonymous IDs; equipment specified; a capture set on everyday surfaces | [ADR-0006](decisions/0006-data-consent-and-privacy.md)'s privacy rules; swap tests need a pose that stays fixed; studio-only photos would flatter the benchmark |
 | 2026-10-26 | Indicative timeline added (about 12 weeks) | To plan the milestones and compare the plan with what actually happens |
 | 2026-10-26 | A third volunteer (P04) | A wider range of wrists in the benchmark |
+| 2026-10-26 | Timeline tightened to about six weeks | Build work runs in daily sessions; the builder's hands-on time, about 15–20 hours, is concentrated in Phase 1 |
 
 ## 11. Status tracker
 
