@@ -153,7 +153,7 @@ Shared services:
 |---|---|---|
 | Reference watches | Watches measured with digital calipers, 35 to start: case diameter (without crown), lug-to-lug, thickness, lug width, plus case shape, bezel, crown position and colours | Three repeat measurements each, to know the measuring error. The data records measurements, never who owns a watch |
 | Product photos | Each reference watch shot front-on, on a neutral background, with a ruler in frame | Photos taken for this project; they give the real-image catalogue |
-| Wrists | The builder and two volunteers, recorded as P01–P03: circumference by tape at the wrist bone, width by calipers | Consent for each person; everyone wears the same reference watches |
+| Wrists | The builder and three volunteers, recorded as P01–P04: circumference by tape at the wrist bone, width by calipers | Consent for each person; everyone wears the same reference watches |
 | Capture sessions | Phone on an overhead mount above a matte grey backdrop; poses (top-down, about 20° and 40° tilt); lighting (daylight, warm indoor, mixed); one wrist wearing many watches in the same pose. Plus a smaller set on everyday surfaces (desk, fabric) | Every session yields many same-pose swap pairs; the everyday set tests the system outside studio conditions |
 | Annotations | Case outlines, wrist edges, watch identity | Drawn by a person, or proposed by a model and corrected by a person; provenance recorded per label |
 | Catalogue | About 300 popular references with published dimensions | Every field cites its source and date; lug-to-lug and thickness marked unknown when unpublished |
@@ -258,7 +258,7 @@ Most likely to stretch it: equipment delivery and the volunteers' availability (
 - [ ] 1.3 Product photos of the reference watches: front-on, neutral background, ruler in frame.
 - [ ] 1.4 Capture sessions:
   - the builder's wrist with every reference watch, across poses and lighting;
-  - the two volunteers' wrists wearing the reference watches (about 10 photos to start);
+  - the three volunteers' wrists wearing the reference watches (about 10 photos to start);
   - a smaller set on everyday surfaces (desk, fabric);
   - tape and caliper measurements for every wrist.
 - [ ] 1.5 Labelling tool (internal):
@@ -501,6 +501,7 @@ Expected total: about $25–45.
 | 2026-10-26 | The custom domain waits for the builder's personal site | The site doesn't exist yet; the Cloud Run and GitHub Pages addresses serve until then |
 | 2026-10-26 | Two volunteers under pseudonymous IDs; equipment specified; a capture set on everyday surfaces | [ADR-0006](decisions/0006-data-consent-and-privacy.md)'s privacy rules; swap tests need a pose that stays fixed; studio-only photos would flatter the benchmark |
 | 2026-10-26 | Indicative timeline added (about 12 weeks) | To plan the milestones and compare the plan with what actually happens |
+| 2026-10-26 | A third volunteer (P04) | A wider range of wrists in the benchmark |
 
 ## 11. Status tracker
 
