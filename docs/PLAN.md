@@ -36,7 +36,7 @@ The core claim is measured, not asserted. A held-out benchmark of real photos (t
 
 The project is finished when all of these are true:
 
-1. **Live.** A public HTTPS deployment on Google Cloud (Cloud Run, scaled to zero when idle) on a custom domain, with per-visitor quotas and budget alerts. The photo try-on works on a phone without an account ([ADR-0003](decisions/0003-deploy-on-google-cloud.md)).
+1. **Live.** A public HTTPS deployment on Google Cloud (Cloud Run, scaled to zero when idle), with per-visitor quotas and budget alerts. It moves to a custom domain, a subdomain of the builder's personal site, once that site exists. The photo try-on works on a phone without an account ([ADR-0003](decisions/0003-deploy-on-google-cloud.md)).
 2. **Measured.** Swap-test results for rendered diameter error (mm) and outline overlap, wrist-circumference error, identification accuracy for the worn watch, live-AR scale error, and latency and cost per render. All come with 95% confidence intervals and per-slice results.
 3. **Honest per render.** Every render carries its own ± mm, and the app declines when it cannot find or trust the reference.
 4. **Three render paths:**
@@ -203,7 +203,7 @@ Steps carry IDs (2.3 is step 3 of Phase 2), so the build log and pull requests c
 | **M1 First light** | Phase 3 | Photo try-on with ± mm, from upload to render |
 | **M2 Full try-on** | Phase 5 | Plus Studio relighting and live AR |
 | **M3 Decision help** | Phase 7 | Plus fit report, search, assistant, MCP server and swipe deck |
-| **M4 Production** | Phase 9 | Public on a custom domain, monitored and costed |
+| **M4 Production** | Phase 9 | Public, monitored and costed (custom domain once the personal site exists) |
 
 ### Phase 0: Foundations
 
@@ -217,7 +217,7 @@ Steps carry IDs (2.3 is step 3 of Phase 2), so the build log and pull requests c
   - Recorded as ADR-0007 (tooling and workflow).
 - [ ] 0.3 CI on GitHub Actions: Python and web jobs with path filters and caching; Dependabot for pip, npm and Actions.
 - [ ] 0.4 Cloud bootstrap:
-  - Google Cloud: project, budget alerts, APIs, Artifact Registry, Terraform state bucket, Workload Identity Federation for GitHub Actions, least-privilege service accounts, Secret Manager.
+  - Google Cloud: a dedicated project for Lug to Lug with its own budget alerts, then APIs, Artifact Registry, Terraform state bucket, Workload Identity Federation for GitHub Actions, least-privilege service accounts, Secret Manager.
   - A Neon project with pgvector.
   - A Modal workspace, with its token in Secret Manager.
 - [ ] 0.5 Walking skeleton: FastAPI `/health` and a Next.js landing page, each with a Dockerfile, deployed to staging Cloud Run services from Actions, with a smoke test.
@@ -397,7 +397,7 @@ Steps carry IDs (2.3 is step 3 of Phase 2), so the build log and pull requests c
   - Cloud Scheduler for the nightly evaluation;
   - uptime checks, alert policies and budgets.
 - [ ] 9.2 Delivery: build, staging, smoke tests and the eval gate, a canary traffic split, then production. Roll back by revision, with runbooks.
-- [ ] 9.3 A custom domain with HTTPS, through Cloud Run domain mapping if the region supports it and Firebase Hosting in front otherwise; caching for static assets.
+- [ ] 9.3 A custom domain with HTTPS once the builder's personal site exists: a subdomain of it, through Cloud Run domain mapping if the region supports it and Firebase Hosting in front otherwise. Caching for static assets. Until then, the Cloud Run and GitHub Pages addresses serve.
 - [ ] 9.4 Security: upload validation (type, size, decompression bombs), rate limits, CORS and CSP, dependency and container scanning, and a secret-rotation runbook.
 - [ ] 9.5 A load test with k6 to set concurrency, CPU, memory and minimum instances, and to decide whether the demo path stays warm.
 - [ ] 9.6 A cost review against the budget (§8).
@@ -468,6 +468,8 @@ Expected total: about $25–45.
 |---|---|---|
 | 2026-10-26 | Plan created | [ADR-0001](decisions/0001-choose-lug-to-lug.md) |
 | 2026-10-26 | Google Cloud, Next.js and Modal chosen; live AR in the first release | [ADR-0003](decisions/0003-deploy-on-google-cloud.md), [ADR-0004](decisions/0004-web-stack.md), [ADR-0005](decisions/0005-gpu-on-modal.md), [ADR-0001](decisions/0001-choose-lug-to-lug.md) |
+| 2026-10-26 | A dedicated Google Cloud project with its own budget alerts | Keeps this project's costs, permissions and quotas apart from anything else on the account |
+| 2026-10-26 | The custom domain waits for the builder's personal site | The site doesn't exist yet; the Cloud Run and GitHub Pages addresses serve until then |
 
 ## 11. Status tracker
 
