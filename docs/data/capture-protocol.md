@@ -121,8 +121,8 @@ Change the tilt only between blocks, and lock the focus and exposure again at th
 ### 7.3 One block, step by step
 
 1. **Slate.** Photograph a card with the block code written on it, for example `S03 P01 T20 DAY`. It marks where the block begins in the camera roll.
-2. **Re-seat check (start).** Put on the first watch of the list, place the arm, take 2 photos. Take the watch off, put it back on, place the arm again, and take 2 more. The two placements of the same watch measure how much the photos differ from re-placing alone; that is the floor under every swap-test error.
-3. **The watches.** For each watch on the list, in order:
+2. **Re-seat check (start).** Put on the first watch of the list, place the arm, take 2 photos. Take the watch off, put it back on, place the arm again, and take 2 more. The two placements of the same watch measure how much the photos differ from re-placing alone; that is the floor under every swap-test error. They also count as the first watch's photos for the block.
+3. **The watches.** For each of the other watches on the list, in order:
    - put it on where a watch normally sits (just above the wrist bone), case centred on top of the wrist, strap snug enough that one finger fits under it;
    - place the arm on the guide;
    - take **2 photos** with the remote;
@@ -130,7 +130,7 @@ Change the tilt only between blocks, and lock the focus and exposure again at th
 4. **Re-seat check (end).** The first watch again, as in step 2.
 5. Measure the wrist again if more than two hours have passed.
 
-A block of the 35 watches takes about 25 minutes and gives about 80 photos.
+A block of the 35 watches is 38 placements (the first watch four times, the others once). It takes about 25 minutes and gives 77 photos, counting the slate.
 
 ### 7.4 Who, and how much
 
