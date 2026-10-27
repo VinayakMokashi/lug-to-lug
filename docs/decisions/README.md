@@ -11,3 +11,4 @@ Each record explains one decision that is hard to reverse or easy to forget the 
 | [0005](0005-gpu-on-modal.md) | Run GPU work on Modal and Kaggle | Accepted | 2026-10-26 |
 | [0006](0006-data-consent-and-privacy.md) | Consent, storage and retention for personal photos | Accepted | 2026-10-26 |
 | [0007](0007-tooling-and-workflow.md) | Tooling and workflow: uv, pnpm, strict types, pre-commit with a secret scan | Accepted | 2026-10-27 |
+| [0008](0008-infrastructure-and-delivery.md) | Infrastructure layout and keyless delivery: two Terraform roots, images deployed by CI | Accepted | 2026-10-27 |
