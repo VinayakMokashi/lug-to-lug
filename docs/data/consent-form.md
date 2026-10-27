@@ -35,13 +35,13 @@ If you leave a choice blank, the answer is **No**.
 ### How your data is kept
 
 - Everywhere in the project you are identified only by your participant ID. Your name appears only on this form, which is kept privately.
-- Your photos are stored privately, outside the public code repository. They are processed only for this project, on the cloud services it uses (for example Google Cloud, Modal, Kaggle and AI model APIs), and are never sold or shared for any other purpose.
+- Your photos are stored privately, outside the public code repository: on the project owner's computer, with a backup in the owner's private Google Drive that is shared with no one. They are processed only for this project, on the cloud services it uses (for example Google Cloud, Modal, Kaggle and AI model APIs), and are never sold or shared for any other purpose.
 - Location data is removed from every photo.
 - Your data is kept until the project ends or until you withdraw, whichever comes first, and is then deleted.
 
 ### Withdrawing
 
-You can withdraw at any time without giving a reason, by telling Vinayak. Within 14 days your photos and measurements are deleted from private storage, and they are left out of every later release of the benchmark. Anything published with your permission is taken down from the project's own pages, but copies other people have already made cannot be recalled. Your photos will not be used for any new training; a model already trained with them is used only until its next update.
+You can withdraw at any time without giving a reason, by telling Vinayak. Within 14 days your photos and measurements are deleted from the computer and from the backup, and they are left out of every later release of the benchmark. Anything published with your permission is taken down from the project's own pages, but copies other people have already made cannot be recalled. Your photos will not be used for any new training; a model already trained with them is used only until its next update.
 
 ### Confirmation
 
