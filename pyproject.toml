@@ -1,0 +1,87 @@
+# Python workspace root. The members are the importable packages; the root only
+# holds shared tooling (ruff, mypy, pytest, poe tasks) and the dev dependencies.
+
+[project]
+name = "lug-to-lug"
+version = "0.1.0"
+description = "True-to-scale watch try-on, calibrated from the watch already worn"
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+dependencies = ["lugtolug-core", "lugtolug-api"]
+
+[tool.uv]
+package = false
+
+[tool.uv.workspace]
+members = ["packages/core", "services/api"]
+
+[tool.uv.sources]
+lugtolug-core = { workspace = true }
+lugtolug-api = { workspace = true }
+
+# ---------------------------------------------------------------------------
+# Tasks: `uv run poe <task>`; `uv run poe` lists them.
+
+[tool.poe.tasks]
+fmt = { sequence = [
+  { cmd = "ruff check --fix ." },
+  { cmd = "ruff format ." },
+], help = "Fix lint findings and format the code" }
+lint = { sequence = [
+  { cmd = "ruff check ." },
+  { cmd = "ruff format --check ." },
+], help = "Lint and check formatting" }
+types = { cmd = "mypy", help = "Type-check (strict)" }
+test = { cmd = "pytest", help = "Run the tests" }
+check = { sequence = ["lint", "types", "test"], help = "Everything CI runs for Python" }
+api = { cmd = "uvicorn lugtolug_api.main:app --reload --port 8000", help = "Run the API locally" }
+
+# ---------------------------------------------------------------------------
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = [
+  "E",   # pycodestyle errors
+  "W",   # pycodestyle warnings
+  "F",   # pyflakes
+  "I",   # import order
+  "B",   # bugbear
+  "UP",  # modern syntax
+  "N",   # naming
+  "SIM", # simplifications
+  "C4",  # comprehensions
+  "PT",  # pytest style
+  "S",   # security
+  "RUF", # ruff-specific
+]
+
+[tool.ruff.lint.per-file-ignores]
+"**/tests/**" = ["S101"] # assert is how pytest checks
+
+[tool.ruff.lint.isort]
+known-first-party = ["lugtolug_core", "lugtolug_api"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_unreachable = true
+plugins = ["pydantic.mypy"]
+files = ["packages/core/src", "packages/core/tests", "services/api/src", "services/api/tests"]
+
+[tool.pytest.ini_options]
+testpaths = ["packages/core/tests", "services/api/tests"]
+addopts = ["--import-mode=importlib", "-ra", "--strict-markers", "--strict-config"]
+
+[dependency-groups]
+dev = [
+    "httpx2>=2.16.0",
+    "mypy>=2.4.0",
+    "poethepoet>=0.49.0",
+    "pytest>=9.1.1",
+    "pytest-cov>=7.1.0",
+    "ruff>=0.17.3",
+]
