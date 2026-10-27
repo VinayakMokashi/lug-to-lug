@@ -509,7 +509,7 @@ Expected total: about $25–45.
 
 | Phase | Status | Started | Finished |
 |---|---|---|---|
-| 0 Foundations | In progress | 2026-10-26 | |
+| 0 Foundations | Done except the Neon and Modal accounts (0.4) | 2026-10-26 | |
 | 1 Ground truth | In progress (paperwork) | 2026-10-27 | |
 | 2 Calibration | Planned | | |
 | 3 Rendering and the swap test | Planned | | |
