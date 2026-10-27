@@ -17,6 +17,10 @@ updates:
       interval: weekly
       day: monday
       timezone: Asia/Kolkata
+    ignore:
+      # The runtime is Node 24 LTS (ADR-0007); its type definitions move with it.
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
     groups:
       next-and-react:
         patterns: ["next", "eslint-config-next", "react", "react-dom", "@types/react", "@types/react-dom"]
@@ -39,6 +43,15 @@ updates:
       interval: weekly
       day: monday
       timezone: Asia/Kolkata
+    ignore:
+      # Runtimes are pinned on purpose (ADR-0007): Node 24 LTS until Node 26 is the
+      # active LTS line, Python 3.12 (as in .python-version), and uv in step with CI.
+      - dependency-name: "node"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "python"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+      - dependency-name: "*astral-sh/uv"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
     groups:
       base-images:
         patterns: ["*"]
