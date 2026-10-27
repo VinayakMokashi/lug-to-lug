@@ -32,3 +32,26 @@ updates:
     groups:
       actions:
         patterns: ["*"]
+
+  - package-ecosystem: docker
+    directories: [/services/api, /apps/web]
+    schedule:
+      interval: weekly
+      day: monday
+      timezone: Asia/Kolkata
+    groups:
+      base-images:
+        patterns: ["*"]
+
+  - package-ecosystem: terraform
+    directories:
+      - /infra/terraform/bootstrap
+      - /infra/terraform/envs/staging
+      - /infra/terraform/modules/cloud-run-service
+    schedule:
+      interval: weekly
+      day: monday
+      timezone: Asia/Kolkata
+    groups:
+      providers:
+        patterns: ["*"]
