@@ -46,7 +46,7 @@ Results are reported by camera tilt, light, skin-tone group (Monk 1–3, 4–6, 
 
 ## Collection
 
-- One phone, on a rigid overhead mount about 30 cm above a matte mid-grey backdrop, plus a smaller set on everyday surfaces and handheld photos.
+- One phone (a Google Pixel 9a, main camera only), on a rigid overhead mount about 30 cm above a matte mid-grey backdrop, plus a smaller set on everyday surfaces and handheld photos.
 - Three camera tilts (0°, about 20° and about 40°) and three lighting conditions (daylight, warm indoor, mixed).
 - Calipers with 0.01 mm resolution and a soft tape. Measuring error comes from three separate rounds of readings.
 
@@ -61,7 +61,7 @@ Grouped by watch and by person, so no test watch and no test wrist is seen in tr
 ## Privacy
 
 - Participants appear only as pseudonymous IDs; names exist only on the signed consent forms, kept privately.
-- Raw photos are kept in a private store outside the repository. Location data is stripped on ingest.
+- Raw photos are kept privately on the project owner's computer, with a private Google Drive backup, outside the repository. Location data is stripped on ingest.
 - Images are published only for participants who opted in, cropped to wrist and watch.
 - Withdrawal removes a participant from every later release.
 

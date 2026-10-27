@@ -22,7 +22,7 @@ Everything here is written to be repeatable: the same phone, the same distances,
 | Backdrop | Matte mid-grey, about A2 | Neutral grey keeps exposure and white balance steady; see PLAN §9 for why not white, black or wood |
 | Steel ruler | Millimetre marks | For the product photos |
 | Masking tape and a marker | | Arm guide lines on the backdrop, and the slate cards (§7.3) |
-| One phone | The same phone for every benchmark session | Its model is recorded on every session sheet |
+| One phone | The same phone for every benchmark session: a Google Pixel 9a | Its model is recorded on every session sheet |
 
 ## 3. Phone settings
 
@@ -173,10 +173,10 @@ The ingest script checks that the number of photos matches the sheet block by bl
 
 ## 8. Storage and privacy
 
-- **Same day:** copy the photos from the phone to the private photo store, then delete them from the phone, its "Recently Deleted" album and any automatic cloud photo backup.
-- **The private store** is outside this repository and access-restricted. Raw photos never enter the repository; it holds manifests (file hashes), annotations and numbers only. A pre-commit hook rejects image files under `data/`.
+- **Same day:** copy the photos from the phone to the private photo store by cable, then delete them from the phone, from its photo app's bin, and from any automatic photo backup. Phone photo backup is best left off for the whole project.
+- **The private store** is a folder on the builder's computer, outside this repository, with one subfolder per session. The originals are never edited. It is backed up to the builder's private Google Drive, which is shared with no one. The backup is a file sync, never a photo library. Raw photos never enter the repository; it holds manifests (file hashes), annotations and numbers only. A pre-commit hook rejects image files under `data/`.
 - **On ingest** the location and any other identifying metadata are stripped; the focal length and image size are kept for calibration.
-- **Withdrawal:** a person's photos, measurements and labels are deleted from the private store and dropped from every later release (ADR-0006).
+- **Withdrawal:** within 14 days, a person's photos, measurements and labels are deleted from the computer and from the backup (including its bin), and they are dropped from every later release (ADR-0006).
 
 ## 9. Labels and splits
 
