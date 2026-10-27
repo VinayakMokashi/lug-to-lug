@@ -16,6 +16,10 @@ One entry per working session, newest first. Each entry records what changed, th
 - **Storage and phone (#11):**
   - raw photos stay on the project owner's computer, with a private Google Drive backup shared with no one. The consent form says so before anyone signs, and a withdrawal deletes from both;
   - the benchmark phone is a Google Pixel 9a, main camera only.
+- **Phase 0 is finished (step 0.4).**
+  - The Neon project is in AWS Singapore, Neon's closest region to `asia-south1`, with Postgres 18.6 and pgvector 0.8.6.
+  - The Modal workspace's token and the Neon connection string are in Secret Manager. Each is version 1, added by a script that never prints a value.
+  - The plan, README and project page now show Phase 1.
 
 **Results**
 
