@@ -5,6 +5,11 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      deploy:
+        description: "Deploy both services to staging even if nothing changed"
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -20,6 +25,7 @@ jobs:
     outputs:
       python: ${{ steps.filter.outputs.python }}
       web: ${{ steps.filter.outputs.web }}
+      terraform: ${{ steps.filter.outputs.terraform }}
     steps:
       - uses: actions/checkout@v7
       - uses: dorny/paths-filter@v4
@@ -33,8 +39,13 @@ jobs:
               - "uv.lock"
               - ".python-version"
               - ".github/workflows/ci.yml"
+              - ".github/workflows/deploy-service.yml"
             web:
               - "apps/web/**"
+              - ".github/workflows/ci.yml"
+              - ".github/workflows/deploy-service.yml"
+            terraform:
+              - "infra/terraform/**"
               - ".github/workflows/ci.yml"
 
   hooks:
@@ -71,7 +82,7 @@ jobs:
   python:
     name: Python (lint, types, tests)
     needs: changes
-    if: needs.changes.outputs.python == 'true'
+    if: needs.changes.outputs.python == 'true' || inputs.deploy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -88,7 +99,7 @@ jobs:
   web:
     name: Web (lint, types, build)
     needs: changes
-    if: needs.changes.outputs.web == 'true'
+    if: needs.changes.outputs.web == 'true' || inputs.deploy
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -114,15 +125,68 @@ jobs:
       - run: pnpm check
       - run: pnpm build
 
+  terraform:
+    name: Terraform (format, validate)
+    needs: changes
+    if: needs.changes.outputs.terraform == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: hashicorp/setup-terraform@v4
+        with:
+          terraform_version: "1.17.0"
+          terraform_wrapper: false
+      - run: terraform fmt -check -recursive infra/terraform
+      - name: Validate each root
+        run: |
+          for root in infra/terraform/bootstrap infra/terraform/envs/staging; do
+            terraform -chdir="$root" init -backend=false -input=false
+            terraform -chdir="$root" validate
+          done
+
   # One check to require on pull requests: it passes when every job passed or was
   # skipped by the path filters.
   ci-ok:
     name: CI passed
     if: always()
-    needs: [hooks, python, web]
+    needs: [hooks, python, web, terraform]
     runs-on: ubuntu-latest
     steps:
       - name: Check the job results
         run: |
           echo '${{ toJSON(needs) }}'
           test "${{ contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') }}" = "false"
+
+  # Continuous delivery to staging: only from main, only after the checks pass, and only
+  # for the services whose files changed. The API goes first, so the web app's smoke
+  # test reaches the new API.
+  deploy-api:
+    name: Deploy API
+    needs: [changes, hooks, python]
+    if: >-
+      github.ref == 'refs/heads/main' && github.event_name != 'pull_request' &&
+      needs.hooks.result == 'success' && needs.python.result == 'success'
+    permissions:
+      contents: read
+      id-token: write
+    uses: ./.github/workflows/deploy-service.yml
+    with:
+      service: api
+      context: .
+      dockerfile: services/api/Dockerfile
+
+  deploy-web:
+    name: Deploy web
+    needs: [changes, hooks, web, deploy-api]
+    if: >-
+      always() && github.ref == 'refs/heads/main' && github.event_name != 'pull_request' &&
+      needs.hooks.result == 'success' && needs.web.result == 'success' &&
+      needs.deploy-api.result != 'failure' && needs.deploy-api.result != 'cancelled'
+    permissions:
+      contents: read
+      id-token: write
+    uses: ./.github/workflows/deploy-service.yml
+    with:
+      service: web
+      context: apps/web
+      dockerfile: apps/web/Dockerfile
