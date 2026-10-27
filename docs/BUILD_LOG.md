@@ -2,6 +2,34 @@
 
 One entry per working session, newest first. Each entry records what changed, the commands and results that matter, problems met and the next steps. The plan's steps are referred to by their IDs in [PLAN.md](PLAN.md).
 
+## 2026-10-28: Dependency updates, a CI fix, and where photos are kept
+
+**What changed**
+
+- **Dependency updates** (Dependabot):
+  - merged React 19.3.1, TypeScript 6.0.3 and a wider `uv_build` range (#1, #3, #4);
+  - closed the Node 26 updates (#2, #5), because the runtime stays on Node 24 LTS (ADR-0007);
+  - Dependabot now ignores the runtime bumps that ADR-0007 pins: Node majors, Python minors and majors, and uv in the API image (#9).
+- **CI fix (#10).** On `main`, changes are now detected against the **last green commit** instead of the previous push.
+  - Runs on `main` queue one behind the other, and GitHub cancels a waiting run when a newer one arrives. When the updates above were merged in quick succession, the `uv_build` update's run was cancelled, and the next run compared only with its own previous push. So that change was never checked or deployed.
+  - The [deploy runbook](runbooks/deploy.md) explains the rule.
+- **Storage and phone (#11):**
+  - raw photos stay on the project owner's computer, with a private Google Drive backup shared with no one. The consent form says so before anyone signs, and a withdrawal deletes from both;
+  - the benchmark phone is a Google Pixel 9a, main camera only.
+
+**Results**
+
+| Check | Result |
+|---|---|
+| Local checks after the updates | `uv run poe check` 4 tests pass; `pnpm check` clean with TypeScript 6.0.3 |
+| First `main` run with the fix | Compared against `268d768` (the last green commit), ran every job, and deployed both services; both report `53ff6ab` |
+
+**Next**
+
+- The Neon project (pgvector) and the Modal token, which close step 0.4 and Phase 0.
+- A Pixel 9a settings sheet before the first photo session; the equipment arrives in about two days.
+- Phase 1 build work that needs no photos: the ingest script, the catalogue schema and stand-in specification (1.7), the labelling tool (1.5) and synthetic data v0 (1.8).
+
 ## 2026-10-27: Foundations (steps 0.2–0.6) and the capture protocol (step 1.1)
 
 **What changed**
