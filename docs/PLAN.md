@@ -248,12 +248,12 @@ Most likely to stretch it: equipment delivery and the volunteers' availability (
 
 **Goal.** Measured watches, consented wrist photos, annotations, a cited catalogue and a frozen test split, all before any model work.
 
-- [ ] 1.1 Capture protocol (`docs/data/capture-protocol.md`):
+- [x] 1.1 Capture protocol ([`docs/data/capture-protocol.md`](data/capture-protocol.md)):
   - equipment;
   - phone settings (main lens, fixed zoom, no portrait mode);
   - stand placement, poses and lighting;
   - file naming and a session sheet;
-  - the consent form and the data card skeleton.
+  - the [consent form](data/consent-form.md) and the [data card skeleton](cards/benchmark-data-card.md).
 - [ ] 1.2 Measure the reference watches (35 to start) three times each into `data/catalogue/reference.csv`, with a repeatability note.
 - [ ] 1.3 Product photos of the reference watches: front-on, neutral background, ruler in frame.
 - [ ] 1.4 Capture sessions:
@@ -510,7 +510,7 @@ Expected total: about $25–45.
 | Phase | Status | Started | Finished |
 |---|---|---|---|
 | 0 Foundations | In progress | 2026-10-26 | |
-| 1 Ground truth | Planned | | |
+| 1 Ground truth | In progress (paperwork) | 2026-10-27 | |
 | 2 Calibration | Planned | | |
 | 3 Rendering and the swap test | Planned | | |
 | 4 Studio | Planned | | |
