@@ -2,7 +2,7 @@
 
 **Try any watch on your own wrist at true size, with the error bar to prove it.**
 
-> **Status: building (Phase 0, foundations).** The deployment skeleton is live: a [project page](https://vinayakmokashi.github.io/lug-to-lug/) and a staging [web app](https://web-staging-cb3gjlkxbq-el.a.run.app) with its [API](https://api-staging-cb3gjlkxbq-el.a.run.app/health). Nothing below is measured yet; results will appear here as they land, each with its confidence interval. Progress is tracked in the [build plan](docs/PLAN.md#11-status-tracker).
+> **Status: building (Phase 1, ground truth).** The foundations are done, and the deployment skeleton is live: a [project page](https://vinayakmokashi.github.io/lug-to-lug/) and a staging [web app](https://web-staging-cb3gjlkxbq-el.a.run.app) with its [API](https://api-staging-cb3gjlkxbq-el.a.run.app/health). Nothing below is measured yet; results will appear here as they land, each with its confidence interval. Progress is tracked in the [build plan](docs/PLAN.md#11-status-tracker).
 
 Lug to Lug is a true-to-scale watch try-on. You photograph your wrist wearing any watch you already own. The app recognises that watch, looks up its case diameter and uses it as a ruler to measure your wrist. Then it shows any other watch on your wrist at its real size, labels the render with its sizing error, and tells you how the watch will fit.
 

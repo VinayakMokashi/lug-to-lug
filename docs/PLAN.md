@@ -4,7 +4,7 @@
 |---|---|
 | **Project** | Lug to Lug |
 | **Plan written** | 2026-10-26 |
-| **Current phase** | Phase 0, Foundations (all steps done except the Neon and Modal accounts in 0.4) |
+| **Current phase** | Phase 1, Ground truth (step 1.1 done; Phase 0 finished 2026-10-28) |
 
 This is the living plan. Steps are ticked as they land, every working session gets an entry in [BUILD_LOG.md](BUILD_LOG.md), and changes to the plan are recorded in the [change log](#10-change-log) with the reason. The [status tracker](#11-status-tracker) is at the bottom.
 
@@ -235,9 +235,9 @@ Most likely to stretch it: equipment delivery and the volunteers' availability (
   - Pre-commit hooks, including a secret scan.
   - Recorded as [ADR-0007](decisions/0007-tooling-and-workflow.md) (tooling and workflow).
 - [x] 0.3 CI on GitHub Actions: Python and web jobs with path filters and caching; Dependabot for pip, npm and Actions.
-- [ ] 0.4 Cloud bootstrap:
+- [x] 0.4 Cloud bootstrap:
   - Google Cloud: a dedicated project for Lug to Lug with its own budget alerts, then APIs, Artifact Registry, Terraform state bucket, Workload Identity Federation for GitHub Actions, least-privilege service accounts, Secret Manager.
-  - A Neon project with pgvector.
+  - A Neon project with pgvector (AWS Singapore, Neon's closest region to `asia-south1`).
   - A Modal workspace, with its token in Secret Manager.
 - [x] 0.5 Walking skeleton: FastAPI `/health` and a Next.js landing page, each with a Dockerfile, deployed to staging Cloud Run services from Actions, with a smoke test.
 - [x] 0.6 Project page skeleton on GitHub Pages ([live](https://vinayakmokashi.github.io/lug-to-lug/)).
@@ -509,8 +509,8 @@ Expected total: about $25–45.
 
 | Phase | Status | Started | Finished |
 |---|---|---|---|
-| 0 Foundations | Done except the Neon and Modal accounts (0.4) | 2026-10-26 | |
-| 1 Ground truth | In progress (paperwork) | 2026-10-27 | |
+| 0 Foundations | Done | 2026-10-26 | 2026-10-28 |
+| 1 Ground truth | In progress (step 1.1 done) | 2026-10-27 | |
 | 2 Calibration | Planned | | |
 | 3 Rendering and the swap test | Planned | | |
 | 4 Studio | Planned | | |
