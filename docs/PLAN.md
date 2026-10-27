@@ -4,7 +4,7 @@
 |---|---|
 | **Project** | Lug to Lug |
 | **Plan written** | 2026-10-26 |
-| **Current phase** | Phase 0, Foundations (steps 0.1–0.2 done) |
+| **Current phase** | Phase 0, Foundations (steps 0.1–0.3 done) |
 
 This is the living plan. Steps are ticked as they land, every working session gets an entry in [BUILD_LOG.md](BUILD_LOG.md), and changes to the plan are recorded in the [change log](#10-change-log) with the reason. The [status tracker](#11-status-tracker) is at the bottom.
 
@@ -234,7 +234,7 @@ Most likely to stretch it: equipment delivery and the volunteers' availability (
   - Web: pnpm with the current Node LTS, TypeScript in strict mode, ESLint and Prettier.
   - Pre-commit hooks, including a secret scan.
   - Recorded as [ADR-0007](decisions/0007-tooling-and-workflow.md) (tooling and workflow).
-- [ ] 0.3 CI on GitHub Actions: Python and web jobs with path filters and caching; Dependabot for pip, npm and Actions.
+- [x] 0.3 CI on GitHub Actions: Python and web jobs with path filters and caching; Dependabot for pip, npm and Actions.
 - [ ] 0.4 Cloud bootstrap:
   - Google Cloud: a dedicated project for Lug to Lug with its own budget alerts, then APIs, Artifact Registry, Terraform state bucket, Workload Identity Federation for GitHub Actions, least-privilege service accounts, Secret Manager.
   - A Neon project with pgvector.
