@@ -12,7 +12,7 @@ export function CaseEllipse() {
 
   return (
     <svg
-      viewBox="0 0 320 220"
+      viewBox="0 0 345 220"
       role="img"
       aria-labelledby="case-ellipse-title"
       className="w-full max-w-md text-foreground"
