@@ -22,6 +22,8 @@ Every push to `main` runs [CI](../../.github/workflows/ci.yml). When the checks 
 
 The API deploys first, then the web app.
 
+"Changed" means changed since the last commit whose CI run on `main` passed, not only since the previous push. Runs on `main` queue one behind the other, and GitHub cancels a run that is still waiting when a newer one arrives. Measuring from the last green commit means the newer run picks up the cancelled run's changes, so no change is left unchecked or undeployed.
+
 **To deploy without a change:** on GitHub, open Actions → CI → Run workflow, on `main`, with "Deploy both services" ticked.
 
 ## Roll back

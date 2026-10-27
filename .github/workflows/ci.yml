@@ -22,15 +22,33 @@ jobs:
   changes:
     name: Detect changes
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read # to find the last green run on main
     outputs:
       python: ${{ steps.filter.outputs.python }}
       web: ${{ steps.filter.outputs.web }}
       terraform: ${{ steps.filter.outputs.terraform }}
     steps:
       - uses: actions/checkout@v7
+      # On main, compare with the last commit whose push run passed, not only with the
+      # previous push. When merges land quickly GitHub cancels a waiting run, and that
+      # commit's changes would otherwise never be checked or deployed.
+      - name: Find the last green commit on main
+        id: base
+        if: github.event_name == 'push'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BEFORE: ${{ github.event.before }}
+        run: |
+          sha=$(gh run list --repo "$GITHUB_REPOSITORY" --workflow ci.yml --branch main \
+            --event push --status success --limit 1 --json headSha --jq '.[0].headSha // empty')
+          echo "sha=${sha:-$BEFORE}" >> "$GITHUB_OUTPUT"
+          echo "Changes are detected against ${sha:-$BEFORE}"
       - uses: dorny/paths-filter@v4
         id: filter
         with:
+          base: ${{ steps.base.outputs.sha }}
           filters: |
             python:
               - "packages/**"
