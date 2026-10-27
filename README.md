@@ -2,7 +2,7 @@
 
 **Try any watch on your own wrist at true size, with the error bar to prove it.**
 
-> **Status: planning.** Building starts on 27 October 2026. Nothing below is measured yet; results will appear here as they land, each with its confidence interval. Progress is tracked in the [build plan](docs/PLAN.md#11-status-tracker).
+> **Status: building (Phase 0, foundations).** The deployment skeleton is live: a [project page](https://vinayakmokashi.github.io/lug-to-lug/) and a staging [web app](https://web-staging-cb3gjlkxbq-el.a.run.app) with its [API](https://api-staging-cb3gjlkxbq-el.a.run.app/health). Nothing below is measured yet; results will appear here as they land, each with its confidence interval. Progress is tracked in the [build plan](docs/PLAN.md#11-status-tracker).
 
 Lug to Lug is a true-to-scale watch try-on. You photograph your wrist wearing any watch you already own. The app recognises that watch, looks up its case diameter and uses it as a ruler to measure your wrist. Then it shows any other watch on your wrist at its real size, labels the render with its sizing error, and tells you how the watch will fit.
 
@@ -44,11 +44,28 @@ The benchmark uses a set of reference watches measured with calipers (35 to star
 | GPU work | Modal |
 | Delivery | Terraform and GitHub Actions |
 
+## Repository
+
+| Path | What |
+|---|---|
+| `apps/web` | Next.js web app |
+| `services/api` | FastAPI service |
+| `packages/core` | Calibration, wrist measurement and rendering (Python) |
+| `services/mcp`, `services/studio` | MCP server and GPU relighting (later phases) |
+| `ml/`, `eval/` | Training code and the evaluation harness (later phases) |
+| `data/` | Measurements, schemas and manifests; never photos |
+| `infra/terraform` | Every Google Cloud resource |
+| `docs/` | Plan, decisions, build log, runbooks, project page |
+
+To set up and run the checks locally, see [local development](docs/runbooks/local-development.md).
+
 ## Documents
 
 - [Build plan](docs/PLAN.md): definition of done, phases and steps, budget, risks, status tracker
 - [Decision records](docs/decisions/README.md)
 - [Build log](docs/BUILD_LOG.md)
+- Runbooks: [local development](docs/runbooks/local-development.md), [deploy and roll back](docs/runbooks/deploy.md)
+- [Project page](https://vinayakmokashi.github.io/lug-to-lug/)
 
 ## Data and privacy
 
