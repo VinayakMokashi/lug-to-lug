@@ -1,0 +1,13 @@
+# Build context filter for services/api/Dockerfile (the context is the repository
+# root). Everything is excluded except what the image needs.
+*
+!pyproject.toml
+!uv.lock
+!README.md
+!packages/core/pyproject.toml
+!packages/core/README.md
+!packages/core/src/
+!services/api/pyproject.toml
+!services/api/README.md
+!services/api/src/
+**/__pycache__
