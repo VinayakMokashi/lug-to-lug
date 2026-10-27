@@ -2,6 +2,83 @@
 
 One entry per working session, newest first. Each entry records what changed, the commands and results that matter, problems met and the next steps. The plan's steps are referred to by their IDs in [PLAN.md](PLAN.md).
 
+## 2026-10-27: Foundations (steps 0.2–0.6) and the capture protocol (step 1.1)
+
+**What changed**
+
+- **Tooling (0.2):**
+  - A uv workspace on Python 3.12, with `packages/core` (`lugtolug-core`) and `services/api` (`lugtolug-api`, FastAPI with `GET /health`).
+  - Shared tooling at the root: ruff, mypy in strict mode, pytest and poe tasks.
+  - `apps/web`: Next.js 16 with TypeScript in strict mode, Tailwind CSS, ESLint and Prettier, built as a standalone server. It has a landing page, a `/status` page that probes the API at request time, and `/health`.
+  - pre-commit hooks: gitleaks, and a guard that rejects photos under `data/`.
+  - READMEs for the folders still to come, [ADR-0007](decisions/0007-tooling-and-workflow.md) and the [local development runbook](runbooks/local-development.md).
+- **CI (0.3):**
+  - Python, web and Terraform jobs behind path filters, with uv, pnpm and Next.js caches.
+  - The hooks and a full-history secret scan on every run.
+  - One aggregate check to require on pull requests.
+  - Dependabot for uv, npm, GitHub Actions, Docker and Terraform.
+- **Cloud (0.4):**
+  - A dedicated Google Cloud project. Its **$10 monthly budget**, measured before credits, was created before any other resource.
+  - A versioned Terraform state bucket.
+  - `infra/terraform/bootstrap`, which imports the budget and the bucket: APIs, an image registry with cleanup rules, workload identity federation limited to this repository's `main` branch, the deployer and runtime service accounts, and empty secrets.
+  - `infra/terraform/envs/staging`, built from a reusable Cloud Run module.
+  - [ADR-0008](decisions/0008-infrastructure-and-delivery.md) and the [deploy runbook](runbooks/deploy.md).
+- **Walking skeleton (0.5):**
+  - Container images for the API and the web app, each with the commit baked in.
+  - A reusable deploy workflow: keyless authentication, build and push, `gcloud run services update`, then smoke tests.
+  - CI deploys each changed service after its checks pass on `main`, the API before the web app.
+- **Project page (0.6):** [vinayakmokashi.github.io/lug-to-lug](https://vinayakmokashi.github.io/lug-to-lug/), published from `docs/site` by an Actions workflow. Its result tiles stay empty until numbers are measured.
+- **Phase 1 paperwork (1.1), through pull requests #6 and #7:**
+  - the [capture protocol](data/capture-protocol.md);
+  - the [consent form](data/consent-form.md);
+  - the [benchmark data card skeleton](cards/benchmark-data-card.md).
+
+**Decisions**
+
+- Tooling and workflow ([ADR-0007](decisions/0007-tooling-and-workflow.md)):
+  - a uv workspace;
+  - pnpm through Corepack;
+  - strict types in both languages;
+  - pre-commit with a secret scan;
+  - Conventional Commits; and pull requests from Phase 1.
+- Two Terraform roots, images deployed by CI with Terraform ignoring the image, and keyless deploys from `main` only ([ADR-0008](decisions/0008-infrastructure-and-delivery.md)).
+- The capture protocol organises photos in **blocks**: one person, one camera tilt, one light, and a camera that doesn't move. Every pair of photos in a block is a swap-test pair.
+  - Each block starts and ends with a **re-seat check**: the same watch placed twice. It measures the error that re-placing the arm alone causes, which is the floor under every swap-test error.
+  - Watches are measured in three separate rounds rather than three readings in a row, so the spread reflects real measuring error.
+
+**Results**
+
+| Check | Result |
+|---|---|
+| `uv run poe check` | ruff and mypy (strict) clean; 4 tests pass |
+| `pnpm -C apps/web check` and `pnpm build` | Clean; `/` static, `/health` dynamic, `/status` partially prerendered |
+| Full-history secret scan (gitleaks) | No leaks |
+| Images | API 237 MB, web 385 MB; both run as non-root users |
+| First deploy | Green; both services report the deployed commit, and the web app reaches the API |
+| `terraform plan`, both roots, after a CI deploy | No changes |
+
+**Problems met**
+
+- The first CI run failed on Prettier, because a README was written after the formatter ran. Fixed in the next commit.
+- Starlette's test client now asks for `httpx2` instead of `httpx`; the dev dependency was switched.
+- pnpm 12 writes its lockfile as several YAML documents, so `check-yaml` runs with `--allow-multiple-documents`.
+- The pre-commit gitleaks hook scans staged changes only, which CI never has, so CI runs a separate full-history scan with a pinned, checksum-verified gitleaks.
+- Terraform could not read the new project until the Resource Manager API was enabled, so it is enabled with `gcloud` before the first plan.
+- The project page's hero lost its side padding on phones, and a diagram label was clipped. Both were fixed after checking the page at 390 px.
+
+**Next**
+
+- Finish 0.4: the Neon project (pgvector enabled) and the Modal token, with their values in Secret Manager.
+- Dependabot opened five update PRs.
+  - Three pass CI and wait for review: React 19.3.1, TypeScript 6 and a wider `uv_build` range.
+  - The two that move to Node 26 should be closed while Node 24 is the LTS line, with Dependabot ignore rules for those majors.
+- Phase 1, by hand: the watch list, measuring the reference watches, consent, and the photo sessions.
+- Phase 1 build work that needs no photos yet:
+  - the ingest script for the session plan;
+  - the catalogue schema and the stand-in specification (1.7);
+  - the labelling tool (1.5);
+  - synthetic data v0 (1.8).
+
 ## 2026-10-26: Planning (step 0.1)
 
 **What changed**
