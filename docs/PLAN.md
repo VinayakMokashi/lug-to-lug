@@ -4,7 +4,7 @@
 |---|---|
 | **Project** | Lug to Lug |
 | **Plan written** | 2026-10-26 |
-| **Current phase** | Phase 0, Foundations (steps 0.1–0.3 done) |
+| **Current phase** | Phase 0, Foundations (steps 0.1–0.3 and 0.5 done; 0.4 waits for the Neon and Modal accounts) |
 
 This is the living plan. Steps are ticked as they land, every working session gets an entry in [BUILD_LOG.md](BUILD_LOG.md), and changes to the plan are recorded in the [change log](#10-change-log) with the reason. The [status tracker](#11-status-tracker) is at the bottom.
 
@@ -239,7 +239,7 @@ Most likely to stretch it: equipment delivery and the volunteers' availability (
   - Google Cloud: a dedicated project for Lug to Lug with its own budget alerts, then APIs, Artifact Registry, Terraform state bucket, Workload Identity Federation for GitHub Actions, least-privilege service accounts, Secret Manager.
   - A Neon project with pgvector.
   - A Modal workspace, with its token in Secret Manager.
-- [ ] 0.5 Walking skeleton: FastAPI `/health` and a Next.js landing page, each with a Dockerfile, deployed to staging Cloud Run services from Actions, with a smoke test.
+- [x] 0.5 Walking skeleton: FastAPI `/health` and a Next.js landing page, each with a Dockerfile, deployed to staging Cloud Run services from Actions, with a smoke test.
 - [ ] 0.6 Project page skeleton on GitHub Pages.
 
 **Exit.** CI is green on `main`, the staging URLs respond, and `terraform plan` is clean.
