@@ -2,7 +2,7 @@
 # The web app image: Next.js as a standalone Node server. Build from this folder:
 #   docker build --build-arg GIT_SHA=$(git rev-parse HEAD) apps/web
 
-FROM node:24-slim AS base
+FROM node:26-slim AS base
 ENV PNPM_HOME=/pnpm PATH=/pnpm:$PATH COREPACK_ENABLE_DOWNLOAD_PROMPT=0 NEXT_TELEMETRY_DISABLED=1
 RUN corepack enable pnpm
 WORKDIR /app
@@ -17,7 +17,7 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN pnpm build
 
-FROM node:24-slim
+FROM node:26-slim
 ENV NODE_ENV=production NEXT_TELEMETRY_DISABLED=1 PORT=8080 HOSTNAME=0.0.0.0
 WORKDIR /app
 COPY --from=build --chown=node:node /app/.next/standalone ./
