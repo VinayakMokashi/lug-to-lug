@@ -1,0 +1,195 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CatalogueEntry",
+  "description": "One watch reference with its published dimensions and appearance. Every value cites a source; a value no source gives is null (unknown), never guessed. This is the form the API serves; the files in data/catalogue store the same facts as rows.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "entry_version",
+    "id",
+    "brand",
+    "model",
+    "reference",
+    "aliases",
+    "source",
+    "case_shape",
+    "case_diameter_mm",
+    "case_length_mm",
+    "bezel_diameter_mm",
+    "dial_opening_mm",
+    "lug_to_lug_mm",
+    "thickness_mm",
+    "lug_width_mm",
+    "bezel_type",
+    "case_material",
+    "case_colour",
+    "dial_colour",
+    "strap_type",
+    "crown_position",
+    "sources"
+  ],
+  "properties": {
+    "entry_version": {
+      "const": 1,
+      "description": "The version of this entry format"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "maxLength": 80,
+      "description": "Stable ID: the brand and reference in lower case, joined by hyphens"
+    },
+    "brand": { "type": "string", "minLength": 1, "maxLength": 60 },
+    "model": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "reference": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 60,
+      "description": "The manufacturer's reference number"
+    },
+    "aliases": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true,
+      "description": "Nicknames people search with, for example a model's common short name"
+    },
+    "source": {
+      "$ref": "common.schema.json#/$defs/SourceId",
+      "description": "The main source: the brand, model and reference come from it, and so does any value without its own citation"
+    },
+    "case_shape": { "$ref": "#/$defs/CitedShape" },
+    "case_diameter_mm": { "$ref": "#/$defs/OptionalCitedLength" },
+    "case_length_mm": { "$ref": "#/$defs/OptionalCitedLength" },
+    "bezel_diameter_mm": { "$ref": "#/$defs/OptionalCitedLength" },
+    "dial_opening_mm": { "$ref": "#/$defs/OptionalCitedLength" },
+    "lug_to_lug_mm": { "$ref": "#/$defs/OptionalCitedLength" },
+    "thickness_mm": { "$ref": "#/$defs/OptionalCitedLength" },
+    "lug_width_mm": { "$ref": "#/$defs/OptionalCitedLength" },
+    "bezel_type": {
+      "anyOf": [{ "$ref": "#/$defs/CitedBezelType" }, { "type": "null" }]
+    },
+    "case_material": {
+      "anyOf": [{ "$ref": "#/$defs/CitedCaseMaterial" }, { "type": "null" }]
+    },
+    "case_colour": {
+      "anyOf": [{ "$ref": "#/$defs/CitedColourName" }, { "type": "null" }]
+    },
+    "dial_colour": {
+      "anyOf": [{ "$ref": "#/$defs/CitedColourName" }, { "type": "null" }]
+    },
+    "strap_type": {
+      "anyOf": [{ "$ref": "#/$defs/CitedStrapType" }, { "type": "null" }]
+    },
+    "crown_position": {
+      "anyOf": [{ "$ref": "#/$defs/CitedCrownPosition" }, { "type": "null" }]
+    },
+    "sources": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/Source" },
+      "minItems": 1,
+      "description": "Every source this entry cites, the main one first"
+    }
+  },
+  "$defs": {
+    "CitedLength": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value_mm", "tolerance_mm", "source"],
+      "properties": {
+        "value_mm": { "$ref": "common.schema.json#/$defs/Millimetres" },
+        "tolerance_mm": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 5,
+          "description": "How far the true value may be from value_mm, from the precision the source gives it with"
+        },
+        "source": { "$ref": "common.schema.json#/$defs/SourceId" }
+      }
+    },
+    "OptionalCitedLength": {
+      "anyOf": [{ "$ref": "#/$defs/CitedLength" }, { "type": "null" }],
+      "description": "A cited length, or null when no source gives it"
+    },
+    "CitedShape": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "source"],
+      "properties": {
+        "value": { "$ref": "common.schema.json#/$defs/CaseShape" },
+        "source": { "$ref": "common.schema.json#/$defs/SourceId" }
+      }
+    },
+    "CitedBezelType": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "source"],
+      "properties": {
+        "value": { "$ref": "common.schema.json#/$defs/BezelType" },
+        "source": { "$ref": "common.schema.json#/$defs/SourceId" }
+      }
+    },
+    "CitedCaseMaterial": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "source"],
+      "properties": {
+        "value": { "$ref": "common.schema.json#/$defs/CaseMaterial" },
+        "source": { "$ref": "common.schema.json#/$defs/SourceId" }
+      }
+    },
+    "CitedColourName": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "source"],
+      "properties": {
+        "value": { "$ref": "common.schema.json#/$defs/ColourName" },
+        "source": { "$ref": "common.schema.json#/$defs/SourceId" }
+      }
+    },
+    "CitedStrapType": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "source"],
+      "properties": {
+        "value": { "$ref": "common.schema.json#/$defs/StrapType" },
+        "source": { "$ref": "common.schema.json#/$defs/SourceId" }
+      }
+    },
+    "CitedCrownPosition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "source"],
+      "properties": {
+        "value": { "$ref": "common.schema.json#/$defs/CrownPosition" },
+        "source": { "$ref": "common.schema.json#/$defs/SourceId" }
+      }
+    },
+    "Source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "publisher", "title", "url", "accessed", "archived_url"],
+      "properties": {
+        "id": { "$ref": "common.schema.json#/$defs/SourceId" },
+        "kind": {
+          "type": "string",
+          "enum": ["manufacturer", "retailer", "review", "press", "other"],
+          "description": "Who published it. A manufacturer's own page is preferred"
+        },
+        "publisher": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "title": { "type": "string", "minLength": 1, "maxLength": 300 },
+        "url": { "type": "string", "format": "uri", "maxLength": 2000 },
+        "accessed": {
+          "type": "string",
+          "format": "date",
+          "description": "When the page was read"
+        },
+        "archived_url": {
+          "type": ["string", "null"],
+          "format": "uri",
+          "maxLength": 2000,
+          "description": "A web archive copy, so the citation survives the page changing"
+        }
+      }
+    }
+  }
+}

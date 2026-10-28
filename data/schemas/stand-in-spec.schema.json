@@ -1,0 +1,191 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "StandInSpec",
+  "description": "Everything needed to draw a watch at its true size without brand marks: the outline, the layers seen from above, and the colours. The 2.5-D renderer, the 3-D stand-in for live AR and the synthetic data generator all draw from it. Lengths are nominal; their uncertainty lives in the catalogue.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["spec_version", "case", "bezel", "dial", "lugs", "crown", "strap", "assumed"],
+  "properties": {
+    "spec_version": {
+      "const": 1,
+      "description": "The version of this specification format"
+    },
+    "case": { "$ref": "#/$defs/Case" },
+    "bezel": { "$ref": "#/$defs/Bezel" },
+    "dial": { "$ref": "#/$defs/Dial" },
+    "lugs": { "$ref": "#/$defs/Lugs" },
+    "crown": { "$ref": "#/$defs/Crown" },
+    "strap": { "$ref": "#/$defs/Strap" },
+    "assumed": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true,
+      "description": "Dimensions filled with a default rather than from a measurement or a cited source, as 'section.field' paths (for example 'lugs.lug_to_lug_mm'). A render that depends on one says so. Colours, finish and markings are always approximate in a stand-in and are never listed."
+    }
+  },
+  "$defs": {
+    "Case": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "shape",
+        "diameter_mm",
+        "length_mm",
+        "squareness",
+        "taper",
+        "thickness_mm",
+        "crystal_dome_mm",
+        "material",
+        "finish",
+        "colour"
+      ],
+      "properties": {
+        "shape": { "$ref": "common.schema.json#/$defs/CaseShape" },
+        "diameter_mm": {
+          "$ref": "common.schema.json#/$defs/Millimetres",
+          "description": "Across the case body from 9 to 3 o'clock, without the crown"
+        },
+        "length_mm": {
+          "$ref": "common.schema.json#/$defs/Millimetres",
+          "description": "The case body from 12 to 6 o'clock, without the lugs. Equal to diameter_mm for a round case"
+        },
+        "squareness": {
+          "type": "number",
+          "minimum": 2,
+          "maximum": 20,
+          "description": "Exponent of the superellipse that draws the outline: 2 is a circle or an ellipse, about 4 a cushion, 8 or more a square with small rounded corners"
+        },
+        "taper": {
+          "type": "number",
+          "minimum": 0.5,
+          "maximum": 1,
+          "description": "Width at the 12 and 6 o'clock ends relative to the middle: 1 for most cases, about 0.8 for a tonneau"
+        },
+        "thickness_mm": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 30,
+          "description": "From the case back to the top of the crystal"
+        },
+        "crystal_dome_mm": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 5,
+          "description": "How far the crystal rises above the bezel or case top; 0 for a flat crystal"
+        },
+        "material": { "$ref": "common.schema.json#/$defs/CaseMaterial" },
+        "finish": {
+          "type": "string",
+          "enum": ["polished", "brushed", "matte"],
+          "description": "How the case surface reflects light"
+        },
+        "colour": { "$ref": "common.schema.json#/$defs/Colour" }
+      }
+    },
+    "Bezel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "outer_mm", "colour", "insert_colour", "markings"],
+      "properties": {
+        "type": { "$ref": "common.schema.json#/$defs/BezelType" },
+        "outer_mm": {
+          "type": ["number", "null"],
+          "exclusiveMinimum": 0,
+          "maximum": 100,
+          "description": "Outer width of the bezel or top ring from 9 to 3 o'clock; null when there is no separate bezel"
+        },
+        "colour": {
+          "type": ["string", "null"],
+          "pattern": "^#[0-9a-f]{6}$",
+          "description": "The bezel's own colour; null when there is no separate bezel"
+        },
+        "insert_colour": {
+          "type": ["string", "null"],
+          "pattern": "^#[0-9a-f]{6}$",
+          "description": "Colour of a rotating bezel's insert; null for other bezels"
+        },
+        "markings": {
+          "type": "string",
+          "enum": ["none", "minutes", "dive", "gmt", "tachymeter"],
+          "description": "A generic scale drawn on the bezel. Never text or logos"
+        }
+      }
+    },
+    "Dial": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["opening_mm", "colour", "index_style", "index_colour", "hands_colour"],
+      "properties": {
+        "opening_mm": {
+          "$ref": "common.schema.json#/$defs/Millimetres",
+          "description": "Width of the visible dial opening (the inner edge of the bezel or case) from 9 to 3 o'clock. The opening follows the case outline's shape"
+        },
+        "colour": { "$ref": "common.schema.json#/$defs/Colour" },
+        "index_style": {
+          "type": "string",
+          "enum": ["baton", "arabic", "roman", "dots", "none"],
+          "description": "Generic hour markers. Never text or logos"
+        },
+        "index_colour": { "$ref": "common.schema.json#/$defs/Colour" },
+        "hands_colour": { "$ref": "common.schema.json#/$defs/Colour" }
+      }
+    },
+    "Lugs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lug_to_lug_mm", "lug_width_mm", "style"],
+      "properties": {
+        "lug_to_lug_mm": {
+          "$ref": "common.schema.json#/$defs/Millimetres",
+          "description": "From the tip of the upper lugs to the tip of the lower lugs, along 12 to 6 o'clock"
+        },
+        "lug_width_mm": {
+          "$ref": "common.schema.json#/$defs/Millimetres",
+          "description": "Inside distance between the lugs, where the strap fits"
+        },
+        "style": {
+          "type": "string",
+          "enum": ["standard", "integrated"],
+          "description": "'integrated' when the strap or bracelet joins the case without separate lugs"
+        }
+      }
+    },
+    "Crown": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["position", "diameter_mm", "length_mm", "guards"],
+      "properties": {
+        "position": { "$ref": "common.schema.json#/$defs/CrownPosition" },
+        "diameter_mm": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 15,
+          "description": "Diameter of the crown"
+        },
+        "length_mm": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 15,
+          "description": "How far the crown stands out from the case"
+        },
+        "guards": {
+          "type": "boolean",
+          "description": "Whether the case has crown guards"
+        }
+      }
+    },
+    "Strap": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "colour", "width_at_buckle_mm"],
+      "properties": {
+        "type": { "$ref": "common.schema.json#/$defs/StrapType" },
+        "colour": { "$ref": "common.schema.json#/$defs/Colour" },
+        "width_at_buckle_mm": {
+          "$ref": "common.schema.json#/$defs/Millimetres",
+          "description": "Strap width at the buckle or clasp; equal to the lug width when it doesn't taper"
+        }
+      }
+    }
+  }
+}

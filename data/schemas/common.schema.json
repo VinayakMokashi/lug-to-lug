@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Common",
+  "description": "Types shared by the Lug to Lug data contracts. Lengths are in millimetres and colours are sRGB.",
+  "$defs": {
+    "Millimetres": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "maximum": 100,
+      "description": "A length in millimetres"
+    },
+    "Colour": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$",
+      "description": "An sRGB colour as lower-case hex, for drawing"
+    },
+    "ColourName": {
+      "type": "string",
+      "enum": [
+        "black",
+        "white",
+        "silver",
+        "grey",
+        "blue",
+        "green",
+        "red",
+        "brown",
+        "gold",
+        "champagne",
+        "cream",
+        "orange",
+        "yellow",
+        "pink",
+        "purple",
+        "other"
+      ],
+      "description": "A colour as a source or a person names it"
+    },
+    "CaseShape": {
+      "type": "string",
+      "enum": ["round", "cushion", "tonneau", "square", "other"],
+      "description": "The case outline seen from above. 'square' covers rectangular cases too"
+    },
+    "CaseMaterial": {
+      "type": "string",
+      "enum": ["steel", "titanium", "gold", "ceramic", "resin", "bronze", "other"],
+      "description": "What the case is made of; gold covers yellow, rose and white gold, told apart by colour"
+    },
+    "BezelType": {
+      "type": "string",
+      "enum": ["none", "smooth", "fluted", "rotating_insert", "other"],
+      "description": "The ring around the crystal"
+    },
+    "StrapType": {
+      "type": "string",
+      "enum": ["bracelet", "leather", "rubber", "fabric", "other"],
+      "description": "What the watch is worn on"
+    },
+    "CrownPosition": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 12,
+      "description": "Where the crown sits, as an hour on the dial (3 for most watches, 9 for a left-hand crown)"
+    },
+    "WatchId": {
+      "type": "string",
+      "pattern": "^W[0-9]{2,3}$",
+      "description": "A reference watch's ID (W01, W02, ...)"
+    },
+    "SourceId": {
+      "type": "string",
+      "pattern": "^S[0-9]{4}$",
+      "description": "A source's ID in the catalogue's source list (S0001, S0002, ...)"
+    }
+  }
+}
