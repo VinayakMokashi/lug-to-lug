@@ -53,7 +53,8 @@ The benchmark uses a set of reference watches measured with calipers (35 to star
 | `packages/core` | Calibration, wrist measurement and rendering, and the data contracts (Python) |
 | `tools/` | Data tools: photo ingest, the reference-watch table, phone checks |
 | `services/mcp`, `services/studio` | MCP server and GPU relighting (later phases) |
-| `ml/`, `eval/` | Training code and the evaluation harness (later phases) |
+| `ml/` | Training code, starting with synthetic data |
+| `eval/` | The evaluation harness (Phase 2 onwards) |
 | `data/` | Catalogue, schemas and manifests; never photos |
 | `infra/terraform` | Every Google Cloud resource |
 | `docs/` | Plan, decisions, concept guides, build log, runbooks, project page |

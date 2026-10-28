@@ -6,3 +6,4 @@ One guide per component, explaining the idea behind it rather than the code: wha
 |---|---|---|
 | [Catalogue and stand-ins](catalogue-and-stand-ins.md) | Measured and published dimensions, citations and tolerances, filling gaps honestly, one outline for every case shape, one schema for two languages | 1.7 |
 | [Photo ingest](photo-ingest.md) | Pairing photos with the session plan by count, timing and camera; removing metadata without touching pixels; where the files go | 1.4 |
+| [Synthetic data](synthetic-data.md) | Rendering watches on forearms by ray casting, exact labels, reproducible runs, and what rendered images can't teach | 1.8 |
