@@ -43,6 +43,7 @@ api = { cmd = "uvicorn lugtolug_api.main:app --reload --port 8000", help = "Run 
 ingest = { cmd = "python -m lugtolug_tools ingest", help = "Match a session's photos to the plan and copy them (S03 --dry-run)" }
 reference = { cmd = "python -m lugtolug_tools reference", help = "Build data/catalogue/reference.csv from the measuring sheets" }
 phone-check = { cmd = "python -m lugtolug_tools phone-check", help = "Check test photos against the Pixel 9a settings sheet" }
+label = { cmd = "streamlit run tools/src/lugtolug_tools/labelling/app.py", help = "Open the labelling tool in the browser" }
 synth = { cmd = "python -m lugtolug_ml.synthetic.generate", help = "Generate synthetic training data v0 into ../work/synthetic/v0 (--count 1000)" }
 
 # ---------------------------------------------------------------------------
@@ -90,6 +91,11 @@ files = [
   "ml/tests",
   "scripts",
 ]
+
+# The click component for the labelling tool ships without type information.
+[[tool.mypy.overrides]]
+module = ["streamlit_image_coordinates"]
+ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 testpaths = ["packages/core/tests", "services/api/tests", "tools/tests", "ml/tests"]
