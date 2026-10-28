@@ -58,6 +58,9 @@ PUBLISHED_COLUMNS = (
 FIELD_SOURCE_COLUMNS = ("entry_id", "field", "source")
 CITABLE = frozenset({"case_shape", *LENGTH_FIELDS, *TERM_FIELDS})
 
+# A row with more cells than its header: usually a decimal comma, as in 12,3 for 12.3.
+EXTRA_CELLS = "more cells than the header (a comma inside a value?)"
+
 
 class CatalogueError(Exception):
     """The catalogue files break one or more rules; `problems` lists them all."""
@@ -95,7 +98,10 @@ def _rows(path: Path, columns: tuple[str, ...], problems: list[str]) -> Iterator
         if tuple(reader.fieldnames or ()) != columns:
             problems.append(f"{path.name}: the header must be {','.join(columns)}")
             return
-        for row in reader:
+        for line, row in enumerate(reader, start=2):
+            if None in row:
+                problems.append(f"{path.name} line {line}: {EXTRA_CELLS}")
+                continue
             yield {key: (value or "").strip() for key, value in row.items()}
 
 
