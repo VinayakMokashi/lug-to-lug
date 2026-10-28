@@ -12,4 +12,6 @@
 !services/api/src/
 !tools/pyproject.toml
 !tools/README.md
+!ml/pyproject.toml
+!ml/README.md
 **/__pycache__

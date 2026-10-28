@@ -14,6 +14,7 @@ COPY services/api/pyproject.toml services/api/README.md services/api/
 # The other workspace members' metadata only, so uv can check the lockfile; their code
 # never enters the image.
 COPY tools/pyproject.toml tools/README.md tools/
+COPY ml/pyproject.toml ml/README.md ml/
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --locked --no-dev --no-install-workspace --package lugtolug-api
 

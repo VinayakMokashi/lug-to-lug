@@ -2,9 +2,15 @@ version = 1
 revision = 3
 requires-python = ">=3.12"
 resolution-markers = [
-    "python_full_version >= '3.15'",
-    "python_full_version == '3.14.*'",
-    "python_full_version < '3.14'",
+    "python_full_version >= '3.15' and sys_platform == 'win32'",
+    "python_full_version >= '3.15' and sys_platform == 'emscripten'",
+    "python_full_version >= '3.15' and sys_platform != 'emscripten' and sys_platform != 'win32'",
+    "python_full_version == '3.14.*' and sys_platform == 'win32'",
+    "python_full_version == '3.14.*' and sys_platform == 'emscripten'",
+    "python_full_version == '3.14.*' and sys_platform != 'emscripten' and sys_platform != 'win32'",
+    "python_full_version < '3.14' and sys_platform == 'win32'",
+    "python_full_version < '3.14' and sys_platform == 'emscripten'",
+    "python_full_version < '3.14' and sys_platform != 'emscripten' and sys_platform != 'win32'",
 ]
 
 [manifest]
@@ -12,6 +18,7 @@ members = [
     "lug-to-lug",
     "lugtolug-api",
     "lugtolug-core",
+    "lugtolug-ml",
     "lugtolug-tools",
 ]
 
@@ -669,6 +676,7 @@ source = { virtual = "." }
 dependencies = [
     { name = "lugtolug-api" },
     { name = "lugtolug-core" },
+    { name = "lugtolug-ml" },
     { name = "lugtolug-tools" },
 ]
 
@@ -689,6 +697,7 @@ dev = [
 requires-dist = [
     { name = "lugtolug-api", editable = "services/api" },
     { name = "lugtolug-core", editable = "packages/core" },
+    { name = "lugtolug-ml", editable = "ml" },
     { name = "lugtolug-tools", editable = "tools" },
 ]
 
@@ -735,6 +744,23 @@ dependencies = [
 requires-dist = [
     { name = "numpy", specifier = ">=2.5.4" },
     { name = "pydantic", specifier = ">=2.14.1" },
+]
+
+[[package]]
+name = "lugtolug-ml"
+version = "0.1.0"
+source = { editable = "ml" }
+dependencies = [
+    { name = "lugtolug-core" },
+    { name = "numpy" },
+    { name = "pillow" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "lugtolug-core", editable = "packages/core" },
+    { name = "numpy", specifier = ">=2.5.4" },
+    { name = "pillow", specifier = ">=13.0.0" },
 ]
 
 [[package]]
