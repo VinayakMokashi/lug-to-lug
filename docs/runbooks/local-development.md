@@ -32,6 +32,7 @@ pnpm -C apps/web install
 | `uv run poe fmt` | Python: fix lint findings and format |
 | `pnpm -C apps/web check` | Web: ESLint, TypeScript, Prettier check |
 | `pnpm -C apps/web format` | Web: format |
+| `uv run poe contracts` and `pnpm -C apps/web contracts` | Regenerate the Python and TypeScript contracts after changing a schema in `data/schemas` ([ADR-0009](../decisions/0009-catalogue-and-stand-in-specification.md)); CI fails if they are stale |
 | `pre-commit run --all-files` | Every hook on every file, including the secret scan |
 | `uv run poe api` | The API on http://localhost:8000 (`/health`, `/docs`) |
 | `pnpm -C apps/web dev` | The web app on http://localhost:3000 |

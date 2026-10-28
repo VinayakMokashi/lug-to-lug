@@ -49,6 +49,7 @@ Each watch gets an ID, W01 to W35 (more may follow), and is measured **three tim
 | Field | How to measure | Unit |
 |---|---|---|
 | `case_diameter_mm` | Across the case body from 9 to 3 o'clock, at its widest, **without** the crown or crown guards | mm, 2 decimals |
+| `case_length_mm` | Non-round cases only: the case body from 12 to 6 o'clock, **without** the lugs. Leave it empty for a round case | mm |
 | `bezel_diameter_mm` | Outer diameter of the bezel or top ring, if it is a separate part; leave empty otherwise | mm |
 | `dial_opening_mm` | Inner diameter of the bezel: the visible dial and chapter ring, which decide how large the watch looks | mm |
 | `lug_to_lug_mm` | From the tip of the upper lugs to the tip of the lower lugs, straight along 12 to 6 o'clock | mm |
@@ -59,11 +60,13 @@ Hold the calipers square to the case, close the jaws gently until they just touc
 
 Once per watch, also record (from the watch, not the calipers):
 
-- case shape: round, cushion, tonneau, square, or other;
+- case shape: round, cushion, tonneau, square (rectangular cases too), or other;
 - bezel type: none, smooth, fluted, rotating with insert, or other;
-- case and dial colour, and the strap type: bracelet, leather, rubber, fabric.
+- case material: steel, titanium, gold, ceramic, resin, bronze, or other;
+- case and dial colour, from the catalogue's list of colour names;
+- the strap type: bracelet, leather, rubber, fabric, or other.
 
-**Into the catalogue.** The catalogue value of each dimension is the median of the three readings. Their spread is the measuring error, reported with the catalogue as a repeatability note. The file is `data/catalogue/reference.csv`, which records measurements only, never who owns a watch.
+**Into the catalogue.** The catalogue value of each dimension is the median of the three readings, and their range (largest minus smallest) is the measuring error, reported with the catalogue as a repeatability note. The file is `data/catalogue/reference.csv` ([format](../../data/catalogue/README.md)). It records measurements and appearance only: no brand, model or reference number, and never who owns a watch.
 
 ## 5. Measuring wrists
 
