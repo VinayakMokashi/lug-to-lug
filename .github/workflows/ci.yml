@@ -55,6 +55,7 @@ jobs:
               - "packages/**"
               - "services/**"
               - "tools/**"
+              - "ml/**"
               - "scripts/**"
               - "data/schemas/**"
               - "data/catalogue/**"
@@ -128,7 +129,7 @@ jobs:
       - run: uv run poe lint
       - run: uv run poe types
       - run: uv run poe contracts-check
-      - run: uv run pytest --cov=lugtolug_core --cov=lugtolug_api --cov=lugtolug_tools --cov-report=term-missing
+      - run: uv run pytest --cov=lugtolug_core --cov=lugtolug_api --cov=lugtolug_tools --cov=lugtolug_ml --cov-report=term-missing
 
   web:
     name: Web (lint, types, build)

@@ -22,7 +22,7 @@ Every push to `main` runs [CI](../../.github/workflows/ci.yml). When the checks 
 
 The API deploys first, then the web app.
 
-A service's files are what goes into its image: `packages/core`, `services/api` and the lockfile for the API; `apps/web` for the web app. The Python checks also run for the scripts, the data tools in `tools/` and the data files, but changes there alone don't redeploy the API.
+A service's files are what goes into its image: `packages/core`, `services/api` and the lockfile for the API; `apps/web` for the web app. The Python checks also run for the scripts, the data tools in `tools/`, the training code in `ml/` and the data files, but changes there alone don't redeploy the API.
 
 "Changed" means changed since the last commit whose CI run on `main` passed, not only since the previous push. Runs on `main` queue one behind the other, and GitHub cancels a run that is still waiting when a newer one arrives. Measuring from the last green commit means the newer run picks up the cancelled run's changes, so no change is left unchecked or undeployed.
 
