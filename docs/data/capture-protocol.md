@@ -26,21 +26,20 @@ Everything here is written to be repeatable: the same phone, the same distances,
 
 ## 3. Phone settings
 
-Set these once and check them at the start of every session.
+Every session uses the same phone, a Google Pixel 9a, set up as in the [Pixel 9a settings sheet](pixel-9a-settings.md): once before the first session, checked at the start of every block, and verified from the phone's own files by a short test series. In short:
 
 | Setting | Value | Why |
 |---|---|---|
-| Lens | Main camera (1×) only. No 0.5×, 2× or 3×, and no digital zoom. | One lens means one set of optics for the whole benchmark |
-| Mode | Plain photo. Not Portrait, Night, Macro or any "AI scene" mode. | These modes blur, sharpen or switch lenses on their own |
-| Automatic lens switching | Off. iPhone: turn on Settings → Camera → Macro Control, then tap the flower icon in the viewfinder so macro is off. Android: turn off the scene optimiser. | Close up, some phones silently switch to the ultra-wide lens |
-| Format | JPEG (iPhone: Settings → Camera → Formats → Most Compatible) | One format through the whole pipeline |
-| Resolution | The phone's default (for example 12 MP), not 48 MP or RAW | Consistent image size |
-| Flash, Live Photos, filters, beauty modes | Off | |
-| Location tags | Off (iPhone: Settings → Privacy → Location Services → Camera → Never) | Location never needs stripping if it is never recorded |
-| Grid and level | On | Helps keep the phone square to the backdrop |
-| Focus and exposure | Locked on the watch at the start of each block (press and hold until "AE/AF lock" shows) | The exposure stays the same while watches are swapped |
+| Lens and zoom | Main camera at 1× only: never 0.5× or 2×, and no touching the screen during a block (a double tap zooms) | One set of optics for the whole benchmark. On this phone 2× is a crop of the main camera that keeps the same focal length, so only its zoom tag shows it; the ingest checks that tag |
+| Mode | Plain Photo mode: Night Sight off (it switches itself on in dim light), Top Shot off, not Portrait | Those modes merge long series of frames, blur the background or add a video to each file |
+| Frame | Full image (4:3): 4000 × 3000 | The whole frame, and one image size throughout |
+| Files | JPEG only, with RAW and Ultra HDR off | One plain image per file |
+| Location | Save location off | Location never needs removing if it is never recorded |
+| Focus and exposure | Locked on the watch at the start of each block (tap the watch, then Lock) | Focus and exposure stay the same while the watches are swapped |
+| Which way is up | Set while holding the phone, then lowered onto the mount without turning it | Pointing straight down, the phone can't tell which way is up and may store a photo turned |
+| Interruptions | Do Not Disturb on, a long screen timeout, flash off | A vibration can nudge the phone, and the viewfinder must stay live through a block |
 
-The image's own metadata keeps the focal length and the image size, which calibration uses. Everything else, including any location, is stripped when photos are copied into the private store (§8).
+The metadata calibration and the quality checks use (lens, zoom, focus distance and exposure) survives ingest; everything else, including any location, is removed (§8).
 
 ## 4. Measuring the reference watches (step 1.2)
 
@@ -192,7 +191,7 @@ The ingest pairs photos with the sheet only when three checks agree: the count (
 ## 10. Checklist for a session
 
 - [ ] Consent signed for everyone photographed today
-- [ ] Phone settings (§3), mount at 30 cm, arm guide in place
+- [ ] Phone settings checked ([Pixel 9a settings](pixel-9a-settings.md#at-the-start-of-every-block)), mount at 30 cm, arm guide in place
 - [ ] Session sheet header filled in; wrist measured (§5)
 - [ ] For each block: slate, focus and exposure locked, re-seat check, the watches, re-seat check
 - [ ] Photos copied to the private store and deleted from the phone the same day

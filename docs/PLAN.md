@@ -250,7 +250,7 @@ Most likely to stretch it: equipment delivery and the volunteers' availability (
 
 - [x] 1.1 Capture protocol ([`docs/data/capture-protocol.md`](data/capture-protocol.md)):
   - equipment;
-  - phone settings (main lens, fixed zoom, no portrait mode);
+  - phone settings (main lens, fixed zoom, no portrait mode), detailed for the Pixel 9a in a [settings sheet](data/pixel-9a-settings.md) with a test series that checks them;
   - stand placement, poses and lighting;
   - file naming and a session sheet;
   - the [consent form](data/consent-form.md) and the [data card skeleton](cards/benchmark-data-card.md).
