@@ -504,6 +504,7 @@ Expected total: about $25–45.
 | 2026-10-26 | A third volunteer (P04) | A wider range of wrists in the benchmark |
 | 2026-10-26 | Timeline tightened to about six weeks | Build work runs in daily sessions; the builder's hands-on time, about 15–20 hours, is concentrated in Phase 1 |
 | 2026-10-27 | ADR-0008 records the infrastructure layout; the evaluation-splits record (step 1.6) takes the next free number | The infrastructure decision came first, in step 0.4 |
+| 2026-10-28 | ADR-0009 records the catalogue and the stand-in specification; the reference watches' measuring adds the case length of non-round cases and the case material | Three parts of the system draw the same watch, and the stand-ins need both |
 
 ## 11. Status tracker
 
