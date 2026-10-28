@@ -506,6 +506,7 @@ Expected total: about $25–45.
 | 2026-10-27 | ADR-0008 records the infrastructure layout; the evaluation-splits record (step 1.6) takes the next free number | The infrastructure decision came first, in step 0.4 |
 | 2026-10-28 | ADR-0009 records the catalogue and the stand-in specification; the reference watches' measuring adds the case length of non-round cases and the case material | Three parts of the system draw the same watch, and the stand-ins need both |
 | 2026-10-28 | ADR-0010 records the photo pipeline. Product photos are shot in two passes (S15 from above, S16 from the side) and the handheld set is session S14; benchmark names gain the placement number | One tool and one rule for every set; the mount moves once; re-seat photos of the same watch need distinct names |
+| 2026-10-28 | ADR-0011: synthetic data v0 comes from a hand-written ray caster with labels computed from the geometry | Exact labels, no 3-D software to install, reproducible bit for bit on a CPU |
 
 ## 11. Status tracker
 
