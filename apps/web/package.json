@@ -15,7 +15,9 @@
     "typecheck": "next typegen && tsc --noEmit",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "check": "pnpm lint && pnpm typecheck && pnpm format:check"
+    "contracts": "node scripts/contracts.mjs",
+    "contracts:check": "node scripts/contracts.mjs --check",
+    "check": "pnpm lint && pnpm typecheck && pnpm format:check && pnpm contracts:check"
   },
   "dependencies": {
     "next": "16.4.3",
@@ -30,6 +32,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.4.3",
     "eslint-config-prettier": "^10.1.8",
+    "json-schema-to-typescript": "^16.0.0",
     "prettier": "^3.9.10",
     "tailwindcss": "^4",
     "typescript": "^6"
