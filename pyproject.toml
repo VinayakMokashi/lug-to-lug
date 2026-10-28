@@ -8,17 +8,18 @@ description = "True-to-scale watch try-on, calibrated from the watch already wor
 readme = "README.md"
 requires-python = ">=3.12"
 license = "MIT"
-dependencies = ["lugtolug-core", "lugtolug-api"]
+dependencies = ["lugtolug-core", "lugtolug-api", "lugtolug-tools"]
 
 [tool.uv]
 package = false
 
 [tool.uv.workspace]
-members = ["packages/core", "services/api"]
+members = ["packages/core", "services/api", "tools"]
 
 [tool.uv.sources]
 lugtolug-core = { workspace = true }
 lugtolug-api = { workspace = true }
+lugtolug-tools = { workspace = true }
 
 # ---------------------------------------------------------------------------
 # Tasks: `uv run poe <task>`; `uv run poe` lists them.
@@ -38,6 +39,9 @@ check = { sequence = ["lint", "types", "contracts-check", "test"], help = "Every
 contracts = { cmd = "python scripts/contracts.py", help = "Generate the Python data contracts from data/schemas" }
 contracts-check = { cmd = "python scripts/contracts.py --check", help = "Fail if the generated contracts are out of date" }
 api = { cmd = "uvicorn lugtolug_api.main:app --reload --port 8000", help = "Run the API locally" }
+ingest = { cmd = "python -m lugtolug_tools ingest", help = "Match a session's photos to the plan and copy them (S03 --dry-run)" }
+reference = { cmd = "python -m lugtolug_tools reference", help = "Build data/catalogue/reference.csv from the measuring sheets" }
+phone-check = { cmd = "python -m lugtolug_tools phone-check", help = "Check test photos against the Pixel 9a settings sheet" }
 
 # ---------------------------------------------------------------------------
 
@@ -66,7 +70,7 @@ select = [
 "packages/core/src/lugtolug_core/contracts/*" = ["E501"] # generated; descriptions come from the schemas
 
 [tool.ruff.lint.isort]
-known-first-party = ["lugtolug_core", "lugtolug_api"]
+known-first-party = ["lugtolug_core", "lugtolug_api", "lugtolug_tools"]
 
 [tool.mypy]
 python_version = "3.12"
@@ -78,11 +82,13 @@ files = [
   "packages/core/tests",
   "services/api/src",
   "services/api/tests",
+  "tools/src",
+  "tools/tests",
   "scripts",
 ]
 
 [tool.pytest.ini_options]
-testpaths = ["packages/core/tests", "services/api/tests"]
+testpaths = ["packages/core/tests", "services/api/tests", "tools/tests"]
 addopts = ["--import-mode=importlib", "-ra", "--strict-markers", "--strict-config"]
 
 [dependency-groups]
