@@ -34,7 +34,9 @@ lint = { sequence = [
 ], help = "Lint and check formatting" }
 types = { cmd = "mypy", help = "Type-check (strict)" }
 test = { cmd = "pytest", help = "Run the tests" }
-check = { sequence = ["lint", "types", "test"], help = "Everything CI runs for Python" }
+check = { sequence = ["lint", "types", "contracts-check", "test"], help = "Everything CI runs for Python" }
+contracts = { cmd = "python scripts/contracts.py", help = "Generate the Python data contracts from data/schemas" }
+contracts-check = { cmd = "python scripts/contracts.py --check", help = "Fail if the generated contracts are out of date" }
 api = { cmd = "uvicorn lugtolug_api.main:app --reload --port 8000", help = "Run the API locally" }
 
 # ---------------------------------------------------------------------------
@@ -61,6 +63,7 @@ select = [
 
 [tool.ruff.lint.per-file-ignores]
 "**/tests/**" = ["S101"] # assert is how pytest checks
+"packages/core/src/lugtolug_core/contracts/*" = ["E501"] # generated; descriptions come from the schemas
 
 [tool.ruff.lint.isort]
 known-first-party = ["lugtolug_core", "lugtolug_api"]
@@ -70,7 +73,13 @@ python_version = "3.12"
 strict = true
 warn_unreachable = true
 plugins = ["pydantic.mypy"]
-files = ["packages/core/src", "packages/core/tests", "services/api/src", "services/api/tests"]
+files = [
+  "packages/core/src",
+  "packages/core/tests",
+  "services/api/src",
+  "services/api/tests",
+  "scripts",
+]
 
 [tool.pytest.ini_options]
 testpaths = ["packages/core/tests", "services/api/tests"]
@@ -78,10 +87,13 @@ addopts = ["--import-mode=importlib", "-ra", "--strict-markers", "--strict-confi
 
 [dependency-groups]
 dev = [
+    "datamodel-code-generator>=0.86.0",
     "httpx2>=2.16.0",
+    "jsonschema>=4.26.0",
     "mypy>=2.4.0",
     "poethepoet>=0.49.0",
     "pytest>=9.1.1",
     "pytest-cov>=7.1.0",
     "ruff>=0.17.3",
+    "types-jsonschema>=4.26.0",
 ]
