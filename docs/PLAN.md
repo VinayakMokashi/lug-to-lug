@@ -4,7 +4,7 @@
 |---|---|
 | **Project** | Lug to Lug |
 | **Plan written** | 2026-10-26 |
-| **Current phase** | Phase 1, Ground truth (step 1.1 done; Phase 0 finished 2026-10-28) |
+| **Current phase** | Phase 1, Ground truth (steps 1.1 and 1.5 done; the 1.7 format and the 1.8 generator in place; Phase 0 finished 2026-10-28) |
 
 This is the living plan. Steps are ticked as they land, every working session gets an entry in [BUILD_LOG.md](BUILD_LOG.md), and changes to the plan are recorded in the [change log](#10-change-log) with the reason. The [status tracker](#11-status-tracker) is at the bottom.
 
@@ -261,15 +261,15 @@ Most likely to stretch it: equipment delivery and the volunteers' availability (
   - the three volunteers' wrists wearing the reference watches (about 10 photos to start);
   - a smaller set on everyday surfaces (desk, fabric);
   - tape and caliper measurements for every wrist.
-- [ ] 1.5 Labelling tool (internal):
+- [x] 1.5 Labelling tool (internal, `uv run poe label`; [guide](concepts/labelling.md)):
   - case outline points, wrist edges and watch identity;
   - model-proposed outlines that a person corrects;
   - provenance recorded per label.
 - [ ] 1.6 Splits by watch and by person. The test manifest (hashes) is committed before any tuning, recorded in a decision record (evaluation splits).
 - [ ] 1.7 Catalogue v0:
   - the measured reference watches plus about 300 popular references with published dimensions, each field cited;
-  - a stand-in specification schema (shape, bezel, crown, colours) shared by Python and TypeScript.
-- [ ] 1.8 Synthetic data v0 (training only): wrists of varied skin tones and sizes wearing parametric watches, with exact masks, scale and pose labels.
+  - a stand-in specification schema (shape, bezel, crown, colours) shared by Python and TypeScript (done 2026-10-28 with the catalogue's format and checks, [ADR-0009](decisions/0009-catalogue-and-stand-in-specification.md); the published entries are next).
+- [ ] 1.8 Synthetic data v0 (training only): wrists of varied skin tones and sizes wearing parametric watches, with exact masks, scale and pose labels. The generator is done ([ADR-0011](decisions/0011-synthetic-data-renderer.md), [data card](cards/synthetic-v0-data-card.md)); the first 1,000-sample run is part made.
 
 **Exit.** The data card is published, the test manifest is frozen, catalogue v0 is loaded into Postgres, and a first statistics note on the data exists.
 
@@ -513,7 +513,7 @@ Expected total: about $25–45.
 | Phase | Status | Started | Finished |
 |---|---|---|---|
 | 0 Foundations | Done | 2026-10-26 | 2026-10-28 |
-| 1 Ground truth | In progress (step 1.1 done) | 2026-10-27 | |
+| 1 Ground truth | In progress (1.1 and 1.5 done; the 1.7 format and the 1.8 generator in place; the photo-free tools are ready) | 2026-10-27 | |
 | 2 Calibration | Planned | | |
 | 3 Rendering and the swap test | Planned | | |
 | 4 Studio | Planned | | |
