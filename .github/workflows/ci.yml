@@ -27,6 +27,7 @@ jobs:
       actions: read # to find the last green run on main
     outputs:
       python: ${{ steps.filter.outputs.python }}
+      api: ${{ steps.filter.outputs.api }}
       web: ${{ steps.filter.outputs.web }}
       terraform: ${{ steps.filter.outputs.terraform }}
     steps:
@@ -53,6 +54,18 @@ jobs:
             python:
               - "packages/**"
               - "services/**"
+              - "scripts/**"
+              - "data/schemas/**"
+              - "data/catalogue/**"
+              - "pyproject.toml"
+              - "uv.lock"
+              - ".python-version"
+              - ".github/workflows/ci.yml"
+              - ".github/workflows/deploy-service.yml"
+            # What goes into the API image: only these redeploy it.
+            api:
+              - "packages/core/**"
+              - "services/api/**"
               - "pyproject.toml"
               - "uv.lock"
               - ".python-version"
@@ -60,6 +73,7 @@ jobs:
               - ".github/workflows/deploy-service.yml"
             web:
               - "apps/web/**"
+              - "data/schemas/**"
               - ".github/workflows/ci.yml"
               - ".github/workflows/deploy-service.yml"
             terraform:
@@ -112,6 +126,7 @@ jobs:
       - run: uv sync --locked
       - run: uv run poe lint
       - run: uv run poe types
+      - run: uv run poe contracts-check
       - run: uv run pytest --cov=lugtolug_core --cov=lugtolug_api --cov-report=term-missing
 
   web:
@@ -183,7 +198,8 @@ jobs:
     needs: [changes, hooks, python]
     if: >-
       github.ref == 'refs/heads/main' && github.event_name != 'pull_request' &&
-      needs.hooks.result == 'success' && needs.python.result == 'success'
+      needs.hooks.result == 'success' && needs.python.result == 'success' &&
+      (needs.changes.outputs.api == 'true' || inputs.deploy)
     permissions:
       contents: read
       id-token: write
