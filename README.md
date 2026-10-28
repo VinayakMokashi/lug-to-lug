@@ -50,12 +50,13 @@ The benchmark uses a set of reference watches measured with calipers (35 to star
 |---|---|
 | `apps/web` | Next.js web app |
 | `services/api` | FastAPI service |
-| `packages/core` | Calibration, wrist measurement and rendering (Python) |
+| `packages/core` | Calibration, wrist measurement and rendering, and the data contracts (Python) |
+| `tools/` | Data tools: photo ingest, the reference-watch table, phone checks |
 | `services/mcp`, `services/studio` | MCP server and GPU relighting (later phases) |
 | `ml/`, `eval/` | Training code and the evaluation harness (later phases) |
-| `data/` | Measurements, schemas and manifests; never photos |
+| `data/` | Catalogue, schemas and manifests; never photos |
 | `infra/terraform` | Every Google Cloud resource |
-| `docs/` | Plan, decisions, build log, runbooks, project page |
+| `docs/` | Plan, decisions, concept guides, build log, runbooks, project page |
 
 To set up and run the checks locally, see [local development](docs/runbooks/local-development.md).
 
@@ -63,6 +64,7 @@ To set up and run the checks locally, see [local development](docs/runbooks/loca
 
 - [Build plan](docs/PLAN.md): definition of done, phases and steps, budget, risks, status tracker
 - [Decision records](docs/decisions/README.md)
+- [Concept guides](docs/concepts/README.md): the idea behind each component
 - [Build log](docs/BUILD_LOG.md)
 - Runbooks: [local development](docs/runbooks/local-development.md), [deploy and roll back](docs/runbooks/deploy.md)
 - [Project page](https://vinayakmokashi.github.io/lug-to-lug/)

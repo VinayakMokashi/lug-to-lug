@@ -83,14 +83,15 @@ Skin tone is recorded only to check that the app works equally well across skin 
 
 ## 6. Product photos (step 1.3)
 
-One set per watch, used for the real-image catalogue and the product-photo render mode.
+One set per watch, used for the real-image catalogue and the product-photo render mode. They are shot in two passes, so the mount moves only once: every watch from above (session S15), then every watch from the side (S16). Each pass starts with a slate (`S15 PRODUCT TOP`), like a block.
 
 1. Lay the watch dial up on the backdrop, with the strap straight along the 12-to-6 line and the crown on the right.
 2. If it is easy, set the hands to about 10:10, which keeps them off the dial's centre.
 3. Place the steel ruler next to the case, parallel to the 12-to-6 line.
 4. Phone on the mount, straight down (0°), about 30 cm above the watch, the case in the centre of the frame.
 5. Light: bright, diffuse daylight, no direct sun. Move the light rather than the phone to get rid of reflections on the crystal.
-6. Take two photos. Then take one from the side, with the phone level with the case and the crown towards it, which shows the profile.
+6. Take two photos, then lay the next watch down in the same place.
+7. Side pass: one photo of each watch, in the same order, with the phone level with the case and the crown towards it, which shows the profile.
 
 The ruler lies on the backdrop, lower than the crystal, so it checks the photo's scale only roughly; the measured diameters are the true scale.
 
@@ -141,7 +142,7 @@ A block of the 35 watches is 38 placements (the first watch four times, the othe
 |---|---|---|---|
 | Studio | P01 | All 9 blocks (3 tilts × 3 lights), every reference watch | 9 × 25 min, in three sittings of three blocks, one per lighting condition |
 | Volunteers | P02, P03, P04 | One block each (`T00 DAY`) with 5 watches chosen to span size, shape and dial colour, plus the re-seat check | 15 min each |
-| Everyday surfaces | P01 | One mounted block of 10 watches on a desk without the backdrop; then 10 photos taken handheld, as a visitor would, on a desk and on fabric | 30 min |
+| Everyday surfaces | P01 | One mounted block of 10 watches on a desk without the backdrop (S13); then 10 photos taken handheld, as a visitor would, on a desk and on fabric (S14) | 30 min |
 
 The handheld photos have no swap pairs; they test calibration and wrist measurement against the tape and calipers, outside studio conditions. More volunteer blocks are added once the first ones work.
 
@@ -165,21 +166,23 @@ The session header records the phone model, the distance to the backdrop, the su
 
 ### 7.6 File names
 
-Photos keep their camera names until they are copied (§8). On ingest they are renamed from the session sheet, in order:
+Photos keep their camera names until they are copied (§8). On ingest they are renamed from the session sheet:
 
 ```
-P01_S03_T20-DAY_W12_1.jpg
-person_session_block_watch_shot
+P01_S03_T20-DAY_07_W12_1.jpg
+person_session_block_placement_watch_shot
 ```
 
-The ingest script checks that the number of photos matches the sheet block by block, and uses the slates to realign if a photo is missing or extra. Mismatches are reported, never guessed.
+The placement number keeps the four re-seat placements of the first watch apart. Product photos have no person: `S15_PRODUCT-TOP_12_W12_1.jpg`.
+
+The ingest pairs photos with the sheet only when three checks agree: the count (a slate plus each placement's photos), the timing (photos taken together belong to one placement, and changing the watch takes longer), and the camera (one lens, no zoom, the same image size, plain photo mode). Anything else is reported, and nothing is renamed until the sheet is corrected. Mismatches are never guessed ([ADR-0010](../decisions/0010-benchmark-photo-pipeline.md), [how it works](../concepts/photo-ingest.md)).
 
 ## 8. Storage and privacy
 
 - **Same day:** copy the photos from the phone to the private photo store by cable, then delete them from the phone, from its photo app's bin, and from any automatic photo backup. Phone photo backup is best left off for the whole project.
 - **The private store** is a folder on the builder's computer, outside this repository, with one subfolder per session. The originals are never edited. It is backed up to the builder's private Google Drive, which is shared with no one. The backup is a file sync, never a photo library. Raw photos never enter the repository; it holds manifests (file hashes), annotations and numbers only. A pre-commit hook rejects image files under `data/`.
-- **On ingest** the location and any other identifying metadata are stripped; the focal length and image size are kept for calibration.
-- **Withdrawal:** within 14 days, a person's photos, measurements and labels are deleted from the computer and from the backup (including its bin), and they are dropped from every later release (ADR-0006).
+- **On ingest** the photos are copied, renamed and stripped of their metadata without re-encoding them, so the pixels stay exactly as taken. The copies keep only the camera, lens, zoom, focus distance and exposure, which calibration and the quality checks use; capture times, any location and the maker notes are removed. The copies live on the same computer, outside the backed-up folder, because they can be rebuilt from the originals; a withdrawal deletes them too.
+- **Withdrawal:** within 14 days, a person's photos, their copies, measurements and labels are deleted from the computer and from the backup (including its bin), and they are dropped from every later release (ADR-0006).
 
 ## 9. Labels and splits
 
