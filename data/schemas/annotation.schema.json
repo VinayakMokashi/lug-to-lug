@@ -1,0 +1,159 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ImageAnnotation",
+  "description": "The labels of one benchmark photo. Points are in pixels of the image as stored, before any rotation from its orientation tag: x to the right, y down, (0, 0) at the top-left corner of the top-left pixel. Every label records how it was made.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "annotation_version",
+    "image_id",
+    "image_sha256",
+    "width",
+    "height",
+    "case_outline",
+    "dial_outline",
+    "wrist_edges",
+    "identity",
+    "flags"
+  ],
+  "properties": {
+    "annotation_version": {
+      "const": 1,
+      "description": "The version of this annotation format"
+    },
+    "image_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]+$",
+      "maxLength": 80,
+      "description": "The photo's benchmark name without its extension, as in the session manifest"
+    },
+    "image_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "SHA-256 of the benchmark file the labels were made on"
+    },
+    "width": { "type": "integer", "minimum": 1, "description": "Stored width in pixels" },
+    "height": { "type": "integer", "minimum": 1, "description": "Stored height in pixels" },
+    "case_outline": {
+      "anyOf": [{ "$ref": "#/$defs/Outline" }, { "type": "null" }],
+      "description": "The outer edge of the case seen from above (the bezel's edge where it is outermost)"
+    },
+    "dial_outline": {
+      "anyOf": [{ "$ref": "#/$defs/Outline" }, { "type": "null" }],
+      "description": "The edge of the visible dial opening"
+    },
+    "wrist_edges": {
+      "anyOf": [{ "$ref": "#/$defs/WristEdges" }, { "type": "null" }]
+    },
+    "identity": {
+      "anyOf": [{ "$ref": "#/$defs/Identity" }, { "type": "null" }]
+    },
+    "flags": { "$ref": "#/$defs/Flags" }
+  },
+  "$defs": {
+    "Point": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["x", "y"],
+      "properties": {
+        "x": { "type": "number" },
+        "y": { "type": "number" }
+      }
+    },
+    "Outline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["points", "provenance"],
+      "properties": {
+        "points": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Point" },
+          "minItems": 5,
+          "description": "Points on the edge, in order around it. Five or more, so an ellipse is determined"
+        },
+        "provenance": { "$ref": "#/$defs/Provenance" }
+      }
+    },
+    "WristEdges": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["radial", "ulnar", "provenance"],
+      "properties": {
+        "radial": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Point" },
+          "minItems": 2,
+          "description": "The skin edge on the thumb side, across the watch's position"
+        },
+        "ulnar": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Point" },
+          "minItems": 2,
+          "description": "The skin edge on the little-finger side, across the watch's position"
+        },
+        "provenance": { "$ref": "#/$defs/Provenance" }
+      }
+    },
+    "Identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["watch_id", "provenance"],
+      "properties": {
+        "watch_id": { "$ref": "common.schema.json#/$defs/WatchId" },
+        "provenance": { "$ref": "#/$defs/Provenance" }
+      }
+    },
+    "Flags": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["blurred", "glare", "occluded", "strap_moved", "unusable", "note"],
+      "properties": {
+        "blurred": { "type": "boolean" },
+        "glare": { "type": "boolean", "description": "A reflection hides part of the case or dial" },
+        "occluded": { "type": "boolean", "description": "Something covers part of the watch or the wrist" },
+        "strap_moved": { "type": "boolean", "description": "The watch sits away from its usual place" },
+        "unusable": { "type": "boolean", "description": "Leave this photo out of every measurement" },
+        "note": { "type": "string", "maxLength": 500 }
+      }
+    },
+    "Provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["method", "labeller", "proposer", "tool", "created"],
+      "properties": {
+        "method": {
+          "type": "string",
+          "enum": [
+            "person_drawn",
+            "model_proposed_person_accepted",
+            "model_proposed_person_corrected",
+            "model_only",
+            "session_sheet"
+          ],
+          "description": "How the label was made. Only the first three were checked by a person"
+        },
+        "labeller": {
+          "type": ["string", "null"],
+          "pattern": "^P[0-9]{2}$",
+          "description": "The person who drew, accepted or corrected the label, by participant ID; null when no person checked it"
+        },
+        "proposer": {
+          "type": ["string", "null"],
+          "maxLength": 120,
+          "description": "The model or algorithm, with its version, that proposed the label; null when a person drew it"
+        },
+        "tool": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120,
+          "description": "The tool and version that saved the label"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the label was saved, with its time zone"
+        }
+      }
+    }
+  }
+}
