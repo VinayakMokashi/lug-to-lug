@@ -5,13 +5,20 @@ description = "Internal data tools for Lug to Lug: photo ingest, the reference-w
 readme = "README.md"
 requires-python = ">=3.12"
 license = "MIT"
-dependencies = ["lugtolug-core", "pillow>=13.0.0"]
+dependencies = [
+    "lugtolug-core",
+    "lugtolug-ml",
+    "pillow>=13.0.0",
+    "streamlit>=1.66.1",
+    "streamlit-image-coordinates>=0.4.1",
+]
 
 [project.scripts]
 lugtolug = "lugtolug_tools.cli:main"
 
 [tool.uv.sources]
 lugtolug-core = { workspace = true }
+lugtolug-ml = { workspace = true }
 
 [build-system]
 requires = ["uv_build>=0.12.19,<0.14.0"]
