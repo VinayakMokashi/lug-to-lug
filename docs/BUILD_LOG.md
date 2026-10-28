@@ -2,6 +2,71 @@
 
 One entry per working session, newest first. Each entry records what changed, the commands and results that matter, problems met and the next steps. The plan's steps are referred to by their IDs in [PLAN.md](PLAN.md).
 
+## 2026-10-28 (later): Phase 1 tools: contracts, ingest, Pixel settings, synthetic data, labelling
+
+Everything in Phase 1 that needs no photos, so a photo session becomes benchmark data the day it happens.
+
+**What changed**
+
+- **Data contracts and the catalogue format (#14, [ADR-0009](decisions/0009-catalogue-and-stand-in-specification.md), step 1.7):**
+  - JSON Schemas in `data/schemas` for the stand-in specification, the catalogue entry and the image annotation;
+  - Pydantic and TypeScript generated from them, with strict types and a CI check;
+  - `build_spec` fills unknown dimensions and lists them as assumed, and `check_spec` holds the rules a schema can't express;
+  - the catalogue is CSV with a source per value and a tolerance from each number's precision, and `reference.csv` records measurements without identity;
+  - the capture protocol now measures non-round cases' length and records the case material.
+- **Photo ingest (#15, [ADR-0010](decisions/0010-benchmark-photo-pipeline.md)), in a new `tools/` package:**
+  - `poe ingest` pairs photos with the session plan only when count, timing and camera checks agree. It strips metadata at the JPEG segment level, so the pixels are untouched (verified by decoding every copy), and writes public and private manifests;
+  - `poe reference` builds the reference-watch table from the three measuring rounds;
+  - `poe phone-check` checks the phone's settings from a test series.
+- **Pixel 9a settings sheet (#16):** [`docs/data/pixel-9a-settings.md`](data/pixel-9a-settings.md).
+  - Each setting is checked against Google's help pages, recent reporting and published Pixel 9a files, with 17 numbered sources.
+  - Settings are named rather than given as paths, because Pixel Camera 10.1 moved its menus.
+  - A 12-photo test series settles what documentation couldn't: whether the focus lock holds, whether Ultra HDR off removes the gain map, and whether the phone keeps its orientation pointing down.
+- **Synthetic data v0 (#17, [ADR-0011](decisions/0011-synthetic-data-renderer.md), step 1.8):**
+  - `lugtolug_core.geometry`: the camera model, with the Pixel 9a's intrinsics, and a stable ellipse fit;
+  - a new `ml/` package with a numpy ray caster that draws the stand-in watches on forearms;
+  - labels computed from the scene;
+  - `poe synth`, seeded per sample and resumable;
+  - a [concept guide](concepts/synthetic-data.md) and a [data card](cards/synthetic-v0-data-card.md).
+- **Labelling tool (#18, step 1.5):** `poe label`.
+  - Click-to-zoom with sub-pixel points.
+  - A two-click outline proposer.
+  - Every label records whether it was drawn, accepted or corrected, by whom and with which tool.
+  - A Demo source practises on synthetic data ([guide](concepts/labelling.md)).
+- **Concept guides (#19):** [calibration from an ellipse](concepts/calibration-from-an-ellipse.md) and [the swap test](concepts/swap-test.md), with an [index](concepts/README.md).
+- **CI:** a separate change filter decides API deploys, so data, tools and ML changes no longer redeploy it, and schema changes run the web checks.
+
+**Results**
+
+| Check | Result |
+|---|---|
+| `uv run poe check` | ruff, mypy (strict), contracts check, 299 tests |
+| `pnpm -C apps/web check` | Clean, with the contracts check |
+| Synthetic geometry | Straight down, a round case's image is a circle whose radius matches the labelled scale within 3%; at a 30° tilt it is squeezed by the cosine |
+| Synthetic label accuracy | At the 1 mm step, about 60 of 786,432 pixels differ from a 0.25 mm reference, all on strap edges (0.5 mm: 13; 2 mm: 189), on one 1024 × 768 sample |
+| Proposer | Median distance to the true edge under 2 px on a synthetic render; nothing proposed on a blank image |
+| Ingest | Copies decode to the originals' exact pixels; an extra photo of one watch and a missing photo of the next are refused even though the count is right |
+| API image | Builds and answers `/health` locally and on staging; 237 MB, now 330 MB because the core depends on numpy |
+| Synthetic v0 run | 443 of 1,000 samples made (1024 × 768, seed 0); finishing it is one resumable command |
+
+**Problems met**
+
+- datamodel-code-generator emitted unused shared definitions as classes and wrapped constrained list items. Each schema is now bundled with only what it uses, and item rules moved into code.
+- Pydantic's default (lax) mode accepted `"yes"` as true and `"40"` as a number, which the schema rejects; the generated models use strict types.
+- The default lug-to-lug (1.2 × diameter) came out shorter than long cases; it now also follows the case length. A test caught it.
+- Adding a workspace member would have broken the API image's locked install, which reads every member's metadata. Found by emulating the build, fixed, and proven by a local Docker build and CI's deploy.
+- A CSV row with a decimal comma crashed three readers; each now reports it.
+- At steep tilts the strap vanished on the far side; it now rises to the lug tips. Renders took about 9 s; a bounding cylinder cut that to about 3.7 s.
+- The proposer "found" a circle on a blank image; a contrast floor fixed it.
+- The machine had little free memory, so the synthetic run started on one worker. Two workers later began paging heavily, so the run was stopped cleanly to finish another time. On Windows, stopping a process pool's parent leaves its workers running, so they had to be stopped separately.
+
+**Next**
+
+- Finish the synthetic v0 run (`uv run poe synth --count 1000`) and add its statistics to the data card.
+- When the watch list is filled in: check it and pick the volunteers' five watches.
+- When the equipment arrives: the phone's test series and `poe phone-check`, then the measuring rounds (`poe reference`) and the photo sessions (`poe ingest`, then labelling).
+- The catalogue's published references (1.7), and the splits with the frozen test manifest (1.6).
+
 ## 2026-10-28: Dependency updates, a CI fix, and where photos are kept
 
 **What changed**
