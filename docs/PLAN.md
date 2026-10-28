@@ -505,6 +505,7 @@ Expected total: about $25–45.
 | 2026-10-26 | Timeline tightened to about six weeks | Build work runs in daily sessions; the builder's hands-on time, about 15–20 hours, is concentrated in Phase 1 |
 | 2026-10-27 | ADR-0008 records the infrastructure layout; the evaluation-splits record (step 1.6) takes the next free number | The infrastructure decision came first, in step 0.4 |
 | 2026-10-28 | ADR-0009 records the catalogue and the stand-in specification; the reference watches' measuring adds the case length of non-round cases and the case material | Three parts of the system draw the same watch, and the stand-ins need both |
+| 2026-10-28 | ADR-0010 records the photo pipeline. Product photos are shot in two passes (S15 from above, S16 from the side) and the handheld set is session S14; benchmark names gain the placement number | One tool and one rule for every set; the mount moves once; re-seat photos of the same watch need distinct names |
 
 ## 11. Status tracker
 

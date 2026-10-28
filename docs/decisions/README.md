@@ -13,3 +13,4 @@ Each record explains one decision that is hard to reverse or easy to forget the 
 | [0007](0007-tooling-and-workflow.md) | Tooling and workflow: uv, pnpm, strict types, pre-commit with a secret scan | Accepted | 2026-10-27 |
 | [0008](0008-infrastructure-and-delivery.md) | Infrastructure layout and keyless delivery: two Terraform roots, images deployed by CI | Accepted | 2026-10-27 |
 | [0009](0009-catalogue-and-stand-in-specification.md) | Catalogue and stand-in specification: JSON Schema contracts, cited values, assumed dimensions | Accepted | 2026-10-28 |
+| [0010](0010-benchmark-photo-pipeline.md) | Benchmark photo pipeline: an ingest that never guesses, lossless metadata removal, storage tiers | Accepted | 2026-10-28 |
