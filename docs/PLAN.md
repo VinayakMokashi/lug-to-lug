@@ -269,7 +269,7 @@ Most likely to stretch it: equipment delivery and the volunteers' availability (
 - [ ] 1.7 Catalogue v0:
   - the measured reference watches plus about 300 popular references with published dimensions, each field cited;
   - a stand-in specification schema (shape, bezel, crown, colours) shared by Python and TypeScript (done 2026-10-28 with the catalogue's format and checks, [ADR-0009](decisions/0009-catalogue-and-stand-in-specification.md); the published entries are next).
-- [ ] 1.8 Synthetic data v0 (training only): wrists of varied skin tones and sizes wearing parametric watches, with exact masks, scale and pose labels. The generator is done ([ADR-0011](decisions/0011-synthetic-data-renderer.md), [data card](cards/synthetic-v0-data-card.md)); the first 1,000-sample run is part made.
+- [x] 1.8 Synthetic data v0 (training only): 1,000 samples of wrists of varied skin tones and sizes wearing parametric watches, with exact masks, scale and pose labels ([ADR-0011](decisions/0011-synthetic-data-renderer.md), [data card](cards/synthetic-v0-data-card.md)).
 
 **Exit.** The data card is published, the test manifest is frozen, catalogue v0 is loaded into Postgres, and a first statistics note on the data exists.
 
@@ -513,7 +513,7 @@ Expected total: about $25–45.
 | Phase | Status | Started | Finished |
 |---|---|---|---|
 | 0 Foundations | Done | 2026-10-26 | 2026-10-28 |
-| 1 Ground truth | In progress (1.1 and 1.5 done; the 1.7 format and the 1.8 generator in place; the photo-free tools are ready) | 2026-10-27 | |
+| 1 Ground truth | In progress (1.1, 1.5 and 1.8 done; the 1.7 format in place; the photo-free tools are ready) | 2026-10-27 | |
 | 2 Calibration | Planned | | |
 | 3 Rendering and the swap test | Planned | | |
 | 4 Studio | Planned | | |
