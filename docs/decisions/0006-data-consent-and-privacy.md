@@ -1,6 +1,6 @@
 # ADR-0006: Consent, storage and retention for personal photos
 
-- **Status:** Accepted
+- **Status:** Accepted; its "Consent first" rule is superseded by [ADR-0012](0012-agreement-in-person.md)
 - **Date:** 2026-10-26
 
 ## Context
