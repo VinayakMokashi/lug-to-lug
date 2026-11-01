@@ -2,6 +2,47 @@
 
 One entry per working session, newest first. Each entry records what changed, the commands and results that matter, problems met and the next steps. The plan's steps are referred to by their IDs in [PLAN.md](PLAN.md).
 
+## 2026-11-01: Sheets from Excel, synthetic data finished, agreement in person, and the first 73 catalogue rows
+
+The equipment has arrived, and the next hands-on step is the watch list. Everything that doesn't depend on the list moved forward meanwhile.
+
+**What changed**
+
+- **Sheets (#21):**
+  - every hand-edited sheet now goes through one reader, `lugtolug_tools.sheets`, which accepts a CSV however a spreadsheet program saved it;
+  - `poe watch-list` checks every row of the watch list before anything is measured: the allowed words, brand and model filled in, unique IDs, and that the list covers the session plan. It reports by watch ID and never prints a brand or model.
+- **Synthetic data v0 finished (#22, step 1.8):** 1,000 samples. The [data card](cards/synthetic-v0-data-card.md) now has its counts, ranges, class shares and checks, and the generator reports only the samples a run made.
+- **Agreement in person (#23, [ADR-0012](decisions/0012-agreement-in-person.md)):**
+  - the volunteers know the builder personally, so no consent forms are signed;
+  - the README, plan, capture protocol, data card and project page no longer say "written consent";
+  - the consent form became the [participant information](data/participant-information.md): what each person is told before their first photo.
+- **Catalogue (#24, #25, #26, step 1.7):** the first 73 published references, each value read from an individual page, and tighter [sourcing rules](../data/catalogue/README.md).
+
+**Results**
+
+| Check | Result |
+|---|---|
+| `uv run poe check` | ruff, mypy (strict), contracts check, 321 tests |
+| Sheets | Copies of the real sheets, saved the two ways Excel saves a CSV, now read correctly; before, both crashed `poe reference` |
+| Synthetic v0 | 1,000 samples, 104 MB. Every sample is complete. Six samples, three from each part of the run, re-rendered byte for byte |
+| Catalogue | 73 references from 8 brands, 71 with a manufacturer's page as the main source, 61 with all four lengths |
+| Catalogue second reads | 86 lengths on 22 rows were read a second time without seeing the first values, and all agreed. Four of them, on one row, were confirmed only through a summary of the page; the rest were read verbatim |
+
+**Problems met**
+
+- A sheet saved from Excel crashed the tools: "CSV UTF-8" adds a byte order mark, which became part of the first column's name, and plain "CSV" with an accented letter isn't valid UTF-8. Found on copies of the real sheets, before anyone typed into them.
+- `poe reference` could only check watches that had measurements, so a wrong word in the list passed it silently.
+- Finishing the interrupted synthetic run reported 1,000 samples in 27.8 minutes when it had made 557, which reads as about twice the real speed.
+- Several manufacturers' sites refuse automated reading: Rolex, Casio, Tudor, TAG Heuer, IWC, Panerai, Zenith and Titan. That is respected rather than worked around, so those rows will rest on reviews and retailers, and each source's `kind` shows it.
+- The first research notes let a row default to a crown at 3 o'clock with no source. Those values were removed, and a crown position now needs a source like any other value.
+- Omega's Moonwatch figures looked the wrong way round: 13.54 mm thick with hesalite, 13.18 mm with sapphire. A verbatim read confirmed both, so they stay as published.
+
+**Next**
+
+- The watch list, then the volunteers' five watches and the phone's test series; then the measuring rounds and the photo sessions.
+- More of the catalogue, Tissot first, then the brands that need reviews.
+- The splits and the frozen test manifest (1.6), once the photos exist.
+
 ## 2026-10-28 (later): Phase 1 tools: contracts, ingest, Pixel settings, synthetic data, labelling
 
 Everything in Phase 1 that needs no photos, so a photo session becomes benchmark data the day it happens.
