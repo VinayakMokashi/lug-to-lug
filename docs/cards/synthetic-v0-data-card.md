@@ -24,7 +24,38 @@ Each sample is a JPEG (1024 × 768), a PNG class mask and a JSON label file ([fo
 
 The labels also carry the projected outlines of the case top and back, the bezel and the dial opening; the camera and watch poses; pixels per millimetre at the case top; the reference circle and its image for round cases; and the wrist's width, thickness and circumference.
 
-**Statistics** (counts per skin tone, light, surface, tilt, case shape, and so on) are measured from the finished run and added here then.
+## Statistics
+
+Measured on 2026-11-01 from the finished run: 1,000 samples, IDs `000000` to `000999`, 104 MB on disk (images 83.7 MB, labels 17.9 MB, masks 2.6 MB). Rendering took about 3 s a sample on one CPU worker.
+
+| Skin tone (Monk) | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
+|---|---|---|---|---|---|---|---|---|---|---|
+| Samples | 109 | 93 | 96 | 102 | 119 | 86 | 96 | 104 | 98 | 97 |
+
+| Factor | Samples |
+|---|---|
+| Light | Warm 344, mix 331, daylight 325 |
+| Surface | Grey card 609, desk 235, fabric 156 |
+| Camera tilt, either side | 0° to 15°: 318; 15° to 30°: 342; 30° to 45°: 340 |
+| Case shape | Round 707, cushion 110, square 110, other 53, tonneau 20 |
+| Bezel | Rotating with insert 338, smooth 309, none 198, fluted 101, other 54 |
+| Strap | Bracelet 392, leather 297, rubber 196, fabric 115 |
+
+| Measure | Smallest | Median | Largest |
+|---|---|---|---|
+| Scale at the case top, at 1024 px wide (px/mm) | 1.79 | 2.17 | 2.87 |
+| Camera distance (mm) | 250.2 | 330.6 | 399.7 |
+| Case diameter or width (mm) | 26.02 | 37.22 | 45.99 |
+| Wrist width (mm) | 48.02 | 59.77 | 71.97 |
+| Case and dial in the mask (px) | 2,207 | 5,532 | 19,012 |
+| Dial in the mask (px) | 833 | 3,082 | 10,685 |
+
+Across all the images, background takes 81.37% of the pixels, skin 17.57%, dial 0.43%, case and bezel 0.33%, strap 0.25%, and lugs and crown 0.05%. The watch is about 1% of a frame, so models need a crop around it or a loss that weights its classes.
+
+**Checks on the finished run:**
+
+- every sample has its three files, every image and mask is 1024 × 768, and masks hold only classes 0 to 5;
+- the run was made in two parts, days apart: samples 0 to 442, then 443 to 999. Six samples, three from each part, were rendered again and matched the files on disk byte for byte, labels and masks included.
 
 ## How it is sampled
 
