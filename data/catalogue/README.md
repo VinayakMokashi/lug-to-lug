@@ -13,8 +13,9 @@ The format is checked in CI: `lugtolug_core.catalogue` loads every file, and a t
 
 ## Rules
 
-- **Every published value has a source.** A row's `source` covers its brand, model, reference and any value without its own line in `field-sources.csv`. A manufacturer's page is preferred; a review or retailer page is used only for values the manufacturer doesn't publish.
-- **Unknown stays empty.** Lug-to-lug and thickness are often unpublished. An empty cell means unknown, and nothing downstream may treat it as known. A stand-in drawn without it lists the field as assumed.
+- **Every published value has a source.** A row's `source` covers its brand, model, reference and any value without its own line in `field-sources.csv`. A manufacturer's page is preferred; a review or retailer page is used only for values the manufacturer doesn't publish, or when its site refuses automated reading. Each source's `kind` shows which it is.
+- **A sibling reference counts only for its case.** A length may come from a page about another version of the same case when that page says it is the same case. Colours and straps come from a page about this reference.
+- **Unknown stays empty.** Lug-to-lug and thickness are often unpublished, and a product page's text rarely says where the crown is. An empty cell means unknown, and nothing downstream may treat it as known. A stand-in drawn without it lists the field as assumed.
 - **Numbers as published.** Write a length exactly as the source gives it (`40`, `40.5`, `11.95`). Its tolerance comes from that precision: whole millimetres ±0.5, halves ±0.25, anything finer ±0.1.
 - **No bulk collection.** Values are read from individual pages, never scraped in bulk from a site whose terms forbid it. Dimensions are facts; the citation is what makes them checkable.
 - **The reference watches carry no identity.** `reference.csv` records measurements and appearance under a watch ID only: no brand, model or reference number, and never who owns a watch.
@@ -35,9 +36,9 @@ The format is checked in CI: `lugtolug_core.catalogue` loads every file, and a t
 | `lug_width_mm` | Inside distance between the lugs | mm |
 | `bezel_type` | | `none`, `smooth`, `fluted`, `rotating_insert`, `other` |
 | `case_material` | Gold covers yellow, rose and white gold | `steel`, `titanium`, `gold`, `ceramic`, `resin`, `bronze`, `other` |
-| `case_colour`, `dial_colour` | As the source names it | `black`, `white`, `silver`, `grey`, `blue`, `green`, `red`, `brown`, `gold`, `champagne`, `cream`, `orange`, `yellow`, `pink`, `purple`, `other` |
-| `strap_type` | | `bracelet`, `leather`, `rubber`, `fabric`, `other` |
-| `crown_position` | As an hour on the dial | `3` for most watches, `9` for a left-hand crown |
+| `case_colour`, `dial_colour` | As the source names it. A steel case with no colour named is `silver` | `black`, `white`, `silver`, `grey`, `blue`, `green`, `red`, `brown`, `gold`, `champagne`, `cream`, `orange`, `yellow`, `pink`, `purple`, `other` |
+| `strap_type` | A resin strap is `rubber` | `bracelet`, `leather`, `rubber`, `fabric`, `other` |
+| `crown_position` | As an hour on the dial, only when the source says | `3` for most watches, `9` for a left-hand crown |
 
 **`sources.csv`**: `id` (`S0001`, …), `kind` (`manufacturer`, `retailer`, `review`, `press`, `other`), `publisher`, `title`, `url`, `accessed` (YYYY-MM-DD), `archived_url` (a web archive copy, or empty).
 
