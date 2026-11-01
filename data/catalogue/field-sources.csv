@@ -1,1 +1,6 @@
 entry_id,field,source
+casio-ga-2100-1a,lug_to_lug_mm,S0003
+casio-ga-2100-1a,lug_width_mm,S0003
+rolex-126610ln,lug_to_lug_mm,S0004
+rolex-126610ln,thickness_mm,S0004
+tissot-t127-407-11-041-00,lug_to_lug_mm,S0002
