@@ -4,11 +4,10 @@ How the ground truth for Lug to Lug is collected: measuring the reference watche
 
 Everything here is written to be repeatable: the same phone, the same distances, the same order, recorded on a sheet as it happens. A mistake that is written down is data; one that isn't is noise.
 
-## 1. Consent comes first
+## 1. Agreement comes first
 
-- Nobody is photographed or measured before signing the [consent form](consent-form.md).
-- Each person gets a participant ID (P01, P02, …) when they sign. From then on every file, sheet and label uses only the ID.
-- The signed form is kept in the private records, never in this repository.
+- Nobody is photographed or measured before agreeing in person. The builder first tells them what is in the [participant information](participant-information.md). No form is signed ([ADR-0012](../decisions/0012-agreement-in-person.md)).
+- Each person gets a participant ID (P01, P02, …) when they agree. From then on every file, sheet and label uses only the ID.
 - People who prefer to can cover tattoos, and should take off rings and bracelets on the photographed arm.
 
 ## 2. Equipment
@@ -190,7 +189,7 @@ The ingest pairs photos with the sheet only when three checks agree: the count (
 
 ## 10. Checklist for a session
 
-- [ ] Consent signed for everyone photographed today
+- [ ] Everyone photographed today has been told how the photos are used, and has agreed
 - [ ] Phone settings checked ([Pixel 9a settings](pixel-9a-settings.md#at-the-start-of-every-block)), mount at 30 cm, arm guide in place
 - [ ] Session sheet header filled in; wrist measured (§5)
 - [ ] For each block: slate, focus and exposure locked, re-seat check, the watches, re-seat check

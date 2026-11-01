@@ -7,7 +7,7 @@
 | Version | not yet frozen |
 | Collected | not yet |
 | Collection protocol | [capture-protocol.md](../data/capture-protocol.md) |
-| Consent | [consent-form.md](../data/consent-form.md), signed by every participant ([ADR-0006](../decisions/0006-data-consent-and-privacy.md)) |
+| Consent | Every participant knows the builder personally and agreed in person, after being told what is in the [participant information](../data/participant-information.md). No forms were signed, so there is no document of the agreement ([ADR-0012](../decisions/0012-agreement-in-person.md)) |
 | Licence of the published parts | decided at release |
 
 ## Purpose
@@ -60,9 +60,9 @@ Grouped by watch and by person, so no test watch and no test wrist is seen in tr
 
 ## Privacy
 
-- Participants appear only as pseudonymous IDs; names exist only on the signed consent forms, kept privately.
+- Participants appear only as pseudonymous IDs; their names stay in private notes.
 - Raw photos are kept privately on the project owner's computer, with a private Google Drive backup, outside the repository. Location data is stripped on ingest.
-- Images are published only for participants who opted in, cropped to wrist and watch.
+- Images are published only for participants who said yes, cropped to wrist and watch.
 - Withdrawal removes a participant from every later release.
 
 ## Known limitations

@@ -72,11 +72,11 @@ To set up and run the checks locally, see [local development](docs/runbooks/loca
 
 ## Data and privacy
 
-- Every person photographed for the benchmark gives written consent.
+- Everyone photographed for the benchmark agrees in person first, after being told how the photos are used. No forms are signed.
 - Raw photos never enter this repository; it holds manifests, annotations and measured numbers only.
 - Uploads to the app are processed in memory and stripped of location data. They are saved only when you ask, and never used for training without opt-in.
 
-See [ADR-0006](docs/decisions/0006-data-consent-and-privacy.md).
+See [ADR-0006](docs/decisions/0006-data-consent-and-privacy.md) and [ADR-0012](docs/decisions/0012-agreement-in-person.md).
 
 ## Licence
 

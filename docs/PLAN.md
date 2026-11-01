@@ -44,7 +44,7 @@ The project is finished when all of these are true:
    - GPU relighting that never alters the dial or the size, optional and capped;
    - live AR rendered on the visitor's device.
 5. **Decision help.** A fit report, plain-English search by dimensions, a swipe recommender, an assistant with cited answers, and an MCP server that works from a standard MCP client such as Claude Desktop.
-6. **Private by default.** Every person in the benchmark gave written consent. Uploads are processed in memory with location data stripped, saved only on request, deletable, and never trained on without opt-in ([ADR-0006](decisions/0006-data-consent-and-privacy.md)).
+6. **Private by default.** Every person in the benchmark agreed in person ([ADR-0012](decisions/0012-agreement-in-person.md)). Uploads are processed in memory with location data stripped, saved only on request, deletable, and never trained on without opt-in ([ADR-0006](decisions/0006-data-consent-and-privacy.md)).
 7. **Automated.** CI runs lint, types, tests and an eval gate on every pull request. Deploys go through GitHub Actions with Workload Identity Federation, so no service-account keys are stored. Every cloud resource is in Terraform.
 8. **Documented.** Build log, decision records, concept guides, runbooks, data and model cards, README and project page are complete.
 
@@ -181,10 +181,10 @@ Every rate gets a 95% bootstrap interval, and comparisons use paired tests on th
 
 ### 6.4 Privacy and consent
 
-In summary ([ADR-0006](decisions/0006-data-consent-and-privacy.md)):
+In summary ([ADR-0006](decisions/0006-data-consent-and-privacy.md), [ADR-0012](decisions/0012-agreement-in-person.md)):
 
-- Written consent from every person photographed. It states the use (evaluation and training), whether their images may ever be published, and how to withdraw.
-- People appear in the data only as pseudonymous IDs (P01, P02, …); names stay in the private consent records.
+- Everyone photographed agrees in person first, after being told the use (evaluation and training), that an image of them is published only if they say yes, and how to withdraw. No forms are signed: the participants know the builder personally.
+- People appear in the data only as pseudonymous IDs (P01, P02, …); names stay in private notes.
 - Raw photos live outside the repository, which holds manifests, annotations and numbers only. Any image release is an opt-in, person by person.
 - Visitor uploads are processed in memory with EXIF stripped. They are saved only on request, deleted automatically after 30 days, deletable on request, and never used for training without opt-in.
 
@@ -253,7 +253,7 @@ Most likely to stretch it: equipment delivery and the volunteers' availability (
   - phone settings (main lens, fixed zoom, no portrait mode), detailed for the Pixel 9a in a [settings sheet](data/pixel-9a-settings.md) with a test series that checks them;
   - stand placement, poses and lighting;
   - file naming and a session sheet;
-  - the [consent form](data/consent-form.md) and the [data card skeleton](cards/benchmark-data-card.md).
+  - the [participant information](data/participant-information.md) and the [data card skeleton](cards/benchmark-data-card.md).
 - [ ] 1.2 Measure the reference watches (35 to start) three times each into `data/catalogue/reference.csv`, with a repeatability note.
 - [ ] 1.3 Product photos of the reference watches: front-on, neutral background, ruler in frame.
 - [ ] 1.4 Capture sessions:
@@ -475,7 +475,7 @@ Expected total: about $25–45.
     - with a Bluetooth shutter remote, so the phone is never touched between shots.
   - **Backdrop:** matte mid-grey, about A2. Neutral grey keeps exposure and white balance steady. White makes polished steel and white dials blow out, black swallows dark dials and straps, skin-like beige or wood tones confuse wrist segmentation, and a glossy surface reflects into the crystal.
   - **A steel ruler** with millimetre marks, for the product photos.
-- Consent from each volunteer before their first photo.
+- Each volunteer's agreement, in person, before their first photo.
 
 | Risk | Mitigation |
 |---|---|
@@ -507,6 +507,7 @@ Expected total: about $25–45.
 | 2026-10-28 | ADR-0009 records the catalogue and the stand-in specification; the reference watches' measuring adds the case length of non-round cases and the case material | Three parts of the system draw the same watch, and the stand-ins need both |
 | 2026-10-28 | ADR-0010 records the photo pipeline. Product photos are shot in two passes (S15 from above, S16 from the side) and the handheld set is session S14; benchmark names gain the placement number | One tool and one rule for every set; the mount moves once; re-seat photos of the same watch need distinct names |
 | 2026-10-28 | ADR-0011: synthetic data v0 comes from a hand-written ray caster with labels computed from the geometry | Exact labels, no 3-D software to install, reproducible bit for bit on a CPU |
+| 2026-11-01 | ADR-0012: volunteers agree in person, with no signed forms; the consent form becomes the participant information | The participants know the builder personally; the documents should say what actually happens |
 
 ## 11. Status tracker
 

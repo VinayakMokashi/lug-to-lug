@@ -1,7 +1,7 @@
 """Where the tools read and write outside the repository.
 
-- The **private store** (`../private` by default) holds the photo originals, the
-  sheets and the consent records. It is backed up and never committed.
+- The **private store** (`../private` by default) holds the photo originals and the
+  sheets. It is backed up and never committed.
 - The **work folder** (`../work` by default) holds what the tools derive from the
   store, such as metadata-stripped copies of the photos. Everything in it can be
   rebuilt from the store, so it isn't backed up. It holds personal data all the same:
