@@ -42,6 +42,7 @@ contracts-check = { cmd = "python scripts/contracts.py --check", help = "Fail if
 api = { cmd = "uvicorn lugtolug_api.main:app --reload --port 8000", help = "Run the API locally" }
 ingest = { cmd = "python -m lugtolug_tools ingest", help = "Match a session's photos to the plan and copy them (S03 --dry-run)" }
 reference = { cmd = "python -m lugtolug_tools reference", help = "Build data/catalogue/reference.csv from the measuring sheets" }
+watch-list = { cmd = "python -m lugtolug_tools watch-list", help = "Check the watch list row by row, before anything is measured" }
 phone-check = { cmd = "python -m lugtolug_tools phone-check", help = "Check test photos against the Pixel 9a settings sheet" }
 label = { cmd = "streamlit run tools/src/lugtolug_tools/labelling/app.py", help = "Open the labelling tool in the browser" }
 synth = { cmd = "python -m lugtolug_ml.synthetic.generate", help = "Generate synthetic training data v0 into ../work/synthetic/v0 (--count 1000)" }
