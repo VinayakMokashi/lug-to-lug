@@ -6,10 +6,13 @@ Internal tools for building the benchmark from the photo sessions. They read the
 |---|---|
 | `uv run poe ingest S03` | Matches a session's photos to the session plan, checks count, timing and camera, then writes metadata-stripped copies and the session's manifests. `--dry-run` checks only. |
 | `uv run poe reference` | Builds `data/catalogue/reference.csv` from the three measuring rounds: the median of each dimension and its range. |
+| `uv run poe watch-list` | Checks every row of the private watch list before anything is measured: the allowed words, and that it covers the session plan. It names watches only by their IDs. |
 | `uv run poe label` | Opens the labelling tool in the browser: case outlines, dial openings, wrist edges and the watch, with an outline proposer and a record of how every label was made ([guide](../docs/concepts/labelling.md)). Its Demo source practises on synthetic data. |
 | `uv run poe phone-check <folder>` | Checks a series of test photos against the [Pixel 9a settings](../docs/data/pixel-9a-settings.md#the-test-series): lens, zoom, frame, mode, location, gain map, colour profile, and whether the focus and exposure lock held. |
 
 How the ingest works, and why it never guesses: [docs/concepts/photo-ingest.md](../docs/concepts/photo-ingest.md).
+
+The sheets can be edited in any spreadsheet program: the tools read a CSV however Excel saved it, with or without a byte order mark, in UTF-8 or the Windows code page.
 
 ## Where the tools read and write
 

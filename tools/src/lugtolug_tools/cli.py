@@ -1,4 +1,4 @@
-"""The `lugtolug` command: `ingest S03`, `reference`, `phone-check <folder>`.
+"""The `lugtolug` command: `ingest S03`, `reference`, `watch-list`, `phone-check <folder>`.
 
 Paths default to the private store and work folder next to the repository
 (lugtolug_tools.paths); nothing is written with --dry-run.
@@ -11,10 +11,10 @@ import sys
 from collections.abc import Sequence
 from pathlib import Path
 
-from lugtolug_tools import paths, sheets
+from lugtolug_tools import paths, sheets, watch_list
 from lugtolug_tools.ingest import DEFAULT_GAP_S, ingest
 from lugtolug_tools.phone_check import run as check_phone
-from lugtolug_tools.plan import PlanError, read_plan
+from lugtolug_tools.plan import UNCHOSEN, PlanError, read_plan
 from lugtolug_tools.reference import (
     MEASUREMENT_COLUMNS,
     build_reference,
@@ -60,10 +60,12 @@ def _ingest(args: argparse.Namespace) -> int:
 def _reference(args: argparse.Namespace) -> int:
     folder = paths.private_dir() / "sheets"
     measurements = folder / "watch-measurements.csv"
-    if sheets.header(measurements) != MEASUREMENT_COLUMNS:
-        print(f"{measurements.name}: the header must be {','.join(MEASUREMENT_COLUMNS)}")
-        return 1
-    watches, problems = build_reference(measurements, folder / "watch-list.csv")
+    listed = folder / "watch-list.csv"
+    for sheet, columns in ((measurements, MEASUREMENT_COLUMNS), (listed, watch_list.COLUMNS)):
+        if sheets.header(sheet) != columns:
+            print(f"{sheet.name}: the header must be {','.join(columns)}")
+            return 1
+    watches, problems = build_reference(measurements, listed)
     for problem in problems:
         print(f"  problem {problem}")
     print(f"{len(watches)} watch(es) measured")
@@ -80,6 +82,19 @@ def _reference(args: argparse.Namespace) -> int:
         target.write_text(reference_csv(watches), encoding="utf-8", newline="\n")
         print(f"wrote {target}")
     return 0
+
+
+def _watch_list(_: argparse.Namespace) -> int:
+    folder = paths.private_dir() / "sheets"
+    try:
+        plan = read_plan(folder / "session-plan.csv")
+    except PlanError as e:
+        print(e, file=sys.stderr)
+        return 1
+    planned = {p.watch_id for placements in plan.values() for p in placements} - {UNCHOSEN}
+    report = watch_list.check_watch_list(folder / "watch-list.csv", planned)
+    print(report.render())
+    return 0 if report.ok else 1
 
 
 def _phone_check(args: argparse.Namespace) -> int:
@@ -123,6 +138,9 @@ def main(argv: Sequence[str] | None = None) -> int:
     ref = commands.add_parser("reference", help="build data/catalogue/reference.csv")
     ref.add_argument("--dry-run", action="store_true", help="check only, write nothing")
     ref.set_defaults(handler=_reference)
+
+    listed = commands.add_parser("watch-list", help="check the watch list, row by row")
+    listed.set_defaults(handler=_watch_list)
 
     phone = commands.add_parser("phone-check", help="check test photos against the settings")
     phone.add_argument("folder", help="folder of test photos copied from the phone")
