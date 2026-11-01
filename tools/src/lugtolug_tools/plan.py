@@ -11,11 +11,12 @@ light, photographed in one folder.
 
 from __future__ import annotations
 
-import csv
 import re
 from dataclasses import dataclass
 from datetime import date
 from pathlib import Path
+
+from lugtolug_tools import sheets
 
 COLUMNS = (
     "session_id",
@@ -38,9 +39,6 @@ UNCHOSEN = "W??"
 WRIST_BLOCK = re.compile(r"^(?:T00|T20|T40|HAND)-(?:DAY|WARM|MIX)$")
 PRODUCT_BLOCK = re.compile(r"^PRODUCT-(?:TOP|SIDE)$")
 SURFACES = frozenset({"backdrop", "desk", "fabric"})
-
-# A row with more cells than its header: usually a decimal comma, as in 12,3 for 12.3.
-EXTRA_CELLS = "more cells than the header (a comma inside a value?)"
 
 
 class PlanError(Exception):
@@ -134,18 +132,12 @@ def read_plan(path: Path) -> dict[str, list[Placement]]:
     """
     problems: list[str] = []
     sessions: dict[str, list[Placement]] = {}
-    with path.open(encoding="utf-8", newline="") as f:
-        reader = csv.DictReader(f)
-        if tuple(reader.fieldnames or ()) != COLUMNS:
-            raise PlanError([f"{path.name}: the header must be {','.join(COLUMNS)}"])
-        for line, raw in enumerate(reader, start=2):
-            if None in raw:
-                problems.append(f"{path.name} line {line}: {EXTRA_CELLS}")
-                continue
-            row = {key: (value or "").strip() for key, value in raw.items()}
-            placement = _placement(row, f"{path.name} line {line}", problems)
-            if placement is not None:
-                sessions.setdefault(placement.session_id, []).append(placement)
+    if sheets.header(path) != COLUMNS:
+        raise PlanError([f"{path.name}: the header must be {','.join(COLUMNS)}"])
+    for line, row in sheets.rows(path, problems):
+        placement = _placement(row, f"{path.name} line {line}", problems)
+        if placement is not None:
+            sessions.setdefault(placement.session_id, []).append(placement)
 
     for session_id, placements in sessions.items():
         first = placements[0]
