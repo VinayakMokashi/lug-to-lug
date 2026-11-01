@@ -7,12 +7,11 @@ Paths default to the private store and work folder next to the repository
 from __future__ import annotations
 
 import argparse
-import csv
 import sys
 from collections.abc import Sequence
 from pathlib import Path
 
-from lugtolug_tools import paths
+from lugtolug_tools import paths, sheets
 from lugtolug_tools.ingest import DEFAULT_GAP_S, ingest
 from lugtolug_tools.phone_check import run as check_phone
 from lugtolug_tools.plan import PlanError, read_plan
@@ -59,14 +58,12 @@ def _ingest(args: argparse.Namespace) -> int:
 
 
 def _reference(args: argparse.Namespace) -> int:
-    sheets = paths.private_dir() / "sheets"
-    measurements = sheets / "watch-measurements.csv"
-    with measurements.open(encoding="utf-8", newline="") as f:
-        header = tuple(next(csv.reader(f), []))
-    if header != MEASUREMENT_COLUMNS:
+    folder = paths.private_dir() / "sheets"
+    measurements = folder / "watch-measurements.csv"
+    if sheets.header(measurements) != MEASUREMENT_COLUMNS:
         print(f"{measurements.name}: the header must be {','.join(MEASUREMENT_COLUMNS)}")
         return 1
-    watches, problems = build_reference(measurements, sheets / "watch-list.csv")
+    watches, problems = build_reference(measurements, folder / "watch-list.csv")
     for problem in problems:
         print(f"  problem {problem}")
     print(f"{len(watches)} watch(es) measured")

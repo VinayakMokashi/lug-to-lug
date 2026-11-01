@@ -14,7 +14,7 @@ from __future__ import annotations
 import csv
 import io
 import statistics
-from collections.abc import Iterable
+from collections.abc import Iterable, Mapping
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, get_args
@@ -24,6 +24,7 @@ from pydantic import ValidationError
 from lugtolug_core.catalogue import MEASURED_FIELDS, REFERENCE_COLUMNS, ReferenceWatch
 from lugtolug_core.standin import build_spec, check_spec
 from lugtolug_core.vocab import BezelType, CaseMaterial, CaseShape, ColourName, StrapType
+from lugtolug_tools import sheets
 
 MEASUREMENT_COLUMNS = ("round", "watch_id", *MEASURED_FIELDS, "notes")
 APPEARANCE = {
@@ -35,9 +36,6 @@ APPEARANCE = {
     "strap_type": StrapType,
 }
 
-# A row with more cells than its header: usually a decimal comma, as in 12,3 for 12.3.
-EXTRA_CELLS = "more cells than the header (a comma inside a value?)"
-
 
 @dataclass(frozen=True)
 class Spread:
@@ -48,23 +46,23 @@ class Spread:
     worst_watch: str
 
 
-def _rows(path: Path, problems: list[str]) -> list[dict[str, str]]:
-    rows = []
-    with path.open(encoding="utf-8", newline="") as f:
-        for line, row in enumerate(csv.DictReader(f), start=2):
-            if None in row:
-                problems.append(f"{path.name} line {line}: {EXTRA_CELLS}")
-                continue
-            rows.append({k: (v or "").strip() for k, v in row.items()})
-    return rows
+def appearance_problems(watch_id: str, look: Mapping[str, str]) -> list[str]:
+    """Each of the watch list's appearance cells that doesn't hold an allowed word."""
+    problems = []
+    for column, vocabulary in APPEARANCE.items():
+        allowed = get_args(vocabulary)
+        word = look.get(column, "")
+        if word not in allowed:
+            problems.append(f"{watch_id}: {column} {word!r} is not one of {', '.join(allowed)}")
+    return problems
 
 
 def build_reference(measurements: Path, watch_list: Path) -> tuple[list[ReferenceWatch], list[str]]:
     """The measured watches, and every problem found. Unmeasured watches are skipped."""
     problems: list[str] = []
-    looks = {row["watch_id"]: row for row in _rows(watch_list, problems)}
+    looks = {row["watch_id"]: row for _, row in sheets.rows(watch_list, problems)}
     readings: dict[str, dict[str, dict[int, float]]] = {}
-    for line, row in enumerate(_rows(measurements, problems), start=2):
+    for line, row in sheets.rows(measurements, problems):
         where = f"{measurements.name} line {line} ({row.get('watch_id', '')})"
         values = {f: row.get(f, "") for f in MEASURED_FIELDS}
         if not any(values.values()):
@@ -113,13 +111,8 @@ def build_reference(measurements: Path, watch_list: Path) -> tuple[list[Referenc
         if look is None:
             problems.append(f"{watch_id}: measured but not in {watch_list.name}")
             continue
-        for column, vocabulary in APPEARANCE.items():
-            allowed = get_args(vocabulary)
-            word = look.get(column, "")
-            if word not in allowed:
-                words = ", ".join(allowed)
-                problems.append(f"{watch_id}: {column} {word!r} is not one of {words}")
-            data[column] = word
+        problems += appearance_problems(watch_id, look)
+        data |= {column: look.get(column, "") for column in APPEARANCE}
         if data["case_shape"] == "round" and data["case_length_mm"] is not None:
             problems.append(f"{watch_id}: a round case has no separate case length")
         try:
