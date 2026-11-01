@@ -1,1 +1,9 @@
 id,brand,model,reference,aliases,source,case_shape,case_diameter_mm,case_length_mm,bezel_diameter_mm,dial_opening_mm,lug_to_lug_mm,thickness_mm,lug_width_mm,bezel_type,case_material,case_colour,dial_colour,strap_type,crown_position
+casio-ga-2100-1a,Casio,G-Shock GA-2100,GA-2100-1A,,S0008,other,45.4,,,,48.5,11.8,16,,resin,,black,rubber,
+omega-210-30-42-20-01-001,Omega,Seamaster Diver 300M,210.30.42.20.01.001,,S0006,round,42,,,,49.90,13.56,20,rotating_insert,steel,silver,black,bracelet,
+omega-220-10-38-20-03-001,Omega,Seamaster Aqua Terra 150M,220.10.38.20.03.001,,S0005,round,38,,,,45.00,12.24,19,,steel,silver,blue,bracelet,
+omega-310-30-42-50-01-001,Omega,Speedmaster Moonwatch Professional,310.30.42.50.01.001,Moonwatch,S0007,round,42,,,,47.50,13.54,20,other,steel,silver,black,bracelet,
+rolex-126610ln,Rolex,Submariner Date,126610LN,,S0001,round,41,,,,48,12.3,21,rotating_insert,steel,silver,black,bracelet,
+seiko-srpd51,Seiko,5 Sports,SRPD51,,S0009,round,42.5,,,,46.0,13.4,22,rotating_insert,steel,silver,,,
+tissot-t127-407-11-041-00,Tissot,Gentleman 40mm,T127.407.11.041.00,Gentleman Powermatic 80 Silicium,S0010,round,40.00,,,,48,11.50,21.00,,steel,silver,blue,bracelet,
+tissot-t137-410-11-041-00,Tissot,PRX 40mm,T137.410.11.041.00,,S0011,round,40.00,,,,,10.40,,,steel,silver,blue,bracelet,
