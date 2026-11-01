@@ -132,7 +132,7 @@ def generate(
     return write_manifest(out)
 
 
-def _readme(out: Path, args: argparse.Namespace, total: int, seconds: float) -> None:
+def _readme(out: Path, args: argparse.Namespace, total: int, made: int, seconds: float) -> None:
     classes = "\n".join(f"- {value}: {name}" for value, name in CLASSES.items())
     command = (
         f"uv run poe synth --count {args.count} --start {args.start} "
@@ -145,7 +145,7 @@ never evaluation. Everything here can be rebuilt with the same command and seed.
 
 - Last command: `{command}`
 - Samples in this folder: {total}
-- That run: {args.count} samples in {seconds / 60:.1f} minutes with {args.workers} worker(s)
+- That run: {made} new samples in {seconds / 60:.1f} minutes with {args.workers} worker(s)
 
 Folders: `images/` (JPEG), `masks/` (PNG, one class per pixel), `labels/` (JSON, see
 `lugtolug_ml.synthetic.labels`), and `manifest.csv`.
@@ -167,14 +167,16 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--out", type=Path, default=None, help="folder (../work/synthetic/v0)")
     args = parser.parse_args(argv)
     out = args.out or default_out()
+    before = sum(1 for _ in (out / "labels").glob("*.json"))
     began = time.perf_counter()
     total = generate(
         out, args.count, start=args.start, seed=args.seed, width=args.width, workers=args.workers
     )
     seconds = time.perf_counter() - began
-    _readme(out, args, total, seconds)
+    made = total - before
+    _readme(out, args, total, made, seconds)
     last = args.start + args.count - 1
-    print(f"samples {args.start}-{last} in {seconds:.0f} s -> {out} ({total} in all)")
+    print(f"samples {args.start}-{last}: {made} new in {seconds:.0f} s -> {out} ({total} in all)")
     return 0
 
 

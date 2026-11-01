@@ -14,7 +14,7 @@ from PIL import Image, ImageDraw
 
 from lugtolug_core.geometry import fit_ellipse
 from lugtolug_core.standin import check_spec
-from lugtolug_ml.synthetic.generate import generate
+from lugtolug_ml.synthetic.generate import generate, main
 from lugtolug_ml.synthetic.labels import SyntheticLabels
 from lugtolug_ml.synthetic.render import CASE, DIAL, SKIN, Rendered, render
 from lugtolug_ml.synthetic.scene import sample_scene, sample_spec
@@ -135,6 +135,17 @@ def test_generate_writes_a_reproducible_run(tmp_path: Path) -> None:
             assert a == b
     with Image.open(tmp_path / "a" / "masks" / "000000.png") as mask:
         assert set(np.unique(np.asarray(mask))) <= {0, 1, 2, 3, 4, 5}
+
+
+def test_a_resumed_run_reports_only_what_it_made(
+    tmp_path: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
+    out = tmp_path / "run"
+    generate(out, 2, seed=4, width=192)
+    args = ["--count", "3", "--seed", "4", "--width", "192", "--workers", "1", "--out", str(out)]
+    assert main(args) == 0
+    assert "1 new in" in capsys.readouterr().out
+    assert "That run: 1 new samples" in (out / "README.md").read_text(encoding="utf-8")
 
 
 def test_an_interrupted_run_is_finished_by_running_it_again(tmp_path: Path) -> None:
