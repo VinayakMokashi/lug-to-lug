@@ -20,7 +20,7 @@
     "check": "pnpm lint && pnpm typecheck && pnpm format:check && pnpm contracts:check"
   },
   "dependencies": {
-    "next": "16.4.3",
+    "next": "16.4.5",
     "react": "19.3.1",
     "react-dom": "19.3.1"
   },
@@ -30,7 +30,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.4.3",
+    "eslint-config-next": "16.4.5",
     "eslint-config-prettier": "^10.1.8",
     "json-schema-to-typescript": "^16.0.0",
     "prettier": "^3.9.10",
