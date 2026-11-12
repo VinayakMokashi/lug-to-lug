@@ -1,5 +1,5 @@
 id,brand,model,reference,aliases,source,case_shape,case_diameter_mm,case_length_mm,bezel_diameter_mm,dial_opening_mm,lug_to_lug_mm,thickness_mm,lug_width_mm,bezel_type,case_material,case_colour,dial_colour,strap_type,crown_position
-casio-ga-2100-1a,Casio,G-Shock GA-2100,GA-2100-1A,,S0059,other,45.4,,,,48.5,11.8,16,,resin,,black,rubber,
+casio-ga-2100-1a,Casio,G-Shock GA-2100,GA-2100-1A,,S0059,octagonal,45.4,,,,48.5,11.8,16,,resin,,black,rubber,
 grand-seiko-sbga211,Grand Seiko,Heritage Collection Automatic Spring Drive 3-Day,SBGA211,Snowflake,S0014,round,41.0,,,,49.0,12.5,20,,titanium,,,bracelet,
 grand-seiko-sbga413,Grand Seiko,Heritage Collection Automatic Spring Drive 3-Day,SBGA413,,S0015,round,40.0,,,,47.0,12.8,21,none,titanium,,pink,bracelet,
 grand-seiko-sbge257,Grand Seiko,Sport Collection,SBGE257,,S0016,round,40.5,,,,48.7,14.7,20,other,steel,silver,green,,4
