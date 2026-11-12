@@ -509,6 +509,7 @@ Expected total: about $25–45.
 | 2026-10-28 | ADR-0011: synthetic data v0 comes from a hand-written ray caster with labels computed from the geometry | Exact labels, no 3-D software to install, reproducible bit for bit on a CPU |
 | 2026-11-01 | ADR-0012: volunteers agree in person, with no signed forms; the consent form becomes the participant information | The participants know the builder personally; the documents should say what actually happens |
 | 2026-11-12 | 30 reference watches to start, not 35; a studio block is now 33 placements | The watches available for the benchmark |
+| 2026-11-12 | Phase 1's measuring and photo sessions start in mid-November, after the phase's planned window. Phase 2 begins with the parts that need no real photos, and the dates are revisited at M1 | The builder's availability |
 
 ## 11. Status tracker
 
