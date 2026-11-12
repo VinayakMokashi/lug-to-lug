@@ -58,10 +58,10 @@ Hold the calipers square to the case, close the jaws gently until they just touc
 
 Once per watch, also record (from the watch, not the calipers):
 
-- case shape: round, cushion, tonneau, square (rectangular cases too), or other;
+- case shape: round, cushion, tonneau, square, rectangular, octagonal, oval, or other;
 - bezel type: none, smooth, fluted, rotating with insert, or other;
-- case material: steel, titanium, gold, ceramic, resin, bronze, or other;
-- case and dial colour, from the catalogue's list of colour names;
+- case material, under any plating: steel, titanium, gold (solid gold only), ceramic, resin, bronze, or other (also when the metal under a plating isn't known);
+- case and dial colour, from the catalogue's list of colour names; a watch with only a digital display has no dial, so its dial colour is none;
 - the strap type: bracelet, leather, rubber, fabric, or other.
 
 **Into the catalogue.** The catalogue value of each dimension is the median of the three readings, and their range (largest minus smallest) is the measuring error, reported with the catalogue as a repeatability note. The file is `data/catalogue/reference.csv` ([format](../../data/catalogue/README.md)). It records measurements and appearance only: no brand, model or reference number, and never who owns a watch.
@@ -139,7 +139,7 @@ A block of the 30 watches is 33 placements (the first watch four times, the othe
 | Set | Person | Blocks | About |
 |---|---|---|---|
 | Studio | P01 | All 9 blocks (3 tilts × 3 lights), every reference watch | 9 × 22 min, in three sittings of three blocks, one per lighting condition |
-| Volunteers | P02, P03, P04 | One block each (`T00 DAY`) with 5 watches chosen to span size, shape and dial colour, plus the re-seat check | 15 min each |
+| Volunteers | P02, P03, P04 | One block each (`T00 DAY`) with 5 watches chosen to span size, shape and dial colour, plus the re-seat check. All of them are on straps that adjust, the re-seat watch (W01) included, because a bracelet is sized to one wrist | 15 min each |
 | Everyday surfaces | P01 | One mounted block of 10 watches on a desk without the backdrop (S13); then 10 photos taken handheld, as a visitor would, on a desk and on fabric (S14) | 30 min |
 
 The handheld photos have no swap pairs; they test calibration and wrist measurement against the tape and calipers, outside studio conditions. More volunteer blocks are added once the first ones work.
