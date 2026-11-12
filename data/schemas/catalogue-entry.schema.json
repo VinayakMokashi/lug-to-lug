@@ -75,7 +75,7 @@
       "anyOf": [{ "$ref": "#/$defs/CitedColourName" }, { "type": "null" }]
     },
     "dial_colour": {
-      "anyOf": [{ "$ref": "#/$defs/CitedColourName" }, { "type": "null" }]
+      "anyOf": [{ "$ref": "#/$defs/CitedDialColour" }, { "type": "null" }]
     },
     "strap_type": {
       "anyOf": [{ "$ref": "#/$defs/CitedStrapType" }, { "type": "null" }]
@@ -143,6 +143,15 @@
       "required": ["value", "source"],
       "properties": {
         "value": { "$ref": "common.schema.json#/$defs/ColourName" },
+        "source": { "$ref": "common.schema.json#/$defs/SourceId" }
+      }
+    },
+    "CitedDialColour": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "source"],
+      "properties": {
+        "value": { "$ref": "common.schema.json#/$defs/DialColour" },
         "source": { "$ref": "common.schema.json#/$defs/SourceId" }
       }
     },

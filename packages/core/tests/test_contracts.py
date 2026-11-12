@@ -57,6 +57,7 @@ def test_every_schema_is_valid_json_schema() -> None:
         (vocab.BezelType, "BezelType"),
         (vocab.StrapType, "StrapType"),
         (vocab.ColourName, "ColourName"),
+        (vocab.DialColour, "DialColour"),
     ],
 )
 def test_vocabularies_match_the_schema(alias: object, definition: str) -> None:
@@ -197,7 +198,7 @@ def _set(doc: dict[str, Any], path: str, value: object) -> dict[str, Any]:
 BROKEN = [
     ("stand-in-spec.schema.json", StandInSpec, _spec, "spec_version", 2),
     ("stand-in-spec.schema.json", StandInSpec, _spec, "case.diameter_mm", -1),
-    ("stand-in-spec.schema.json", StandInSpec, _spec, "case.shape", "oval"),
+    ("stand-in-spec.schema.json", StandInSpec, _spec, "case.shape", "hexagonal"),
     ("stand-in-spec.schema.json", StandInSpec, _spec, "case.colour", "#ABCDEF"),
     ("stand-in-spec.schema.json", StandInSpec, _spec, "case.squareness", 1.5),
     ("stand-in-spec.schema.json", StandInSpec, _spec, "case.extra", 1),

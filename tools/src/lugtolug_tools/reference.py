@@ -23,7 +23,14 @@ from pydantic import ValidationError
 
 from lugtolug_core.catalogue import MEASURED_FIELDS, REFERENCE_COLUMNS, ReferenceWatch
 from lugtolug_core.standin import build_spec, check_spec
-from lugtolug_core.vocab import BezelType, CaseMaterial, CaseShape, ColourName, StrapType
+from lugtolug_core.vocab import (
+    BezelType,
+    CaseMaterial,
+    CaseShape,
+    ColourName,
+    DialColour,
+    StrapType,
+)
 from lugtolug_tools import sheets
 
 MEASUREMENT_COLUMNS = ("round", "watch_id", *MEASURED_FIELDS, "notes")
@@ -32,7 +39,7 @@ APPEARANCE = {
     "bezel_type": BezelType,
     "case_material": CaseMaterial,
     "case_colour": ColourName,
-    "dial_colour": ColourName,
+    "dial_colour": DialColour,
     "strap_type": StrapType,
 }
 

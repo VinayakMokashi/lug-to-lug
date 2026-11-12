@@ -24,7 +24,14 @@ from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
 from lugtolug_core.contracts.catalogue import CatalogueEntry, Source
 from lugtolug_core.standin import Appearance, Dimensions
-from lugtolug_core.vocab import BezelType, CaseMaterial, CaseShape, ColourName, StrapType
+from lugtolug_core.vocab import (
+    BezelType,
+    CaseMaterial,
+    CaseShape,
+    ColourName,
+    DialColour,
+    StrapType,
+)
 
 SOURCE_COLUMNS = ("id", "kind", "publisher", "title", "url", "accessed", "archived_url")
 LENGTH_FIELDS = (
@@ -301,7 +308,7 @@ class ReferenceWatch(BaseModel):
     bezel_type: BezelType
     case_material: CaseMaterial
     case_colour: ColourName
-    dial_colour: ColourName
+    dial_colour: DialColour
     strap_type: StrapType
     rounds: Annotated[int, Field(ge=1)]
 

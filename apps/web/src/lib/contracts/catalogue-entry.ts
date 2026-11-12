@@ -43,7 +43,7 @@ export interface CatalogueEntry {
   bezel_type: CitedBezelType | null;
   case_material: CitedCaseMaterial | null;
   case_colour: CitedColourName | null;
-  dial_colour: CitedColourName | null;
+  dial_colour: CitedDialColour | null;
   strap_type: CitedStrapType | null;
   crown_position: CitedCrownPosition | null;
   /**
@@ -55,9 +55,17 @@ export interface CatalogueEntry {
 }
 export interface CitedShape {
   /**
-   * The case outline seen from above. 'square' covers rectangular cases too
+   * The case outline seen from above. A square case is as long as it is wide; a rectangular one is not
    */
-  value: "round" | "cushion" | "tonneau" | "square" | "other";
+  value:
+    | "round"
+    | "cushion"
+    | "tonneau"
+    | "square"
+    | "rectangular"
+    | "octagonal"
+    | "oval"
+    | "other";
   /**
    * A source's ID in the catalogue's source list (S0001, S0002, ...)
    */
@@ -119,6 +127,33 @@ export interface CitedColourName {
     | "pink"
     | "purple"
     | "other";
+  /**
+   * A source's ID in the catalogue's source list (S0001, S0002, ...)
+   */
+  source: string;
+}
+export interface CitedDialColour {
+  /**
+   * A dial's colour as a source or a person names it; 'none' for a watch with only a digital display, which has no dial
+   */
+  value:
+    | "black"
+    | "white"
+    | "silver"
+    | "grey"
+    | "blue"
+    | "green"
+    | "red"
+    | "brown"
+    | "gold"
+    | "champagne"
+    | "cream"
+    | "orange"
+    | "yellow"
+    | "pink"
+    | "purple"
+    | "other"
+    | "none";
   /**
    * A source's ID in the catalogue's source list (S0001, S0002, ...)
    */

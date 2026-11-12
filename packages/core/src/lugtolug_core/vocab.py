@@ -6,7 +6,9 @@ below. A test checks that they match the schema exactly.
 
 from typing import Literal
 
-CaseShape = Literal["round", "cushion", "tonneau", "square", "other"]
+CaseShape = Literal[
+    "round", "cushion", "tonneau", "square", "rectangular", "octagonal", "oval", "other"
+]
 CaseMaterial = Literal["steel", "titanium", "gold", "ceramic", "resin", "bronze", "other"]
 BezelType = Literal["none", "smooth", "fluted", "rotating_insert", "other"]
 StrapType = Literal["bracelet", "leather", "rubber", "fabric", "other"]
@@ -28,3 +30,5 @@ ColourName = Literal[
     "purple",
     "other",
 ]
+# A watch with only a digital display has no dial.
+DialColour = Literal[ColourName, "none"]

@@ -286,6 +286,8 @@ class Scene:
         return world
 
 
+# The shapes and weights synthetic v0 was drawn with. Changing them changes the samples,
+# so v0 could no longer be regenerated.
 _SHAPES: tuple[CaseShape, ...] = ("round", "cushion", "tonneau", "square", "other")
 _SHAPE_WEIGHTS = (0.7, 0.1, 0.05, 0.1, 0.05)
 _BEZELS: tuple[BezelType, ...] = ("none", "smooth", "fluted", "rotating_insert", "other")

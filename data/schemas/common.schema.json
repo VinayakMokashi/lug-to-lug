@@ -36,10 +36,33 @@
       ],
       "description": "A colour as a source or a person names it"
     },
+    "DialColour": {
+      "type": "string",
+      "enum": [
+        "black",
+        "white",
+        "silver",
+        "grey",
+        "blue",
+        "green",
+        "red",
+        "brown",
+        "gold",
+        "champagne",
+        "cream",
+        "orange",
+        "yellow",
+        "pink",
+        "purple",
+        "other",
+        "none"
+      ],
+      "description": "A dial's colour as a source or a person names it; 'none' for a watch with only a digital display, which has no dial"
+    },
     "CaseShape": {
       "type": "string",
-      "enum": ["round", "cushion", "tonneau", "square", "other"],
-      "description": "The case outline seen from above. 'square' covers rectangular cases too"
+      "enum": ["round", "cushion", "tonneau", "square", "rectangular", "octagonal", "oval", "other"],
+      "description": "The case outline seen from above. A square case is as long as it is wide; a rectangular one is not"
     },
     "CaseMaterial": {
       "type": "string",
