@@ -28,7 +28,7 @@ Identifying people, or estimating anything about a person beyond wrist and hand 
 | | Count |
 |---|---|
 | Participants | not yet collected (planned: four, P01–P04) |
-| Reference watches | not yet collected (planned: 35 to start, W01–W35) |
+| Reference watches | not yet collected (planned: 30 to start, W01–W30) |
 | Sessions and blocks | not yet collected |
 | Photos | not yet collected |
 | Same-pose swap pairs | not yet collected |

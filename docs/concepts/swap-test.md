@@ -16,7 +16,7 @@ photo of A ──► calibrate from A's case ──► render B at that scale an
 photo of B (same block: same wrist, pose, light, camera) ───────────────────┘
 ```
 
-**How many pairs?** A block of 35 watches gives 35 × 34 = 1190 ordered pairs (A to B and B to A are different tests: each calibrates from its own photo). The nine studio blocks give 10,710 pairs from 684 photos, the three volunteer blocks 20 pairs each, and the desk block 90.
+**How many pairs?** A block of 30 watches gives 30 × 29 = 870 ordered pairs (A to B and B to A are different tests: each calibrates from its own photo). The nine studio blocks give 7,830 pairs from 594 photos, the three volunteer blocks 20 pairs each, and the desk block 90.
 
 ## What is compared
 
@@ -34,7 +34,7 @@ Even a perfect renderer can't match a real photo exactly, because taking a watch
 
 ## Honest statistics
 
-- **Pairs aren't independent.** The 1190 pairs in a block share 35 photos, and each photo appears in 68 pairs. Treating them as independent would give confidence intervals that are far too narrow. The 95% intervals come from a **bootstrap that resamples blocks and watches**, never single pairs.
+- **Pairs aren't independent.** The 870 pairs in a block share 30 photos, and each photo appears in 58 pairs. Treating them as independent would give confidence intervals that are far too narrow. The 95% intervals come from a **bootstrap that resamples blocks and watches**, never single pairs.
 - **Comparisons are paired.** Two methods, say two case-finding models, are compared on the same pairs, and the test is on the per-pair differences. This removes the variation that both share.
 - **Slices are reported, including thin ones:** by tilt, light, skin-tone group (Monk 1 to 3, 4 to 6, 7 to 10), wrist size and case shape. A slice with few people is reported as thin, with its wide interval, rather than left out.
 

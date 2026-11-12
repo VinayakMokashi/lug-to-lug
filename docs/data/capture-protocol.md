@@ -42,7 +42,7 @@ The metadata calibration and the quality checks use (lens, zoom, focus distance 
 
 ## 4. Measuring the reference watches (step 1.2)
 
-Each watch gets an ID, W01 to W35 (more may follow), and is measured **three times**. Measure every watch once (round 1), then every watch again (round 2), then a third time (round 3). Measuring the same watch three times in a row would only repeat the first reading from memory; separate rounds measure the real repeatability. Re-zero the calipers at the start of each round.
+Each watch gets an ID, W01 to W30 (more may follow), and is measured **three times**. Measure every watch once (round 1), then every watch again (round 2), then a third time (round 3). Measuring the same watch three times in a row would only repeat the first reading from memory; separate rounds measure the real repeatability. Re-zero the calipers at the start of each round.
 
 | Field | How to measure | Unit |
 |---|---|---|
@@ -132,13 +132,13 @@ Change the tilt only between blocks, and lock the focus and exposure again at th
 4. **Re-seat check (end).** The first watch again, as in step 2.
 5. Measure the wrist again if more than two hours have passed.
 
-A block of the 35 watches is 38 placements (the first watch four times, the others once). It takes about 25 minutes and gives 77 photos, counting the slate.
+A block of the 30 watches is 33 placements (the first watch four times, the others once). It takes about 22 minutes and gives 67 photos, counting the slate.
 
 ### 7.4 Who, and how much
 
 | Set | Person | Blocks | About |
 |---|---|---|---|
-| Studio | P01 | All 9 blocks (3 tilts × 3 lights), every reference watch | 9 × 25 min, in three sittings of three blocks, one per lighting condition |
+| Studio | P01 | All 9 blocks (3 tilts × 3 lights), every reference watch | 9 × 22 min, in three sittings of three blocks, one per lighting condition |
 | Volunteers | P02, P03, P04 | One block each (`T00 DAY`) with 5 watches chosen to span size, shape and dial colour, plus the re-seat check | 15 min each |
 | Everyday surfaces | P01 | One mounted block of 10 watches on a desk without the backdrop (S13); then 10 photos taken handheld, as a visitor would, on a desk and on fabric (S14) | 30 min |
 
