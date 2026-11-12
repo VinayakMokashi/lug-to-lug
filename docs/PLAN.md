@@ -279,7 +279,7 @@ Most likely to stretch it: equipment delivery and the volunteers' availability (
 
 - [ ] 2.1 Baselines for the case outline, measured on dev: edges with a robust ellipse fit, and a promptable segmenter (for example SAM 2) followed by an ellipse fit.
 - [ ] 2.2 A StarDist model for cases and dials:
-  - covers star-convex shapes: round, cushion, tonneau and rounded square;
+  - covers star-convex shapes: round, oval, cushion, tonneau, octagonal, and rounded squares and rectangles;
   - trained on synthetic plus real training photos;
   - compared with the baselines by paired test, and the winner recorded in a decision record.
 - [ ] 2.3 From ellipse to pose and scale:
@@ -305,7 +305,7 @@ Most likely to stretch it: equipment delivery and the volunteers' availability (
 
 **Goal.** A believable, true-to-scale composite on a CPU, and the benchmark that proves its size. This phase reaches milestone **M1**.
 
-- [ ] 3.1 A 2.5-D stand-in renderer built from the specification schema: round, cushion, tonneau and square cases; bezel types; lugs; crown; strap or bracelet.
+- [ ] 3.1 A 2.5-D stand-in renderer built from the specification schema: every case shape in the vocabulary; bezel types; a digital display where a watch has no dial; lugs; crown; strap or bracelet.
 - [ ] 3.2 Product-photo mode: cut the reference watches out of their product photos, keep the case and dial as real pixels, and align using the product photo's own ellipse.
 - [ ] 3.3 Posing: project with the calibrated homography; the strap follows the wrist's edges; a lug-curvature model.
 - [ ] 3.4 Remove the old watch with LaMa inpainting on the CPU (ONNX), with mask dilation and failure checks.
@@ -510,6 +510,7 @@ Expected total: about $25–45.
 | 2026-11-01 | ADR-0012: volunteers agree in person, with no signed forms; the consent form becomes the participant information | The participants know the builder personally; the documents should say what actually happens |
 | 2026-11-12 | 30 reference watches to start, not 35; a studio block is now 33 placements | The watches available for the benchmark |
 | 2026-11-12 | Phase 1's measuring and photo sessions start in mid-November, after the phase's planned window. Phase 2 begins with the parts that need no real photos, and the dates are revisited at M1 | The builder's availability |
+| 2026-11-12 | The case shapes gain rectangular, octagonal and oval, and a watch with only a digital display has the dial colour none. The volunteers wear only watches on straps | Twelve of the 30 reference watches are rectangular, octagonal, oval or digital, and the words should say so; a bracelet is sized to one wrist |
 
 ## 11. Status tracker
 
