@@ -151,7 +151,7 @@ Shared services:
 
 | Source | What | Notes |
 |---|---|---|
-| Reference watches | Watches measured with digital calipers, 35 to start: case diameter (without crown), lug-to-lug, thickness, lug width, plus case shape, bezel, crown position and colours | Three repeat measurements each, to know the measuring error. The data records measurements, never who owns a watch |
+| Reference watches | Watches measured with digital calipers, 30 to start: case diameter (without crown), lug-to-lug, thickness, lug width, plus case shape, bezel, crown position and colours | Three repeat measurements each, to know the measuring error. The data records measurements, never who owns a watch |
 | Product photos | Each reference watch shot front-on, on a neutral background, with a ruler in frame | Photos taken for this project; they give the real-image catalogue |
 | Wrists | The builder and three volunteers, recorded as P01–P04: circumference by tape at the wrist bone, width by calipers | Consent for each person; everyone wears the same reference watches |
 | Capture sessions | Phone on an overhead mount above a matte grey backdrop; poses (top-down, about 20° and 40° tilt); lighting (daylight, warm indoor, mixed); one wrist wearing many watches in the same pose. Plus a smaller set on everyday surfaces (desk, fabric) | Every session yields many same-pose swap pairs; the everyday set tests the system outside studio conditions |
@@ -254,7 +254,7 @@ Most likely to stretch it: equipment delivery and the volunteers' availability (
   - stand placement, poses and lighting;
   - file naming and a session sheet;
   - the [participant information](data/participant-information.md) and the [data card skeleton](cards/benchmark-data-card.md).
-- [ ] 1.2 Measure the reference watches (35 to start) three times each into `data/catalogue/reference.csv`, with a repeatability note.
+- [ ] 1.2 Measure the reference watches (30 to start) three times each into `data/catalogue/reference.csv`, with a repeatability note.
 - [ ] 1.3 Product photos of the reference watches: front-on, neutral background, ruler in frame.
 - [ ] 1.4 Capture sessions:
   - the builder's wrist with every reference watch, across poses and lighting;
@@ -508,6 +508,7 @@ Expected total: about $25–45.
 | 2026-10-28 | ADR-0010 records the photo pipeline. Product photos are shot in two passes (S15 from above, S16 from the side) and the handheld set is session S14; benchmark names gain the placement number | One tool and one rule for every set; the mount moves once; re-seat photos of the same watch need distinct names |
 | 2026-10-28 | ADR-0011: synthetic data v0 comes from a hand-written ray caster with labels computed from the geometry | Exact labels, no 3-D software to install, reproducible bit for bit on a CPU |
 | 2026-11-01 | ADR-0012: volunteers agree in person, with no signed forms; the consent form becomes the participant information | The participants know the builder personally; the documents should say what actually happens |
+| 2026-11-12 | 30 reference watches to start, not 35; a studio block is now 33 placements | The watches available for the benchmark |
 
 ## 11. Status tracker
 

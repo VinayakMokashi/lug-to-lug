@@ -31,7 +31,7 @@ The swap test:
 2. Render B from the photo of A.
 3. Compare the render with the real photo of B: diameter error in millimetres and outline overlap.
 
-The benchmark uses a set of reference watches measured with calipers (35 to start) and several volunteers' wrists. It is split by watch and by person, and the test set is frozen before any tuning. Results are reported by pose, lighting, skin tone and wrist size.
+The benchmark uses a set of reference watches measured with calipers (30 to start) and several volunteers' wrists. It is split by watch and by person, and the test set is frozen before any tuning. Results are reported by pose, lighting, skin tone and wrist size.
 
 ## Planned stack
 
