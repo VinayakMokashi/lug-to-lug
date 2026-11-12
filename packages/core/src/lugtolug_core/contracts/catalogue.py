@@ -39,9 +39,11 @@ class CitedShape(BaseModel):
     model_config = ConfigDict(
         extra="forbid",
     )
-    value: Literal["round", "cushion", "tonneau", "square", "other"]
+    value: Literal[
+        "round", "cushion", "tonneau", "square", "rectangular", "octagonal", "oval", "other"
+    ]
     """
-    The case outline seen from above. 'square' covers rectangular cases too
+    The case outline seen from above. A square case is as long as it is wide; a rectangular one is not
     """
     source: Annotated[StrictStr, Field(pattern="^S[0-9]{4}$")]
     """
@@ -101,6 +103,38 @@ class CitedColourName(BaseModel):
     ]
     """
     A colour as a source or a person names it
+    """
+    source: Annotated[StrictStr, Field(pattern="^S[0-9]{4}$")]
+    """
+    A source's ID in the catalogue's source list (S0001, S0002, ...)
+    """
+
+
+class CitedDialColour(BaseModel):
+    model_config = ConfigDict(
+        extra="forbid",
+    )
+    value: Literal[
+        "black",
+        "white",
+        "silver",
+        "grey",
+        "blue",
+        "green",
+        "red",
+        "brown",
+        "gold",
+        "champagne",
+        "cream",
+        "orange",
+        "yellow",
+        "pink",
+        "purple",
+        "other",
+        "none",
+    ]
+    """
+    A dial's colour as a source or a person names it; 'none' for a watch with only a digital display, which has no dial
     """
     source: Annotated[StrictStr, Field(pattern="^S[0-9]{4}$")]
     """
@@ -223,7 +257,7 @@ class CatalogueEntry(BaseModel):
     bezel_type: CitedBezelType | None
     case_material: CitedCaseMaterial | None
     case_colour: CitedColourName | None
-    dial_colour: CitedColourName | None
+    dial_colour: CitedDialColour | None
     strap_type: CitedStrapType | None
     crown_position: CitedCrownPosition | None
     sources: Annotated[list[Source], Field(min_length=1)]

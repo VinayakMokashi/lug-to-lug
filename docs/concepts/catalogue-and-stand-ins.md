@@ -60,21 +60,22 @@ A 40 mm diver with only its diameter published comes out with a 48 mm lug-to-lug
 "assumed": ["case.thickness_mm", "bezel.outer_mm", "dial.opening_mm", "lugs.lug_to_lug_mm", ...]
 ```
 
-A fit report that depends on lug-to-lug can then say "assumed" instead of presenting 48 mm as a fact. Colours, finish and markings are always approximate in a stand-in, so they are never listed.
+A fit report that depends on lug-to-lug can then say "assumed" instead of presenting 48 mm as a fact. Colours, finish and markings are always approximate in a stand-in, so they are never listed. A watch with only a digital display has no dial (its dial colour is `none`), so its stand-in shows an unlit display without hour markers.
 
 `check_spec()` holds the rules a schema can't express: the dial opening is smaller than the case, lug-to-lug is at least the case length, a round case is as long as it is wide, and so on. Every rule has a test that breaks it on purpose.
 
 ## One outline for every shape
 
-Round, cushion, tonneau and square cases are all drawn from one curve, the **superellipse**:
+Every case shape is drawn from one curve, the **superellipse**:
 
 ```
 |x / a|^n + |y / b|^n = 1        a = half the width, b = half the length
 ```
 
-- n = 2 gives a circle (or an ellipse, when a ≠ b);
+- n = 2 gives a circle, or an oval when a ≠ b;
+- n ≈ 3 stands in for an octagon: a superellipse has no corners, so the curve between a circle and a square is the approximation;
 - n ≈ 4 gives a cushion;
-- n ≈ 10 gives a square with small rounded corners;
+- n ≈ 10 gives a square with small rounded corners, or a rectangle when a ≠ b;
 - a **taper** narrows the ends towards 12 and 6 o'clock, which turns a rounded rectangle into a tonneau.
 
 One curve means one drawing path in every renderer, and it belongs to the family of star-convex shapes that the case-outline model in Phase 2 is built to find. No source publishes these parameters, so for non-round cases they are always assumed.

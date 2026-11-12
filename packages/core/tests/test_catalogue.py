@@ -143,7 +143,7 @@ def test_every_problem_is_reported_at_once(tmp_path: Path) -> None:
     rows = [
         {**DIVER, "case_diameter_mm": "forty"},
         {**DRESS, "id": "examplebrand-78", "source": "S0099"},
-        {**DRESS, "id": "examplebrand-79", "case_shape": "oval"},
+        {**DRESS, "id": "examplebrand-79", "case_shape": "hexagonal"},
         {**DRESS, "id": "examplebrand-80", "crown_position": "3.5"},
         DRESS,
         DRESS,
@@ -224,7 +224,7 @@ def test_reference_rows_are_checked(tmp_path: Path) -> None:
     path = tmp_path / "reference.csv"
     rows = [
         {**WATCH, "lug_width_range_mm": ""},
-        {**WATCH, "watch_id": "W02", "case_shape": "oval"},
+        {**WATCH, "watch_id": "W02", "case_shape": "hexagonal"},
         {**WATCH, "watch_id": "W02"},
     ]
     _write(path, REFERENCE_COLUMNS, rows)

@@ -22,9 +22,17 @@ export interface StandInSpec {
 }
 export interface Case {
   /**
-   * The case outline seen from above. 'square' covers rectangular cases too
+   * The case outline seen from above. A square case is as long as it is wide; a rectangular one is not
    */
-  shape: "round" | "cushion" | "tonneau" | "square" | "other";
+  shape:
+    | "round"
+    | "cushion"
+    | "tonneau"
+    | "square"
+    | "rectangular"
+    | "octagonal"
+    | "oval"
+    | "other";
   /**
    * Across the case body from 9 to 3 o'clock, without the crown
    */

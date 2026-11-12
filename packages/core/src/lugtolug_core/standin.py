@@ -15,7 +15,14 @@ from dataclasses import dataclass
 from typing import Literal
 
 from lugtolug_core.contracts.stand_in import Bezel, Case, Crown, Dial, Lugs, StandInSpec, Strap
-from lugtolug_core.vocab import BezelType, CaseMaterial, CaseShape, ColourName, StrapType
+from lugtolug_core.vocab import (
+    BezelType,
+    CaseMaterial,
+    CaseShape,
+    ColourName,
+    DialColour,
+    StrapType,
+)
 
 # The dimensions a default may fill, as `section.field` paths.
 ASSUMABLE = frozenset(
@@ -57,11 +64,15 @@ PALETTE: dict[ColourName, str] = {
 }
 
 # Outline of each non-round shape: superellipse exponent, taper, and length relative
-# to the diameter. No source publishes these, so they are always assumed.
+# to the diameter. No source publishes these, so they are always assumed. A superellipse
+# has no corners, so an octagon is drawn as the curve between a circle and a square.
 _SHAPE_OUTLINE: dict[CaseShape, tuple[float, float, float]] = {
     "cushion": (4.0, 1.0, 1.0),
     "tonneau": (3.0, 0.8, 1.3),
     "square": (10.0, 1.0, 1.0),
+    "rectangular": (10.0, 1.0, 1.3),
+    "octagonal": (3.0, 1.0, 1.0),
+    "oval": (2.0, 1.0, 1.2),
     "other": (3.0, 1.0, 1.0),
 }
 
@@ -113,6 +124,8 @@ _STRAP_COLOUR: dict[StrapType, ColourName | None] = {
 _LIGHT_DIALS: frozenset[ColourName] = frozenset(
     {"white", "silver", "cream", "champagne", "yellow", "pink", "gold"}
 )
+# A digital display, drawn where a dial would be: an unlit LCD with no hour markers.
+_DISPLAY = "#a3a99c"
 
 
 @dataclass(frozen=True)
@@ -137,7 +150,7 @@ class Appearance:
     bezel_type: BezelType | None = None
     case_material: CaseMaterial | None = None
     case_colour: ColourName | None = None
-    dial_colour: ColourName | None = None
+    dial_colour: DialColour | None = None
     strap_type: StrapType | None = None
 
 
@@ -176,7 +189,11 @@ def build_spec(dims: Dimensions, look: Appearance | None = None) -> StandInSpec:
     )
 
     bezel_type: BezelType = look.bezel_type or "smooth"
-    dial_colour = PALETTE[look.dial_colour or "black"]
+    if look.dial_colour == "none":
+        dial_colour, light_dial = _DISPLAY, True
+    else:
+        named = look.dial_colour or "black"
+        dial_colour, light_dial = PALETTE[named], named in _LIGHT_DIALS
     if bezel_type == "none":
         bezel = Bezel(type="none", outer_mm=None, colour=None, insert_colour=None, markings="none")
     else:
@@ -189,13 +206,12 @@ def build_spec(dims: Dimensions, look: Appearance | None = None) -> StandInSpec:
             markings="dive" if insert else "none",
         )
 
-    light_dial = (look.dial_colour or "black") in _LIGHT_DIALS
     marker = PALETTE["black"] if light_dial else PALETTE["white"]
     opening_default = diameter * _DIAL_OPENING[bezel_type]
     dial = Dial(
         opening_mm=known_or("dial.opening_mm", dims.dial_opening_mm, opening_default),
         colour=dial_colour,
-        index_style="baton",
+        index_style="none" if look.dial_colour == "none" else "baton",
         index_colour=marker,
         hands_colour=marker,
     )

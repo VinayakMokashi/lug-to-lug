@@ -124,8 +124,9 @@ def test_readings_that_break_a_rule_are_caught(tmp_path: Path) -> None:
 @pytest.mark.parametrize(
     ("change", "problem"),
     [
-        ({"case_shape": "oval"}, "case_shape 'oval' is not one of round, cushion"),
+        ({"case_shape": "hexagonal"}, "case_shape 'hexagonal' is not one of round, cushion"),
         ({"dial_colour": "Black"}, "dial_colour 'Black' is not one of black"),
+        ({"case_colour": "none"}, "case_colour 'none' is not one of black"),
         ({"strap_type": ""}, "strap_type '' is not one of"),
     ],
 )
@@ -134,6 +135,29 @@ def test_appearance_uses_the_listed_words(
 ) -> None:
     _, problems = _build(tmp_path, _rounds(), [{**DIVER, **change}])
     assert any(problem in p for p in problems), problems
+
+
+def test_a_digital_watch_has_no_dial(tmp_path: Path) -> None:
+    digital = {
+        **DIVER,
+        "case_shape": "rectangular",
+        "bezel_type": "none",
+        "case_material": "resin",
+        "case_colour": "black",
+        "dial_colour": "none",
+        "strap_type": "rubber",
+    }
+    readings = {
+        "case_diameter_mm": ("33.20", "33.24", "33.21"),
+        "case_length_mm": ("36.80", "36.78", "36.83"),
+        "lug_to_lug_mm": ("38.20", "38.24", "38.21"),
+        "thickness_mm": ("8.20", "8.22", "8.19"),
+        "lug_width_mm": ("18.00", "18.02", "18.01"),
+    }
+    watches, problems = _build(tmp_path, _rounds(readings=readings), [digital])
+    assert problems == []
+    (watch,) = watches
+    assert (watch.case_shape, watch.dial_colour) == ("rectangular", "none")
 
 
 def test_a_round_case_has_no_case_length(tmp_path: Path) -> None:

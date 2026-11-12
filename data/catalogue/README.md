@@ -26,7 +26,7 @@ The format is checked in CI: `lugtolug_core.catalogue` loads every file, and a t
 
 | Column | Meaning | Values |
 |---|---|---|
-| `case_shape` | Outline from above | `round`, `cushion`, `tonneau`, `square` (covers rectangular), `other` |
+| `case_shape` | Outline from above. A square case is as long as it is wide | `round`, `cushion`, `tonneau`, `square`, `rectangular`, `octagonal`, `oval`, `other` |
 | `case_diameter_mm` | 9 to 3 o'clock, without the crown | mm |
 | `case_length_mm` | 12 to 6 o'clock without the lugs; non-round cases only | mm |
 | `bezel_diameter_mm` | Outer width of a separate bezel or top ring | mm |
@@ -35,8 +35,8 @@ The format is checked in CI: `lugtolug_core.catalogue` loads every file, and a t
 | `thickness_mm` | Case back to the top of the crystal | mm |
 | `lug_width_mm` | Inside distance between the lugs | mm |
 | `bezel_type` | | `none`, `smooth`, `fluted`, `rotating_insert`, `other` |
-| `case_material` | Gold covers yellow, rose and white gold | `steel`, `titanium`, `gold`, `ceramic`, `resin`, `bronze`, `other` |
-| `case_colour`, `dial_colour` | As the source names it. A steel case with no colour named is `silver` | `black`, `white`, `silver`, `grey`, `blue`, `green`, `red`, `brown`, `gold`, `champagne`, `cream`, `orange`, `yellow`, `pink`, `purple`, `other` |
+| `case_material` | What the case is made of, under any plating. Gold covers yellow, rose and white gold | `steel`, `titanium`, `gold`, `ceramic`, `resin`, `bronze`, `other` |
+| `case_colour`, `dial_colour` | As the source names it. A steel case with no colour named is `silver`. A watch with only a digital display has no dial, so its dial colour is `none` | `black`, `white`, `silver`, `grey`, `blue`, `green`, `red`, `brown`, `gold`, `champagne`, `cream`, `orange`, `yellow`, `pink`, `purple`, `other`; for the dial also `none` |
 | `strap_type` | A resin strap is `rubber` | `bracelet`, `leather`, `rubber`, `fabric`, `other` |
 | `crown_position` | As an hour on the dial, only when the source says | `3` for most watches, `9` for a left-hand crown |
 

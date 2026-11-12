@@ -20,9 +20,11 @@ class Case(BaseModel):
     model_config = ConfigDict(
         extra="forbid",
     )
-    shape: Literal["round", "cushion", "tonneau", "square", "other"]
+    shape: Literal[
+        "round", "cushion", "tonneau", "square", "rectangular", "octagonal", "oval", "other"
+    ]
     """
-    The case outline seen from above. 'square' covers rectangular cases too
+    The case outline seen from above. A square case is as long as it is wide; a rectangular one is not
     """
     diameter_mm: Annotated[StrictFloat, Field(gt=0.0, le=100.0)]
     """

@@ -66,9 +66,25 @@ def test_non_round_outlines_are_always_assumed() -> None:
     assert spec.case.length_mm > spec.case.diameter_mm
     assert check_spec(spec) == []
 
-    measured = build_spec(Dimensions(case_shape="square", case_diameter_mm=25.5, case_length_mm=33))
+    measured = build_spec(
+        Dimensions(case_shape="rectangular", case_diameter_mm=25.5, case_length_mm=33)
+    )
     assert "case.length_mm" not in measured.assumed
     assert measured.case.length_mm == 33
+
+    oval = build_spec(Dimensions(case_shape="oval", case_diameter_mm=31, case_length_mm=36))
+    assert (oval.case.squareness, oval.case.taper) == (2, 1)
+    assert check_spec(oval) == []
+
+
+def test_a_digital_display_has_no_hour_markers() -> None:
+    spec = build_spec(
+        Dimensions(case_shape="rectangular", case_diameter_mm=33.2, case_length_mm=36.8),
+        Appearance(bezel_type="none", case_material="resin", dial_colour="none"),
+    )
+    assert spec.dial.index_style == "none"
+    assert spec.dial.colour != build_spec(Dimensions("round", 38)).dial.colour
+    assert check_spec(spec) == []
 
 
 def test_a_watch_without_a_bezel_has_no_bezel_dimensions() -> None:
