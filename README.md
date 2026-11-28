@@ -1,10 +1,22 @@
 # Lug to Lug
 
-**Try any watch on your own wrist at true size, with the error bar to prove it.**
+**The goal: try any watch on your own wrist at true size, with the error bar to prove it.**
 
 > **Status: building (Phase 1, ground truth).** The foundations are done, and the deployment skeleton is live: a [project page](https://vinayakmokashi.github.io/lug-to-lug/) and a staging [web app](https://web-staging-cb3gjlkxbq-el.a.run.app) with its [API](https://api-staging-cb3gjlkxbq-el.a.run.app/health). Nothing below is measured yet; results will appear here as they land, each with its confidence interval. Progress is tracked in the [build plan](docs/PLAN.md#11-status-tracker).
 
-Lug to Lug is a true-to-scale watch try-on. You photograph your wrist wearing any watch you already own. The app recognises that watch, looks up its case diameter and uses it as a ruler to measure your wrist. Then it shows any other watch on your wrist at its real size, labels the render with its sizing error, and tells you how the watch will fit.
+Lug to Lug is a true-to-scale watch try-on, still being built. When it is finished, you photograph your wrist wearing any watch you already own. The app recognises that watch, looks up its case diameter and uses it as a ruler to measure your wrist. Then it shows any other watch on your wrist at its real size, labels the render with its sizing error, and tells you how the watch will fit.
+
+## What works today
+
+The code so far, from Phase 0 and the first steps of Phase 1:
+
+- **Deployment skeleton:** a FastAPI service with a `/health` endpoint and a Next.js landing page, deployed to staging on Cloud Run by Terraform and keyless GitHub Actions deploys, plus the project page on GitHub Pages.
+- **Camera geometry** (`packages/core`): a pinhole camera model and an ellipse fit, which calibration will build on.
+- **Data contracts and catalogue:** JSON Schemas that generate the Pydantic and TypeScript types, and 73 published watch references with a cited source for every value (`data/catalogue`).
+- **Synthetic training data** (`ml/`): a numpy ray caster that renders wrists wearing parametric watches, with labels computed from the geometry ([data card](docs/cards/synthetic-v0-data-card.md)).
+- **Data tools** (`tools/`): a photo ingest that matches photos to the session plan and strips their metadata, and a labelling tool that proposes case outlines for a person to correct.
+
+**Nothing is measured yet.** The reference watches have not been measured, so there is no sizing error to report. Calibration, wrist measurement, rendering a watch onto a photo, the swap test, live AR, search, the assistant and the MCP server are not written yet.
 
 ## Why
 
@@ -33,16 +45,16 @@ The swap test:
 
 The benchmark uses a set of reference watches measured with calipers (30 to start) and several volunteers' wrists. It is split by watch and by person, and the test set is frozen before any tuning. Results are reported by pose, lighting, skin tone and wrist size.
 
-## Planned stack
+## Stack
 
-| Part | Tools |
-|---|---|
-| Web app | Next.js with React Three Fiber |
-| Live AR | MediaPipe hand tracking |
-| Services | FastAPI on Google Cloud Run |
-| Database | Postgres with pgvector on Neon |
-| GPU work | Modal |
-| Delivery | Terraform and GitHub Actions |
+| Part | Tools | Status |
+|---|---|---|
+| Web app | Next.js with React Three Fiber | Next.js in use; React Three Fiber planned |
+| Live AR | MediaPipe hand tracking | Planned (Phase 5) |
+| Services | FastAPI on Google Cloud Run | In use (staging skeleton) |
+| Database | Postgres with pgvector on Neon | Provisioned, not yet used by the code |
+| GPU work | Modal | Provisioned, not yet used by the code |
+| Delivery | Terraform and GitHub Actions | In use |
 
 ## Repository
 
@@ -50,9 +62,9 @@ The benchmark uses a set of reference watches measured with calipers (30 to star
 |---|---|
 | `apps/web` | Next.js web app |
 | `services/api` | FastAPI service |
-| `packages/core` | Calibration, wrist measurement and rendering, and the data contracts (Python) |
+| `packages/core` | Camera geometry, the catalogue and the data contracts (Python); calibration, wrist measurement and rendering will go here |
 | `tools/` | Data tools: photo ingest, the reference-watch table, phone checks |
-| `services/mcp`, `services/studio` | MCP server and GPU relighting (later phases) |
+| `services/mcp`, `services/studio` | Placeholders for the MCP server and GPU relighting (Phases 6 and 4) |
 | `ml/` | Training code, starting with synthetic data |
 | `eval/` | The evaluation harness (Phase 2 onwards) |
 | `data/` | Catalogue, schemas and manifests; never photos |
