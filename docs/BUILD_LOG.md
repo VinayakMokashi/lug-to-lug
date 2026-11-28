@@ -2,6 +2,16 @@
 
 One entry per working session, newest first. Each entry records what changed, the commands and results that matter, problems met and the next steps. The plan's steps are referred to by their IDs in [PLAN.md](PLAN.md).
 
+## 2026-11-28: README accuracy pass
+
+The README described the finished try-on in the present tense, including a render labelled with its sizing error. It now says the try-on is still being built and lists only what works today: the FastAPI `/health` endpoint and the Next.js landing page, deployed to staging by Terraform with keyless deploys. A new "Nothing is measured yet" note gives the evidence: `data/catalogue/reference.csv` has no measurement rows, Phases 2 to 10 are planned in `docs/PLAN.md` §11, and evaluation starts in Phase 2.
+
+The stack table has a status column. MediaPipe and React Three Fiber are planned, and Neon with pgvector and Modal are provisioned but not yet used by the code. `services/mcp` and `services/studio` are called placeholders.
+
+The repository description and topics match: `augmented-reality`, `diffusion-models`, `mediapipe`, `model-context-protocol` and `pgvector` were removed, and `python`, `numpy`, `terraform` and `synthetic-data` added. Docs only: CI passed and nothing was deployed.
+
+Next: the project page (`docs/site/index.html`) and the staging landing page still describe the finished try-on and list planned tools without a "planned" label. Align them with the README.
+
 ## 2026-11-01: Sheets from Excel, synthetic data finished, agreement in person, and the first 73 catalogue rows
 
 The equipment has arrived, and the next hands-on step is the watch list. Everything that doesn't depend on the list moved forward meanwhile.
